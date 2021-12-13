@@ -2,15 +2,16 @@
 
 // Including global settings
 include(__DIR__ . '/../App/config.php');
-include(__DIR__ . '/../App/Core/ExceptionsHandler.php');
+require_once(ROOT . 'vendor/autoload.php');
+
+use App\TestCLass;
+use App\Core\ExceptionsHandler;
 
 (new ExceptionsHandler())->register();
 
 try {
-    // Including the file with errors for tests
-    include('errors.php');
-} catch (ExceptionsHandler $handler) {
-    throw new ExceptionsHandler($handler->getMessage(), $handler->getCode());
-} finally {
-    echo '<div>That`s all Folks!</div>';
+    $testClass = new TestCLass();
+    $testClass->print();
+} catch (ExceptionsHandler $e) {
+    throw new ExceptionsHandler($e->getMessage(), $e->getCode());
 }

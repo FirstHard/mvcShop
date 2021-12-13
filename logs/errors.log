@@ -1,0 +1,38 @@
+[12-Dec-2021 18:59:23 Europe/Helsinki] Unknown_exception [0]:  array_key_exists(): Argument #2 ($array) must be of type array, null given /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 7
+Stack trace:
+#0 /mnt/d/www/mysite/learning/php/08/homework/public/index.php(11): include()
+#1 {main}
+[12-Dec-2021 18:59:39 Europe/Helsinki] Unknown_exception [0]:  Call to undefined function split() /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 9
+Stack trace:
+#0 /mnt/d/www/mysite/learning/php/08/homework/public/index.php(11): include()
+#1 {main}
+[12-Dec-2021 18:59:52 Europe/Helsinki] Unknown_exception [0]:  Non-static method c::f() cannot be called statically /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 11
+Stack trace:
+#0 /mnt/d/www/mysite/learning/php/08/homework/public/index.php(11): include()
+#1 {main}
+[12-Dec-2021 19:00:02 Europe/Helsinki] E_USER_DEPRECATED [16384] in /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 13
+[12-Dec-2021 19:00:14 Europe/Helsinki] E_USER_WARNING [512] in /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 15
+[12-Dec-2021 19:00:24 Europe/Helsinki] E_USER_NOTICE [1024] in /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 17
+[12-Dec-2021 19:00:36 Europe/Helsinki] Unknown_exception [0]:  b::f(): Argument #1 ($a) must be of type int, null given, called in /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 20 /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 20
+Stack trace:
+#0 /mnt/d/www/mysite/learning/php/08/homework/public/errors.php(20): b->f()
+#1 /mnt/d/www/mysite/learning/php/08/homework/public/index.php(11): include('...')
+#2 {main}
+[12-Dec-2021 19:00:46 Europe/Helsinki] E_USER_ERROR [256] in /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 22
+[12-Dec-2021 19:00:55 Europe/Helsinki] Unknown_exception [0]:  Call to undefined function undefined_function() /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 28
+Stack trace:
+#0 /mnt/d/www/mysite/learning/php/08/homework/public/index.php(11): include()
+#1 {main}
+[12-Dec-2021 19:01:04 Europe/Helsinki] Unknown_exception [0]:  syntax error, unexpected end of file /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 34
+Stack trace:
+#0 {main}
+[12-Dec-2021 19:01:12 Europe/Helsinki] E_COMPILE_ERROR [64] Fatal error: Cannot use [] for reading in /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 32
+[12-Dec-2021 19:01:36 Europe/Helsinki] Unknown_exception [0]:  Division by zero /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 33
+Stack trace:
+#0 /mnt/d/www/mysite/learning/php/08/homework/public/index.php(11): include()
+#1 {main}
+[12-Dec-2021 19:01:58 Europe/Helsinki] E_WARNING [2] in /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 34
+[12-Dec-2021 19:01:58 Europe/Helsinki] Unknown_exception [0]:  Failed opening required 'missing_file.php' (include_path='.:/usr/share/php') /mnt/d/www/mysite/learning/php/08/homework/public/errors.php on line 34
+Stack trace:
+#0 /mnt/d/www/mysite/learning/php/08/homework/public/index.php(11): include()
+#1 {main}
