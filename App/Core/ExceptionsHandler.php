@@ -88,6 +88,8 @@ class ExceptionsHandler extends Exception
     {
         // If a fatal error is found in the buffer,
         if (($error = error_get_last()) && ($error['type'] & (E_ERROR | E_PARSE | E_COMPILE_ERROR | E_CORE_ERROR))) {
+            // clean the buffer, shutdown the buffer
+            ob_end_clean();
             // Logging errors
             file_put_contents(
                 LOG_FILE_PATH,
@@ -114,7 +116,7 @@ class ExceptionsHandler extends Exception
     public static function showError($errno, $errstr, $errfile, $errline, $status = 500): void
     {
         // Setting the response header with the appropriate status
-        //header("HTTP/1.1 {$status}");
+        header("HTTP/1.1 {$status}");
         // Arbitrary formatting of the error or exception information output and sending the content to the browser.
         // Also, we can pass this data to the error page controller
         echo '
