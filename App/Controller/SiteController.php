@@ -10,6 +10,7 @@ class SiteController
     {
         $data = [];
         $model = new Home();
+        $data['headers'] = $model->page_data;
         $data['newArrivalsProducts'] = $model->newArrivalsProducts();
         $data['topProducts'] = $model->topProducts();
         $data['recommendedProducts'] = $model->recommendedProducts();
