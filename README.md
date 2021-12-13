@@ -4,3 +4,7 @@ The demo version of the tutorial project in the stable version (corresponds to t
 The demo version of this homework is located at: http://learning.buinoff.tk:8080/php/08/homework/public/
 # Homework (09) on the topic "Coding standards. PSR"
 There is no demo version of homework. Homework is done in the code, in homework_09 branch.
+# Project development stage
+Project development branch, created for the purpose of debugging the code before merging with the develop branch.
+Result of the current stage of development in real time (active development), located at: http://staging.buinoff.tk:8080.
+Debugged versions in this branch will merge with the develop branch at each stage.
