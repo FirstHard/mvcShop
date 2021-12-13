@@ -25,10 +25,7 @@ class HomeView
         include('modules/header.php');
         $header_block = ob_get_contents();
         ob_end_clean();
-        ob_start();
-        include('modules/messages.php');
-        $messages_module = ob_get_contents();
-        ob_end_clean();
+        // Check for error notifications
         ob_start();
         include('modules/why_us.php');
         $why_us_module = ob_get_contents();
