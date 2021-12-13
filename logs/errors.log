@@ -36,3 +36,15 @@ Stack trace:
 Stack trace:
 #0 /mnt/d/www/mysite/learning/php/08/homework/public/index.php(11): include()
 #1 {main}
+[13-Dec-2021 10:51:43 Europe/Kiev] PHP Warning:  Undefined variable $pageTitle in /mnt/d/www/staging/App/View/modules/head.php on line 6
+[13-Dec-2021 10:51:43 Europe/Kiev] PHP Warning:  Undefined variable $siteTitle in /mnt/d/www/staging/App/View/modules/head.php on line 6
+[13-Dec-2021 10:51:43 Europe/Kiev] PHP Warning:  Undefined variable $heading_class in /mnt/d/www/staging/App/View/modules/messages.php on line 1
+[13-Dec-2021 10:51:43 Europe/Kiev] PHP Warning:  Undefined variable $error in /mnt/d/www/staging/App/View/modules/messages.php on line 2
+[13-Dec-2021 10:51:43 Europe/Kiev] PHP Warning:  Trying to access array offset on value of type null in /mnt/d/www/staging/App/View/modules/messages.php on line 2
+[13-Dec-2021 10:51:43 Europe/Kiev] PHP Warning:  Undefined variable $error in /mnt/d/www/staging/App/View/modules/messages.php on line 4
+[13-Dec-2021 10:51:43 Europe/Kiev] PHP Warning:  Trying to access array offset on value of type null in /mnt/d/www/staging/App/View/modules/messages.php on line 4
+[13-Dec-2021 10:54:30 Europe/Kiev] PHP Warning:  Undefined variable $heading_class in /mnt/d/www/staging/App/View/modules/messages.php on line 1
+[13-Dec-2021 10:54:30 Europe/Kiev] PHP Warning:  Undefined variable $error in /mnt/d/www/staging/App/View/modules/messages.php on line 2
+[13-Dec-2021 10:54:30 Europe/Kiev] PHP Warning:  Trying to access array offset on value of type null in /mnt/d/www/staging/App/View/modules/messages.php on line 2
+[13-Dec-2021 10:54:30 Europe/Kiev] PHP Warning:  Undefined variable $error in /mnt/d/www/staging/App/View/modules/messages.php on line 4
+[13-Dec-2021 10:54:30 Europe/Kiev] PHP Warning:  Trying to access array offset on value of type null in /mnt/d/www/staging/App/View/modules/messages.php on line 4

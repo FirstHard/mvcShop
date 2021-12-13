@@ -3,4 +3,4 @@
     <link href="/src/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="/src/assets/bootstrap-icons.css" rel="stylesheet">
     <link href="/src/assets/css/main.css" rel="stylesheet">
-    <title><?= $pageTitle; ?> - <?= $siteTitle; ?></title>
+    <title><?= $headers['pageTitle']; ?> - <?= $headers['siteTitle']; ?></title>

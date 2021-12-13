@@ -8,7 +8,7 @@ define('LOG_FILE_PATH', ROOT . 'logs/errors.log');
 define('LOG_DATE', '[' . date("Y-m-d H:i:s 'e'") . ']');
 ini_set('log_errors', 'On');
 ini_set('display_errors', 1);
+ini_set('error_log', LOG_FILE_PATH);
 date_default_timezone_set("Europe/Kiev");
 session_set_cookie_params(1440, '/', '', true, true);
-ini_set('error_log', LOG_FILE_PATH);
 session_start();

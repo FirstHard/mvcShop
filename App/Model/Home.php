@@ -10,10 +10,13 @@ class Home
 {
     //public $db;
     //public $data;
+    public $page_data = [];
 
     public function __construct()
     {
         /* $this->db = new Db(); */
+        $this->page_data['pageTitle'] = 'Home';
+        $this->page_data['siteTitle'] = 'Project MVC The Shop';
     }
 
     public function newArrivalsProducts()
