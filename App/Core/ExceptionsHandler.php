@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Core;
+
+use Exception;
+
 class ExceptionsHandler extends Exception
 {
     public function register(): void
