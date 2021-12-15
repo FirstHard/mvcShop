@@ -13,21 +13,27 @@
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Catalog
+                    Shop
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li>
-                      <a class="dropdown-item active" href="category/">Category</a>
+                      <a class="dropdown-item" href="/shop/category/1">Notebooks</a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="category/">Category</a>
+                      <a class="dropdown-item" href="/shop/category/2">Monoblocks</a>
                     </li>
                     <li>
+                      <a class="dropdown-item" href="/shop/category/3">Nettops</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/shop/category/4">Matrices</a>
+                    </li>
+                    <!-- <li>
                       <hr class="dropdown-divider">
                     </li>
                     <li>
-                      <a class="dropdown-item" href="category/">Category</a>
-                    </li>
+                      <a class="dropdown-item" href="/shop/">All categories</a>
+                    </li> -->
                   </ul>
                 </li>
                 <li class="nav-item">

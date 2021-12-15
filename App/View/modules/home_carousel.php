@@ -24,7 +24,7 @@
                 <img src="/src/images/banners/1920x860.png" class="d-block w-100" alt="Лучший выбор">
                 <div class="carousel-caption">
                   <h5>The best choice</h5>
-                  <p>You will get a discount if you find our products cheaper</p>
+                  <p>You will get a discount on the next order if you find our products cheaper</p>
                 </div>
               </div>
             </div>
