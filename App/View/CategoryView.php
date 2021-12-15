@@ -2,10 +2,9 @@
 
 namespace App\View;
 
-class HomeView
+class CategoryView
 
 {
-
     public function render($data)
     {
         // Get content for page from model
@@ -19,10 +18,6 @@ class HomeView
         $nav_module = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/home_carousel.php');
-        $home_carousel_module = ob_get_contents();
-        ob_end_clean();
-        ob_start();
         include('modules/header.php');
         $header_block = ob_get_contents();
         ob_end_clean();
@@ -30,10 +25,6 @@ class HomeView
         ob_start();
         include('modules/why_us.php');
         $why_us_module = ob_get_contents();
-        ob_end_clean();
-        ob_start();
-        include('modules/featured_tabs.php');
-        $featured_tabs_module = ob_get_contents();
         ob_end_clean();
         ob_start();
         include('modules/about_us.php');
@@ -50,6 +41,6 @@ class HomeView
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();
-        return include('templates/home.php');
+        return include('templates/shop.php');
     }
 }

@@ -5,26 +5,26 @@ namespace App\Controller;
 use App\Model\Category;
 use App\View\CategoryView;
 
-class CategoryController
+class ShopController
 {
     public function actionIndex($param = false, $query_data = false): void
     {
         $model = new Category();
         $data = $model->data;
-        $model->data['headers']['pageTitle'] = 'Category';
-        (new CategoryView())->render($data);
+        (new CategoryView())->render($data, $param, $query_data);
     }
 
-    public function actionCategory($param = false, $query_data = false): void
+    public function actionCategory($param, $query_data): void
     {
         $model = new Category();
-        $data = $model->data;
-        if (false !== $param){
-            $model->getProductsIdByCategoryId($param);
+        $model->data['headers']['pageTitle'] = 'Category';
+        if ($param){
+            $model->data['main_content'] = $model->getProductsIdByCategoryId($param);
         }
         /* if ($query_data){
             $model->query_data = $query_data;
         } */
+        $data = $model->data;
         (new CategoryView())->render($data);
     }
 
@@ -35,8 +35,8 @@ class CategoryController
         (new ShopView())->render($data);
     } */
 
-    /* public function findAlias($alias): bool
+    public function findAlias($alias): bool
     {
         return false;
-    } */
+    }
 }
