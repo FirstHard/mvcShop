@@ -37,7 +37,7 @@
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="product/">Demo product</a>
+                  <a class="nav-link" href="/shop/product/1">Demo product</a>
                 </li>
               </ul>
               <a href="/login" class="text-light ms-2 px-1" title="Войти"><i class="bi bi-person-circle" style="font-size: 1.6rem;" role="img"></i></a>

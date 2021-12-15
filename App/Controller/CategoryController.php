@@ -18,13 +18,13 @@ class CategoryController
     public function actionCategory($param = false, $query_data = false): void
     {
         $model = new Category();
-        $data = $model->data;
         if (false !== $param){
-            $model->getProductsIdByCategoryId($param);
+            $model->data['main_content'] = $model->getProductsByCategoryId($param);
         }
         /* if ($query_data){
             $model->query_data = $query_data;
         } */
+        $data = $model->data;
         (new CategoryView())->render($data);
     }
 

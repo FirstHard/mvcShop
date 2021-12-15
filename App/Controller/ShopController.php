@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Shop;
+use App\View\ShopView;
 use App\Model\Category;
 use App\View\CategoryView;
 
@@ -9,9 +11,9 @@ class ShopController
 {
     public function actionIndex($param = false, $query_data = false): void
     {
-        $model = new Category();
+        $model = new Shop();
         $data = $model->data;
-        (new CategoryView())->render($data, $param, $query_data);
+        (new ShopView())->render($data, $param, $query_data);
     }
 
     public function actionCategory($param, $query_data): void
@@ -19,7 +21,7 @@ class ShopController
         $model = new Category();
         $model->data['headers']['pageTitle'] = 'Category';
         if ($param){
-            $model->data['main_content'] = $model->getProductsIdByCategoryId($param);
+            $model->data['main_content'] = $model->getProductsByCategoryId($param);
         }
         /* if ($query_data){
             $model->query_data = $query_data;

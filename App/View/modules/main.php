@@ -1,1 +1,1 @@
-      <?php print_r($main_content); ?>
+      <?php $main_content; ?>

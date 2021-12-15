@@ -24,7 +24,7 @@ class Product
     {
     }
 
-    public static function getProductsByList(string $list_name)
+    public static function getProductsByList(string $list_name): bool|array
     {
         $list_data = Db::getList($list_name);
         foreach ($list_data as $product_id) {

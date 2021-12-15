@@ -35,8 +35,13 @@ class CategoryView
         $subscribe_module = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/main.php');
-        $main_block = ob_get_contents();
+        if (is_array($main_content)) {
+            include('modules/list_products.php');
+            $main_block = ob_get_contents();
+        } else {
+            include('modules/main.php');
+            $main_block = ob_get_contents();
+        }
         ob_end_clean();
         include('modules/footer.php');
         $footer_block = ob_get_contents();
