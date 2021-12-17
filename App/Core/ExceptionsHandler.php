@@ -45,7 +45,7 @@ class ExceptionsHandler extends Exception
     {
         // Logging errors
         file_put_contents(
-            LOG_FILE_PATH,
+            LOG_PATH . 'errors.log',
             LOG_DATE . " " .
                 ExceptionsHandler::getErrorName($e->getCode()) . ":  " .
                 $e->getMessage() . " " .
@@ -54,7 +54,7 @@ class ExceptionsHandler extends Exception
             FILE_APPEND
         );
         // Displaying information about the exception to the browser if enabled in the settings
-        if (SHOW_ERRORS == 1) {
+        if (SHOW_EXCEPTIONS == 1) {
             ExceptionsHandler::showError(
                 $e->getCode(),
                 $e->getMessage(),
@@ -67,9 +67,14 @@ class ExceptionsHandler extends Exception
 
     public function errorHandler($errno, $errstr, $errfile, $errline): bool
     {
+        /* if (!(error_reporting() & $severity)) {
+            // Этот код ошибки не входит в error_reporting
+            return false;
+        }
+        ExceptionsHandler::showError($errno, $errstr, $errfile, $errline, 500); */
         // Logging errors
         file_put_contents(
-            LOG_FILE_PATH,
+            LOG_PATH . 'errors.log',
             LOG_DATE . " " .
                 ExceptionsHandler::getErrorName($errno) . " in " .
                 $errfile . " on line " .
@@ -78,7 +83,7 @@ class ExceptionsHandler extends Exception
         );
         // Displaying an error in the browser, if enabled in the settings
         if (SHOW_ERRORS == 1) {
-            ExceptionsHandler::showError($errno, $errstr, $errfile, $errline, 500);
+            ExceptionsHandler::showError($errno, $errstr, $errfile, $errline);
         }
         // Return true so that error handling will NOT be passed to the inline handler.
         return true;
@@ -92,7 +97,7 @@ class ExceptionsHandler extends Exception
             ob_end_clean();
             // Logging errors
             file_put_contents(
-                LOG_FILE_PATH,
+                LOG_PATH . 'errors.log',
                 LOG_DATE . " " .
                     ExceptionsHandler::getErrorName($error['type']) . " Fatal error: " .
                     $error['message'] . " in " .
@@ -106,8 +111,7 @@ class ExceptionsHandler extends Exception
                     $error['type'],
                     '<b>Fatal error:</b> ' . $error['message'],
                     $error['file'],
-                    $error['line'],
-                    500
+                    $error['line']
                 );
             }
         }
@@ -116,7 +120,7 @@ class ExceptionsHandler extends Exception
     public static function showError($errno, $errstr, $errfile, $errline, $status = 500): void
     {
         // Setting the response header with the appropriate status
-        header("HTTP/1.1 {$status}");
+        //header("HTTP/1.1 {$status}");
         // Arbitrary formatting of the error or exception information output and sending the content to the browser.
         // Also, we can pass this data to the error page controller
         echo '

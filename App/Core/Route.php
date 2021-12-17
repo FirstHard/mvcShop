@@ -45,8 +45,8 @@ class Route
                 $action = 'actionCategory';
             }
         } */
-        /* $requested_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $data['escaped_url'] = htmlspecialchars($requested_url, ENT_QUOTES, 'UTF-8'); */
+        $requested_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $data['escaped_url'] = htmlspecialchars($requested_url, ENT_QUOTES, 'UTF-8');
         if (!class_exists($controller_class)) {
             // Controller not found!
             $data['message'] = 'Controller not found';

@@ -8,6 +8,7 @@
     <header>
       <?= $header_block; ?>
       <?= $home_carousel_module; ?>
+      <?= $error; ?>
     </header>
     <div class="container my-5">
       <div class="row">
@@ -27,8 +28,7 @@
         <div class="<?= $main_class ?>">
           <?= $main_block; ?>
           <?= $why_us_module; ?>
-          <?= $featured_tabs_module; ?>
-          <?= $main_text; ?>
+          <?= $featurebd_tabs_module; ?>
           <?= $about_us_module; ?>
           <?= $subscribe_module; ?>
         </div>
