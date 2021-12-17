@@ -2,13 +2,14 @@
 
 namespace App\View;
 
+use App\Core\ExceptionsHandler;
+
 class HomeView
 
 {
 
     public function render($data)
     {
-        // Get content for page from model
         extract($data);
         ob_start();
         include('modules/head.php');
@@ -19,14 +20,21 @@ class HomeView
         $nav_module = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/home_carousel.php');
-        $home_carousel_module = ob_get_contents();
-        ob_end_clean();
-        ob_start();
         include('modules/header.php');
         $header_block = ob_get_contents();
         ob_end_clean();
-        // Check for error notifications
+        ob_start();
+        include('modules/home_carousel.php');
+        $home_carousel_module = ob_get_contents();
+        ob_end_clean();
+        $error = false;
+        $errors = (new ExceptionsHandler())->getMessage();
+        if ($errors) {
+            ob_start();
+            include('modules/error.php');
+            $error = ob_get_contents();
+            ob_end_clean();
+        }
         ob_start();
         include('modules/why_us.php');
         $why_us_module = ob_get_contents();
