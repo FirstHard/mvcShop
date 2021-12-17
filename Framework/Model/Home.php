@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Model;
+namespace Framework\Model;
 
-use App\Model\Product;
+use App\Model;
+use Framework\Model\Product;
 
-class Home
+class Home extends Model
 {
     //public $db;
     //public $data;

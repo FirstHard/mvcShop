@@ -28,7 +28,7 @@
         <div class="<?= $main_class ?>">
           <?= $main_block; ?>
           <?= $why_us_module; ?>
-          <?= $featurebd_tabs_module; ?>
+          <?= $featured_tabs_module; ?>
           <?= $about_us_module; ?>
           <?= $subscribe_module; ?>
         </div>

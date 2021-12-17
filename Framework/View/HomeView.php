@@ -1,14 +1,15 @@
 <?php
 
-namespace App\View;
+namespace Framework\View;
 
-use App\Core\ExceptionsHandler;
+use App\View;
+use Framework\Core\ExceptionsHandler;
 
-class HomeView
+class HomeView extends View
 
 {
 
-    public function render($data)
+    public function render($data): void
     {
         extract($data);
         ob_start();
@@ -58,6 +59,6 @@ class HomeView
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();
-        return include('templates/home.php');
+        include('templates/home.php');
     }
 }

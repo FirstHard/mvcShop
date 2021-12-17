@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Model;
+namespace Framework\Model;
 
-use App\Core\Db;
-use App\Model\Product;
+use App\Model;
+use Framework\Core\Db;
+use Framework\Model\Product;
 
-class Category
+class Shop extends Model
 {
     public $data = [];
     public $param = false;
@@ -13,7 +14,6 @@ class Category
 
     public function __construct()
     {
-        /* $this->db = new Db();  ... */
         $this->data['headers']['pageTitle'] = 'Shop';
         $this->data['headers']['siteTitle'] = 'Project MVC The Shop';
         $this->data['main_content'] = 'Welcome to our store!';
@@ -23,11 +23,14 @@ class Category
     {
         $list_data = Db::getList('product_to_category');
         foreach ($list_data as $list) {
-            if ($list['category_id'] == $id) {
-                $products[] = (new Product)->getProductById($list['product_id']);
+            if ($list['category_id'] === $id) {
+                $products_list[] = $list['product_id'];
             }
         }
-        if (isset($products)) {
+        if (isset($products_list)) {
+            foreach($products_list as $product_id) {
+                $products[] = (new Product)->getProductById($product_id);
+            }
             return $products;
         }
         return false;
