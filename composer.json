@@ -12,5 +12,8 @@
             "email": "buinoff@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require": {
+        "firsthard/loghandler": "v1.0.0.x-dev"
+    }
 }
