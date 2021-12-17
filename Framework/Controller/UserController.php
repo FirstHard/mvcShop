@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
-class UserController
+use App\Controller;
+
+class UserController extends Controller
 {
-    public function actionIndex()
+    public function actionIndex(): void
     {
         echo 'User area';
     }

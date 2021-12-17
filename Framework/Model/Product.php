@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Model;
+namespace Framework\Model;
 
-use App\Core\Db;
+use App\Model;
+use Framework\Core\Db;
 
-class Product
+class Product extends Model
 {
     public $id;
     public $articule;

@@ -1,12 +1,12 @@
 <?php
 
 // Including global settings
-include(__DIR__ . '/../App/config.php');
+include(__DIR__ . '/../Framework/config.php');
 require ROOT . 'vendor/autoload.php';
 
-use App\Core\Auth;
-use App\Core\Route;
-use App\Core\ExceptionsHandler;
+use Framework\Core\Auth;
+use Framework\Core\Route;
+use Framework\Core\ExceptionsHandler;
 
 // Registering custom error and exception handlers
 (new ExceptionsHandler())->register();

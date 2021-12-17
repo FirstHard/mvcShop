@@ -1,11 +1,12 @@
 <?php
 
-namespace App\View;
+namespace Framework\View;
 
-class CategoryView
+use App\View;
 
+class CategoryView extends View
 {
-    public function render($data)
+    public function render($data): void
     {
         // Get content for page from model
         extract($data);
@@ -46,6 +47,6 @@ class CategoryView
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();
-        return include('templates/shop.php');
+        include('templates/shop.php');
     }
 }

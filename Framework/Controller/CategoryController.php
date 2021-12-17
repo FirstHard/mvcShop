@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Controller;
+namespace Framework\Controller;
 
-use App\Model\Shop;
-use App\View\ShopView;
-use App\Model\Category;
-use App\View\CategoryView;
+use App\Controller;
+use Framework\Model\Category;
+use Framework\View\CategoryView;
 
-class ShopController
+class CategoryController extends Controller
 {
     public function actionIndex($param = false, $query_data = false): void
     {
-        $model = new Shop();
+        $model = new Category();
         $data = $model->data;
-        (new ShopView())->render($data, $param, $query_data);
+        $model->data['headers']['pageTitle'] = 'Category';
+        (new CategoryView())->render($data);
     }
 
-    public function actionCategory($param, $query_data): void
+    public function actionCategory($param = false, $query_data = false): void
     {
         $model = new Category();
-        $model->data['headers']['pageTitle'] = 'Category';
-        if ($param){
+        if (false !== $param){
             $model->data['main_content'] = $model->getProductsByCategoryId($param);
         }
         /* if ($query_data){
@@ -37,8 +36,8 @@ class ShopController
         (new ShopView())->render($data);
     } */
 
-    public function findAlias($alias): bool
+    /* public function findAlias($alias): bool
     {
         return false;
-    }
+    } */
 }

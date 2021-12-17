@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Controller;
+namespace Framework\Controller;
 
-class NotFoundController
+use App\Controller;
+
+class NotFoundController extends Controller
 {
-    public function actionIndex(array $data = [])
+    public function actionNotFound(array $data = []): void
     {
         extract($data);
         header("Status: " . $code . " " . $status);

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core;
+namespace Framework\Core;
 
-use App\Controller\NotFoundController;
+use Framework\Controller\NotFoundController;
 
 class Route
 {
@@ -37,7 +37,7 @@ class Route
             $param = $routes[3];
         }
         $controller_name = ucfirst($controller_name) . 'Controller';
-        $controller_class = "App\\Controller\\" . $controller_name;
+        $controller_class = "Framework\\Controller\\" . $controller_name;
         $action = 'action' . ucfirst($action);
         /* if ($controller_name == 'ShopController') {
             if ($action != 'actionIndex') {
@@ -53,7 +53,7 @@ class Route
             $data['code'] = 404;
             $data['status'] = 'Not Found';
             $controller = new NotFoundController();
-            $controller->actionIndex($data);
+            $controller->actionNotFound($data);
             die();
         } else {
             $controller = new $controller_class();
@@ -64,7 +64,7 @@ class Route
                     $data['code'] = 404;
                     $data['status'] = 'Not Found';
                     $controller = new NotFoundController();
-                    $controller->actionIndex($data);
+                    $controller->actionNotFound($data);
                     die();
                 //}
                 //$controller->actionAlias($finded_alias);
