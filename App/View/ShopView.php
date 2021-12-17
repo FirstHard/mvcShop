@@ -2,14 +2,12 @@
 
 namespace App\View;
 
-use App\Core\ExceptionsHandler;
-
-class HomeView
+class ShopView
 
 {
-
     public function render($data)
     {
+        // Get content for page from model
         extract($data);
         ob_start();
         include('modules/head.php');
@@ -23,25 +21,10 @@ class HomeView
         include('modules/header.php');
         $header_block = ob_get_contents();
         ob_end_clean();
-        ob_start();
-        include('modules/home_carousel.php');
-        $home_carousel_module = ob_get_contents();
-        ob_end_clean();
-        $error = false;
-        $errors = (new ExceptionsHandler())->getMessage();
-        if ($errors) {
-            ob_start();
-            include('modules/error.php');
-            $error = ob_get_contents();
-            ob_end_clean();
-        }
+        // Check for error notifications
         ob_start();
         include('modules/why_us.php');
         $why_us_module = ob_get_contents();
-        ob_end_clean();
-        ob_start();
-        include('modules/featured_tabs.php');
-        $featured_tabs_module = ob_get_contents();
         ob_end_clean();
         ob_start();
         include('modules/about_us.php');
@@ -52,12 +35,21 @@ class HomeView
         $subscribe_module = ob_get_contents();
         ob_end_clean();
         ob_start();
+        if (is_array($main_content)) {
+            include('modules/list_products.php');
+            $main_block = ob_get_contents();
+        } else {
+            include('modules/main.php');
+            $main_block = ob_get_contents();
+        }
+        ob_end_clean();
+        ob_start();
         include('modules/main.php');
         $main_block = ob_get_contents();
         ob_end_clean();
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();
-        return include('templates/home.php');
+        return include('templates/shop.php');
     }
 }

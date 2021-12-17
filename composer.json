@@ -1,5 +1,5 @@
 {
-    "name": "root/project",
+    "name": "buinoff/mvc_shop",
     "description": "mvcShop - Training Project",
     "autoload": {
         "psr-4": {
@@ -13,5 +13,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "firsthard/loghandler": "v1.0.0.x-dev"
+    }
 }
