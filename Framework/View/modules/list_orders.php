@@ -33,7 +33,7 @@
                 Status / Modified at
               </div>
               <div class="col-3">
-                Client
+                For client
               </div>
               <div class="col-2">
                 Total

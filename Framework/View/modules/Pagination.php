@@ -29,7 +29,7 @@ class Pagination
         $html = '<ul class="pagination justify-content-center">';
         for ($page = $limits[0]; $page <= $limits[1]; $page++) {
             if ($page == $this->current_page) {
-                $links .= '<li class="page-item active"><a class="page-link" href="#">' . $page . '</a></li>';
+                $links .= '<li class="page-item active"><a class="page-link">' . $page . '</a></li>';
             } else {
                 $links .= $this->generateHtml($page);
             }

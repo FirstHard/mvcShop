@@ -40,15 +40,14 @@ class Db
 
     public function insert(string $table_name, array $params)
     {
-        //extract($params);
         $query = '
-            INSERT INTO `' . $table_name . '` (`';
+            INSERT INTO ' . $table_name . ' (';
         $keys = array_keys($params);
 		foreach ($keys as $value) {
-            $query .= $value . '`, `';
+            $query .= $value . ', ';
         }
-        $query = rtrim($query, ', `');
-        $query .= '`) VALUES (';
+        $query = rtrim($query, ', ');
+        $query .= ') VALUES (';
 		foreach ($keys as $value) {
             $query .= ':' . $value . ', ';
         }
