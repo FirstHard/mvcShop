@@ -44,9 +44,6 @@
             </div>
 <?php
               foreach ($main_content as $key => $order) {
-                /* echo '<pre>';
-                print_r($order);
-                echo '</pre>'; */
 ?>
             <div class="row border py-1">
               <div class="col-1 text-center">
@@ -72,8 +69,9 @@
                   </span>
                 </div>
               </div>
-              <div class="col-1">
-
+              <div class="col-1 fs-4 text-center d-flex align-items-center">
+                <!-- <a href="#" class="btn btn-outline-success disabled"><i class="bi bi-file-earmark-arrow-down"></i></a> -->
+                <a href="#" class="btn btn-outline-primary disabled mx-auto"><i class="bi bi-archive"></i></a>
               </div>
             </div>
 <?php
