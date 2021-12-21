@@ -25,7 +25,7 @@ class Auth
                 if (password_verify($data['password'], $user['pass_hash'])) {
                     // That's right, let's authorize the user and redirecting him to Home page.
                     $this->logged_user = $user;
-                    Session::writeSession($this->logged_user);
+                    Session::writeUserSession($this->logged_user);
                     header('Location: ' . HOME);
                 } else {
                     $message['error']['message_heading'] = 'You enter a wrong password!';

@@ -40,7 +40,8 @@
                   <a class="nav-link" href="/shop/product/1">Demo product</a>
                 </li> -->
               </ul>
-              <a href="/login" class="text-light ms-2 px-1" title="Войти"><i class="bi bi-person-circle" style="font-size: 1.6rem;" role="img"></i></a>
+              <a href="/orders" class="text-light ms-2 px-1" title="My orders">My orders</a>
+              <a href="/login" class="text-light ms-2 px-1" title="Login"><i class="bi bi-person-circle" style="font-size: 1.6rem;" role="img"></i></a>
               <div class="cart-icon-wrapper"><a href="#" class="text-light ms-2 px-1 cart-icon" title="Your shopping cart: 2 items worth $&nbsp;200"><i class="bi bi-bag" style="font-size: 1.6rem;" role="img"></i><span class="cart-items">2</span></a></div>
             </div>
           </div>
