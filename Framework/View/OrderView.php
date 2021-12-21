@@ -11,11 +11,12 @@ class OrderView extends View
     {
         // Get content for page from model
         extract($data);
-        $pagination_obj = $pagination;
-        ob_start();
-        echo ($pagination)->get();
-        $pagination_block = ob_get_contents();
-        ob_end_clean();
+        if (isset($pagination)) {
+            ob_start();
+            echo ($pagination)->get();
+            $pagination_block = ob_get_contents();
+            ob_end_clean();
+        }
         ob_start();
         include('modules/head.php');
         $head_block = ob_get_contents();

@@ -1,7 +1,7 @@
         <section id="featuredTabs" class="featuredTabs">
           <div class="container">
             <h1 class="text-center py-1">My orders list</h1>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-12">
                 <div class="btn-group justify-content-center w-100" role="group" aria-label="Orders selection">
                   <a type="button" class="btn btn-primary disabled">All</a>
@@ -13,15 +13,22 @@
                   <a type="button" class="btn btn-outline-secondary disabled">Archived</a>
                 </div>
               </div>
-            </div>
+            </div> -->
+            <?php
+              if (isset($pagination_block)) {
+            ?>
             <div class="row mt-3">
               <div class="col-12">
                 <nav aria-label="Page navigation">
-                  <h5 class="text-center">Page <?= $pagination_obj->current_page; ?> from <?= $pagination_obj->amount; ?></h5>
+                  <h5 class="text-center">Page <?= $pagination->current_page; ?> from <?= $pagination->amount; ?></h5>
                   <?= $pagination_block; ?>
                 </nav>
               </div>
             </div>
+            <?php
+              }
+              if ($main_content) {
+            ?>
             <div class="row bg-dark text-light text-center py-2 mt-1">
               <div class="col-1">
                 #ID
@@ -42,9 +49,9 @@
                 Actions
               </div>
             </div>
-<?php
-              foreach ($main_content as $key => $order) {
-?>
+            <?php
+                foreach ($main_content as $key => $order) {
+            ?>
             <div class="row border py-1">
               <div class="col-1 text-center">
                 <?= $order->id; ?>
@@ -74,16 +81,25 @@
                 <a href="#" class="btn btn-outline-primary disabled mx-auto"><i class="bi bi-archive"></i></a>
               </div>
             </div>
-<?php
+            <?php
+                }
+              } else {
+            ?>
+            <h4 class="text-center my-5">No orders find</h4>
+            <?php
               }
-?>
-            <div class="row mt-5">
+              if (isset($pagination_block)) {
+            ?>
+            <div class="row mt-3">
               <div class="col-12">
                 <nav aria-label="Page navigation">
+                  <h5 class="text-center">Page <?= $pagination->current_page; ?> from <?= $pagination->amount; ?></h5>
                   <?= $pagination_block; ?>
-                  <h5 class="text-center">Page <?= $pagination_obj->current_page; ?> from <?= $pagination_obj->amount; ?></h5>
                 </nav>
               </div>
             </div>
+            <?php
+              }
+            ?>
           </div>
         </section>

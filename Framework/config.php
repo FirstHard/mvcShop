@@ -7,6 +7,7 @@ define('SHOW_ERRORS', 1);
 define('SHOW_EXCEPTIONS', 1);
 define('LOG_PATH', ROOT . 'logs/');
 define('LOG_DATE', '[' . date("Y-m-d H:i:s 'e'") . ']');
+ini_set('max_execution_time', 300);
 ini_set('log_errors', 'On');
 ini_set('display_errors', SHOW_ERRORS);
 ini_set('error_log', LOG_PATH . 'errors.log');

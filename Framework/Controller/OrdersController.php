@@ -15,7 +15,7 @@ class OrdersController extends Controller
         $data = $model->data;
         (new OrderView())->render($data, $param, $query_data);
     }
-    
+
     public function findAlias($alias): bool
     {
         return false;
