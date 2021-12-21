@@ -7,6 +7,7 @@ require_once ROOT . 'vendor/autoload.php';
 
 use Framework\Core\Db;
 use Framework\Core\Auth;
+use Framework\Core\Router;
 use Framework\Core\Route;
 use Framework\Core\ExceptionsHandler;
 
@@ -17,3 +18,11 @@ $DB = new Db();
 
 $route = (new Route())->start();
 $auth = new Auth();
+
+// Tests
+
+$router = new Router();
+$router->start();
+echo '<pre>';
+print_r($router);
+echo '</pre>';
