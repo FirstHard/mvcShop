@@ -19,25 +19,10 @@ class CategoryController extends Controller
     public function actionCategory($param = false, $query_data = false): void
     {
         $model = new Category();
-        if (false !== $param){
+        if (false !== $param) {
             $model->data['main_content'] = $model->getProductsByCategoryId($param);
         }
-        /* if ($query_data){
-            $model->query_data = $query_data;
-        } */
         $data = $model->data;
         (new CategoryView())->render($data);
     }
-
-    /* public function actionAlias($alias): void
-    {
-        $model = new Shop();
-        $data = $model->data;
-        (new ShopView())->render($data);
-    } */
-
-    /* public function findAlias($alias): bool
-    {
-        return false;
-    } */
 }

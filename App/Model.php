@@ -6,6 +6,5 @@ class Model
 {
     public function actionIndex(): void
     {
-
     }
 }

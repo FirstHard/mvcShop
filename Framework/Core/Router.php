@@ -22,9 +22,6 @@ class Router
     {
         $parsed_url = parse_url(htmlspecialchars($this::$uri));
         $routes = explode('/', $parsed_url['path']);
-        /* echo '<pre>';
-        var_dump($routes);
-        echo '</pre>'; */
         if (!empty($routes[1])) {
             $this->controller = ucfirst(htmlspecialchars($routes[1]));
         }

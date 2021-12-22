@@ -53,15 +53,6 @@ class ExceptionsHandler extends Exception
                 ' on line ' => $e->getLine() . "\nStack trace:\n" . $e->getTraceAsString() . "\n"
             ]
         );
-        /* file_put_contents(
-            LOG_PATH . 'errors.log',
-            LOG_DATE . " " .
-                ExceptionsHandler::getErrorName($e->getCode()) . ":  " .
-                $e->getMessage() . " " .
-                $e->getFile() . " on line " .
-                $e->getLine() . "\nStack trace:\n" . $e->getTraceAsString() . "\n",
-            FILE_APPEND
-        ); */
         // Displaying information about the exception to the browser if enabled in the settings
         if (SHOW_EXCEPTIONS == 1) {
             ExceptionsHandler::showError(
@@ -78,14 +69,6 @@ class ExceptionsHandler extends Exception
     {
         // Logging errors
         LogsHandler::error(ExceptionsHandler::getErrorName($errno), ['Message' => $errstr, ' in ' => $errfile, ' on line ' => $errline]);
-        /* file_put_contents(
-            LOG_PATH . 'errors.log',
-            LOG_DATE . " " .
-                ExceptionsHandler::getErrorName($errno) . " in " .
-                $errfile . " on line " .
-                $errline . "\n",
-            FILE_APPEND
-        ); */
         // Displaying an error in the browser, if enabled in the settings
         if (SHOW_ERRORS == 1) {
             ExceptionsHandler::showError($errno, $errstr, $errfile, $errline);
@@ -102,15 +85,6 @@ class ExceptionsHandler extends Exception
             ob_end_clean();
             // Logging errors
             LogsHandler::critical(ExceptionsHandler::getErrorName($error['type']), ['Message' => $error['message'], ' in ' => $error['file'], ' on line ' => $error['line']]);
-            /* file_put_contents(
-                LOG_PATH . 'errors.log',
-                LOG_DATE . " " .
-                    ExceptionsHandler::getErrorName($error['type']) . " Fatal error: " .
-                    $error['message'] . " in " .
-                    $error['file'] . " on line " .
-                    $error['line'] . "\n",
-                FILE_APPEND
-            ); */
             // Displaying an error in the browser, if enabled in the settings
             if (SHOW_ERRORS == 1) {
                 ExceptionsHandler::showError(
@@ -126,7 +100,6 @@ class ExceptionsHandler extends Exception
     public static function showError($errno, $errstr, $errfile, $errline, $status = 500): void
     {
         // Setting the response header with the appropriate status
-        //header("HTTP/1.1 {$status}");
         // Arbitrary formatting of the error or exception information output and sending the content to the browser.
         // Also, we can pass this data to the error page controller
         echo '
