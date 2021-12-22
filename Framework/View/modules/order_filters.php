@@ -1,5 +1,5 @@
               <h2 class="py-2">Order filters</h2>
-              <form id="search" action="" method="get" class="mb-3">
+              <form id="search" action="" method="POST" class="mb-3">
                 <label for="order_search">Search order by number or date*</label>
                 <div class="input-group">
                   <input type="text" id="order_search" class="form-control" name="search" placeholder="Search order number" aria-label="Search order number" aria-describedby="button_order_search">

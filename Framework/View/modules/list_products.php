@@ -7,11 +7,11 @@
 ?>
               <div class="col-12 col-md-6 col-lg-3">
                 <div class="card mb-3">
-                  <a href="product/<?= $product->alias ?>">
+                  <a href="product/<?= $product->id ?>">
                   <img src="/src/images/products/<?= $product->image ?>" class="card-img-top" alt="<?= $product->name ?>">
                   </a>
                   <div class="card-body">
-                    <h5 class="card-title"><a href="product/<?= $product->alias ?>"><?= $product->name ?></a></h5>
+                    <h5 class="card-title"><a href="product/<?= $product->id ?>"><?= $product->name ?></a></h5>
                     <p>Articule: <?= $product->articule ?></p>
                     <div class="card-price">
                         <span>

@@ -1,6 +1,6 @@
 <?php
 // General settings
-define('ROOT', __DIR__ . '/../');
+define('ROOT', __DIR__ . '/../../');
 error_reporting(E_ALL | E_STRICT);
 define('HOME', $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']));
 define('SHOW_ERRORS', 1);

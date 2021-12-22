@@ -8,16 +8,10 @@ use Framework\View\OrderView;
 
 class OrdersController extends Controller
 {
-    public function actionIndex($param = false, $query_data = false): void
-    {
-        $model = new Order();
-        $model->getIndexData($query_data);
-        $data = $model->data;
-        (new OrderView())->render($data, $param, $query_data);
-    }
 
-    public function findAlias($alias): bool
+    public function actionIndex(): void
     {
-        return false;
+        $model = Order::getIndexData($this->queries, $this->gets);
+        (new OrderView())->render($model);
     }
 }

@@ -14,12 +14,25 @@ class Shop extends Model
 
     public function __construct()
     {
-        $this->data['headers']['pageTitle'] = 'Shop';
-        $this->data['headers']['siteTitle'] = 'Project MVC The Shop';
-        $this->data['main_content'] = 'Welcome to our store!';
     }
 
-    public function getProductsByCategoryId($id): bool|array 
+    public static function getIndexData($queries, $gets)
+    {
+        $data['headers']['pageTitle'] = 'Shop';
+        $data['headers']['siteTitle'] = 'Project MVC The Shop';
+        $list_data = Db::getList('shop_category');
+        if ($list_data) {
+            foreach ($list_data as $category) {
+                $id = $category['id'];
+                $categories[] = (new Category())->getCategoryById($id);
+            }
+            $data['main_content'] = $categories;
+            return $data;
+        }
+        return false;
+    }
+
+    public function getProductsByCategoryId($id): bool|array
     {
         $list_data = Db::getList('product_to_category');
         foreach ($list_data as $list) {
@@ -28,8 +41,8 @@ class Shop extends Model
             }
         }
         if (isset($products_list)) {
-            foreach($products_list as $product_id) {
-                $products[] = (new Product)->getProductById($product_id);
+            foreach ($products_list as $product_id) {
+                $products[] = (new Product())->getProductById($product_id);
             }
             return $products;
         }

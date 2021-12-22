@@ -6,19 +6,14 @@ use PDO;
 use App\Model;
 use Framework\Core\Db;
 use Framework\Core\Session;
-use Framework\View\Modules\Pagination;
+use Framework\View\Pagination;
 
 class Order extends Model
 {
     public $data = [];
     public $param = false;
-    public $query_data = false;
 
-    public function __construct()
-    {
-    }
-
-    public function getCountOrdersByUserId(int $id)
+    public static function getCountOrdersByUserId(int $id)
     {
         $query = "SELECT COUNT(*) FROM `order` WHERE `user_id` = :user_id";
         $result = (Db::run($query, ['user_id' => $id]));
@@ -26,7 +21,7 @@ class Order extends Model
         return $result->fetchColumn();
     }
 
-    public function getOrdersByUserId(int $user_id, int $limit, int $offset, string $order)
+    public static function getOrdersByUserId(int $user_id, int $limit, int $offset, string $order)
     {
         if ($order == 'DESC') {
             $query = "SELECT * FROM `order` WHERE `user_id` = :user_id ORDER BY order_number DESC LIMIT :limit OFFSET :offset";
@@ -44,9 +39,9 @@ class Order extends Model
         return $result->fetchAll();
     }
 
-    public function getIndexData($query_data = false)
+    public static function getIndexData($queries = false, $gets = false)
     {
-        $data['headers']['pageTitle'] = 'My orders';
+        $data['headers']['pageTitle'] = 'Orders';
         $data['headers']['siteTitle'] = 'Project MVC The Shop';
         $user_id = 1; // Getting user ID from Auth...
         $offset = 0;
@@ -68,28 +63,30 @@ class Order extends Model
         } else {
             $sort_by = 'order_number';
         }
-        if ($query_data) {
-            if (isset($query_data['page'])) {
-                $page = $query_data['page'];
+        if ($gets) {
+            if (isset($gets['page'])) {
+                $page = $gets['page'];
                 $offset = $limit * ($page - 1);
             }
-            if (isset($query_data['search'])) {
-                $search = htmlspecialchars($query_data['search']);
-            }
-            if (isset($query_data['orders_dates_from'])) {
-                $orders_dates_from = str_replace('T', ' ', htmlspecialchars($query_data['orders_dates_from']));
-            }
-            if (isset($query_data['show_by'])) {
-                $limit = (int) $query_data['show_by'];
+            if (isset($gets['show_by'])) {
+                $limit = (int) $gets['show_by'];
                 Session::setSessionCookie(['show_by' => $limit]);
             }
-            if (isset($query_data['order_by'])) {
-                $order = $query_data['order_by'];
+            if (isset($gets['orders_dates_from'])) {
+                $orders_dates_from = str_replace('T', ' ', htmlspecialchars($gets['orders_dates_from']));
+            }
+            if (isset($gets['order_by'])) {
+                $order = $gets['order_by'];
                 Session::setSessionCookie(['order_by' => $order]);
             }
-            if (isset($query_data['sort_by'])) {
-                $sort_by = $query_data['sort_by'];
+            if (isset($gets['sort_by'])) {
+                $sort_by = $gets['sort_by'];
                 Session::setSessionCookie(['order_by' => $order]);
+            }
+        }
+        if ($queries) {
+            if (isset($queries['search'])) {
+                $search = htmlspecialchars($queries['search']);
             }
         }
         $data['sort_by'] = $sort_by;
@@ -97,18 +94,18 @@ class Order extends Model
         $data['show_by'] = $limit;
         $data['page'] = $page;
         if (!empty($search)) {
-            $data['main_content'] = $this->getUserOrdersBySearch($user_id, $search, $limit, $offset, $order);
+            $data['main_content'] = self::getUserOrdersBySearch($user_id, $search, $limit, $offset, $order);
         } elseif (!empty($orders_dates_from)) {
-            $data['main_content'] = $this->getUserOrdersByDate($user_id, $orders_dates_from, $limit, $offset, $order);
+            $data['main_content'] = self::getUserOrdersByDate($user_id, $orders_dates_from, $limit, $offset, $order);
         } else {
-            $data['count_all'] = $this->getCountOrdersByUserId($user_id);
-            $data['main_content'] = $this->getOrdersByUserId($user_id, $limit, $offset, $order);
+            $data['count_all'] = self::getCountOrdersByUserId($user_id);
+            $data['main_content'] = self::getOrdersByUserId($user_id, $limit, $offset, $order);
             $data['pagination'] = new Pagination($data['count_all'], $page, $limit, 'page');
         }
-        $this->data = $data;
+        return $data;
     }
 
-    public function getUserOrdersBySearch($user_id, $search, $limit, $offset, $order)
+    public static function getUserOrdersBySearch($user_id, $search, $limit, $offset, $order)
     {
         if ($order == 'DESC') {
             $query = "SELECT * FROM `order` WHERE `user_id` = :user_id AND (order_number = :search OR created_at LIKE :search_date) ORDER BY order_number DESC LIMIT :limit OFFSET :offset";
@@ -128,7 +125,7 @@ class Order extends Model
         return $result->fetchAll();
     }
 
-    public function getUserOrdersByDate($user_id, $created_at, $limit, $offset, $order)
+    public static function getUserOrdersByDate($user_id, $created_at, $limit, $offset, $order)
     {
         if ($order == 'DESC') {
             $query = "SELECT * FROM `order` WHERE `user_id` = :user_id AND created_at LIKE :created_at ORDER BY order_number DESC LIMIT :limit OFFSET :offset";
