@@ -10,7 +10,8 @@ class Db
 {
     private static $conn = null;
 
-    public static function getInstance(){
+    public static function getInstance()
+    {
         try {
             self::$conn = new PDO('mysql:host=localhost;dbname=' . DB_TABLE, DB_USER, DB_PASS);
             self::$conn->exec("set names utf8");
@@ -22,7 +23,8 @@ class Db
         return self::$conn;
     }
 
-    public static function run(string $query, array $params) {
+    public static function run(string $query, array $params)
+    {
         $result = Db::getInstance()->prepare($query);
         foreach ($params as $key => $value) {
             if (gettype($value) == 'integer') {
@@ -35,7 +37,7 @@ class Db
             }
             $result->bindParam(':' . $key, $params[$key], $param_type);
         }
-	    return $result;
+        return $result;
     }
 
     public function insert(string $table_name, array $params)
@@ -43,12 +45,12 @@ class Db
         $query = '
             INSERT INTO ' . $table_name . ' (';
         $keys = array_keys($params);
-		foreach ($keys as $value) {
+        foreach ($keys as $value) {
             $query .= $value . ', ';
         }
         $query = rtrim($query, ', ');
         $query .= ') VALUES (';
-		foreach ($keys as $value) {
+        foreach ($keys as $value) {
             $query .= ':' . $value . ', ';
         }
         $query = rtrim($query, ', ') . ')';
@@ -64,7 +66,7 @@ class Db
             }
             $result->bindParam(':' . $key, $params[$key], $param_type);
         }
-	    return $result->execute();
+        return $result->execute();
     }
 
 

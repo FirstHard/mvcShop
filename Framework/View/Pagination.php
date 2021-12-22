@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\View\Modules;
+namespace Framework\View;
 
 class Pagination
 {

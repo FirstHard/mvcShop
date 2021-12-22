@@ -38,7 +38,7 @@ class ShopView extends View
         ob_end_clean();
         ob_start();
         if (is_array($main_content)) {
-            include('modules/list_products.php');
+            include('modules/list_categories.php');
             $main_block = ob_get_contents();
         } else {
             include('modules/main.php');

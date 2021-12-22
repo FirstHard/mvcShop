@@ -46,6 +46,6 @@ class OrderView extends View
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();
-        include('templates/order.php');
+        include('templates/orders.php');
     }
 }
