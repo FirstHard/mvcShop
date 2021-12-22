@@ -12,8 +12,10 @@ class Order extends Model
 {
     public $data = [];
     public $param = false;
+    public $queries = false;
+    public $gets = false;
 
-    public static function getCountOrdersByUserId(int $id)
+    public static function getCountOrdersByUserId(int $id): array|bool
     {
         $query = "SELECT COUNT(*) FROM `order` WHERE `user_id` = :user_id";
         $result = (Db::run($query, ['user_id' => $id]));
@@ -21,7 +23,7 @@ class Order extends Model
         return $result->fetchColumn();
     }
 
-    public static function getOrdersByUserId(int $user_id, int $limit, int $offset, string $order)
+    public static function getOrdersByUserId(int $user_id, int $limit, int $offset, string $order): array|bool
     {
         if ($order == 'DESC') {
             $query = "SELECT * FROM `order` WHERE `user_id` = :user_id ORDER BY order_number DESC LIMIT :limit OFFSET :offset";
@@ -39,7 +41,7 @@ class Order extends Model
         return $result->fetchAll();
     }
 
-    public static function getIndexData($queries = false, $gets = false)
+    public static function getIndexData($queries = [], $gets = []): array
     {
         $data['headers']['pageTitle'] = 'Orders';
         $data['headers']['siteTitle'] = 'Project MVC The Shop';
@@ -105,7 +107,7 @@ class Order extends Model
         return $data;
     }
 
-    public static function getUserOrdersBySearch($user_id, $search, $limit, $offset, $order)
+    public static function getUserOrdersBySearch($user_id, $search, $limit, $offset, $order): array|bool
     {
         if ($order == 'DESC') {
             $query = "SELECT * FROM `order` WHERE `user_id` = :user_id AND (order_number = :search OR created_at LIKE :search_date) ORDER BY order_number DESC LIMIT :limit OFFSET :offset";
@@ -125,7 +127,7 @@ class Order extends Model
         return $result->fetchAll();
     }
 
-    public static function getUserOrdersByDate($user_id, $created_at, $limit, $offset, $order)
+    public static function getUserOrdersByDate($user_id, $created_at, $limit, $offset, $order): array|bool
     {
         if ($order == 'DESC') {
             $query = "SELECT * FROM `order` WHERE `user_id` = :user_id AND created_at LIKE :created_at ORDER BY order_number DESC LIMIT :limit OFFSET :offset";

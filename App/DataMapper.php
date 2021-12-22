@@ -6,6 +6,5 @@ class DataMapper
 {
     public function __construct()
     {
-
     }
 }

@@ -10,13 +10,14 @@ class Shop extends Model
 {
     public $data = [];
     public $param = false;
-    public $query_data = false;
+    public $queries = false;
+    public $gets = false;
 
     public function __construct()
     {
     }
 
-    public static function getIndexData($queries, $gets)
+    public static function getIndexData($queries = [], $gets = [])
     {
         $data['headers']['pageTitle'] = 'Shop';
         $data['headers']['siteTitle'] = 'Project MVC The Shop';

@@ -14,13 +14,12 @@ class Category extends Model
 
     public function __construct()
     {
-        /* $this->db = new Db();  ... */
         $this->data['headers']['pageTitle'] = 'Shop';
         $this->data['headers']['siteTitle'] = 'Project MVC The Shop';
         $this->data['main_content'] = 'Welcome to our store!';
     }
 
-    public function getProductsByCategoryId($id): bool|array 
+    public function getProductsByCategoryId($id): bool|array
     {
         $list_data = Db::getList('product_to_category');
         $this->data['headers']['pageTitle'] = 'Category';
@@ -36,7 +35,7 @@ class Category extends Model
         return false;
     }
 
-    public function getCategoryById($id)
+    public function getCategoryById($id): Category
     {
         extract(Db::getOne('shop_category', $id));
         $this->id = $id;
