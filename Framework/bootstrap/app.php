@@ -16,17 +16,17 @@ $DB = new Db();
 
 $router = (new Router())::$instance;
 $controller_path = '\\Framework\\Controller\\' . $router->controller . 'Controller';
-try {
+if (class_exists($controller_path)) {
     $controller = new $controller_path;
     $controller->param = $router->param;
     $controller->queries = $router->queries;
     $controller->gets = $router->gets;
-} catch (ExceptionsHandler $controller_error) {
-    throw new ExceptionsHandler('Wrong controller! ' . $controller_error->getMessage(), 0);
-}
-$action = 'action' . $router->action;
-try {
-    $controller->$action();
-} catch (ExceptionsHandler $method_error) {
-    throw new ExceptionsHandler('Wrong controller! ' . $method_error->getMessage(), 0);
+    $action = 'action' . $router->action;
+    if (method_exists($controller_path, $action)) {
+        $controller->$action();
+    } else {
+        $controller = (new NotFoundController())->actionNotFound(404);
+    }
+} else {
+    $controller = (new NotFoundController())->actionNotFound(404);
 }
