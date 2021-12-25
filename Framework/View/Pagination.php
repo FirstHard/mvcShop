@@ -7,15 +7,13 @@ class Pagination
     private $max = 5;
     private $index = 'page';
     public $current_page;
-    private $query_data;
     public $total;
     public $limit;
     public $amount;
 
-    public function __construct($total, $currentPage, $limit, $index, $query_data = false)
+    public function __construct($total, $currentPage, $limit, $index)
     {
         $this->total = $total;
-        $this->query_data = $query_data;
         $this->limit = $limit;
         $this->index = $index;
         $this->amount = $this->amount();
@@ -51,8 +49,7 @@ class Pagination
         if (!$text) {
             $text = $page;
         }
-        $currentURI = preg_replace('~\?page=[0-9]+~', '', $this->query_data);
-        return '<li class="page-item"><a class="page-link" href="?' . $currentURI . $this->index . '=' . $page . '">' . $text . '</a></li>';
+        return '<li class="page-item"><a class="page-link" href="?' . $this->index . '=' . $page . '">' . $text . '</a></li>';
     }
 
     private function limits()

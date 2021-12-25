@@ -10,8 +10,7 @@ class SiteController extends Controller
 {
     public function actionIndex(): void
     {
-        $model = new Home();
-        $data = $model->data;
+        $data = (new Home())->data;
         (new HomeView())->render($data);
     }
 }

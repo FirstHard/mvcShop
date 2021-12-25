@@ -15,12 +15,14 @@ class Order extends Model
     public $queries = false;
     public $gets = false;
 
-    public static function getCountOrdersByUserId(int $id): array|bool
+    public static function getCountOrdersByUserId(int $id): int
     {
-        $query = "SELECT COUNT(*) FROM `order` WHERE `user_id` = :user_id";
+        $query = "SELECT COUNT(*) AS `count` FROM `order` WHERE `user_id` = :user_id";
         $result = (Db::run($query, ['user_id' => $id]));
+        $result->setFetchMode(PDO::FETCH_ASSOC);
         $result->execute();
-        return $result->fetchColumn();
+        $count = $result->fetchAll()[0]['count'];
+        return $count;
     }
 
     public static function getOrdersByUserId(int $user_id, int $limit, int $offset, string $order): array|bool
@@ -100,9 +102,9 @@ class Order extends Model
         } elseif (!empty($orders_dates_from)) {
             $data['main_content'] = self::getUserOrdersByDate($user_id, $orders_dates_from, $limit, $offset, $order);
         } else {
-            $data['count_all'] = self::getCountOrdersByUserId($user_id);
+            $data['total'] = self::getCountOrdersByUserId($user_id);
             $data['main_content'] = self::getOrdersByUserId($user_id, $limit, $offset, $order);
-            $data['pagination'] = new Pagination($data['count_all'], $page, $limit, 'page');
+            $data['pagination'] = new Pagination($data['total'], $page, $limit, 'page');
         }
         return $data;
     }

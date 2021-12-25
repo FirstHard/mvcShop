@@ -1,1 +1,1 @@
-      <?php $main_content; ?>
+      <?= $main_content; ?>

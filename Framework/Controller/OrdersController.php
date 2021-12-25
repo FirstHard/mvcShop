@@ -8,10 +8,9 @@ use Framework\View\OrderView;
 
 class OrdersController extends Controller
 {
-
     public function actionIndex(): void
     {
-        $model = Order::getIndexData($this->queries, $this->gets);
-        (new OrderView())->render($model);
+        $data = Order::getIndexData($this->queries, $this->gets);
+        (new OrderView())->render($data);
     }
 }

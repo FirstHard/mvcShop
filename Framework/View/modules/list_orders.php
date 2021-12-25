@@ -1,19 +1,6 @@
         <section id="featuredTabs" class="featuredTabs">
           <div class="container">
-            <h1 class="text-center py-1">My orders list</h1>
-            <!-- <div class="row">
-              <div class="col-12">
-                <div class="btn-group justify-content-center w-100" role="group" aria-label="Orders selection">
-                  <a type="button" class="btn btn-primary disabled">All</a>
-                  <a type="button" class="btn btn-danger disabled">Pending</a>
-                  <a type="button" class="btn btn-warning disabled">Processing</a>
-                  <a type="button" class="btn btn-success disabled">In delivery</a>
-                  <a type="button" class="btn btn-info disabled">Payment awaiting</a>
-                  <a type="button" class="btn btn-secondary disabled">Closed</a>
-                  <a type="button" class="btn btn-outline-secondary disabled">Archived</a>
-                </div>
-              </div>
-            </div> -->
+            <h1 class="text-center py-1">Orders list</h1>
             <?php
               if (isset($pagination_block)) {
             ?>
@@ -77,7 +64,6 @@
                 </div>
               </div>
               <div class="col-1 fs-4 text-center d-flex align-items-center">
-                <!-- <a href="#" class="btn btn-outline-success disabled"><i class="bi bi-file-earmark-arrow-down"></i></a> -->
                 <a href="#" class="btn btn-outline-primary disabled mx-auto"><i class="bi bi-archive"></i></a>
               </div>
             </div>

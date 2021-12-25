@@ -3,15 +3,16 @@
 namespace Framework\Controller;
 
 use App\Controller;
+use Framework\Model\Error;
+use Framework\View\ErrorView;
 
 class NotFoundController extends Controller
 {
-    public function actionNotFound(array $data = []): void
+    public function actionNotFound(int $code): void
     {
-        extract($data);
-        header("Status: " . $code . " " . $status);
-        header("HTTP/1.1 " . $code . " " . $status);
-        // Next - connect the template and display information like this:
-        echo 'Sorry, but the requested page "' . $escaped_url . '" not found on our site for the reason: ' . $message . '.';
+        header("Status: " . $code . "Not Found");
+        header("HTTP/1.1 " . $code . "Not Found");
+        $data = (new Error())->getErrorInfo($code);
+        (new ErrorView())->render($data);
     }
 }
