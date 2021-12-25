@@ -10,7 +10,7 @@ include_once('db_config.php');
 
 (new ExceptionsHandler())->register();
 
-$DB = new Db();
+$db = Db::getInstance();
 
 /* $auth = new Auth(); */
 

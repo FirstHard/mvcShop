@@ -5,22 +5,44 @@ namespace Framework\Core;
 use PDO;
 use PDOException;
 use Framework\Core\ExceptionsHandler;
+use FirstHard\LogsHandler;
 
 class Db
 {
     private static $conn = null;
 
-    public static function getInstance()
+    private function __construct()
     {
         try {
-            self::$conn = new PDO('mysql:host=localhost;dbname=' . DB_TABLE, DB_USER, DB_PASS);
-            self::$conn->exec("set names utf8");
+            self::$conn = new PDO(
+                'mysql:host=localhost;dbname=' . DB_NAME,
+                DB_USER,
+                DB_PASS,
+                [
+                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"
+                ]
+            );
         } catch (PDOException $pdo) {
-            throw new ExceptionsHandler($pdo->getMessage(), 0);
-        } catch (ExceptionsHandler $e) {
-            throw new ExceptionsHandler($e->getMessage(), 0);
+            throw new PDOException($pdo->getMessage(), 0);
+            LogsHandler::debug($pdo->getMessage());
         }
         return self::$conn;
+    }
+
+    private function __clone()
+    {
+    }
+
+    private function __wakeup()
+    {
+    }
+
+    public static function getInstance()
+    {
+        if (self::$conn != null) {
+            return self::$conn;
+        }
+        return new self();
     }
 
     public static function run(string $query, array $params)
@@ -40,7 +62,7 @@ class Db
         return $result;
     }
 
-    public function insert(string $table_name, array $params)
+    /* public function insert(string $table_name, array $params)
     {
         $query = '
             INSERT INTO ' . $table_name . ' (';
@@ -67,9 +89,7 @@ class Db
             $result->bindParam(':' . $key, $params[$key], $param_type);
         }
         return $result->execute();
-    }
-
-
+    } */
 
     public static function getlist(string $list_name): array
     {
