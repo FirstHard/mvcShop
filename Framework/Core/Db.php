@@ -7,7 +7,7 @@ use PDOException;
 use Framework\Core\ExceptionsHandler;
 use FirstHard\LogsHandler;
 
-class Db
+class Db extends PDO
 {
     private static $conn = null;
 
@@ -15,18 +15,18 @@ class Db
     {
         try {
             self::$conn = new PDO(
-                'mysql:host=localhost;dbname=' . DB_NAME,
+                'mysql:host=localhost;dbname=' . DB_NAME . ';charset=utf8',
                 DB_USER,
                 DB_PASS,
                 [
-                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ]
             );
         } catch (PDOException $pdo) {
             throw new PDOException($pdo->getMessage(), 0);
             LogsHandler::debug($pdo->getMessage());
         }
-        return self::$conn;
+        //return new self();
     }
 
     private function __clone()
@@ -45,9 +45,9 @@ class Db
         return new self();
     }
 
-    public static function run(string $query, array $params)
+    public function run(string $query, array $params)
     {
-        $result = Db::getInstance()->prepare($query);
+        $result = self::$conn->prepare($query);
         foreach ($params as $key => $value) {
             if (gettype($value) == 'integer') {
                 $param_type = PDO::PARAM_INT;
@@ -59,7 +59,26 @@ class Db
             }
             $result->bindParam(':' . $key, $params[$key], $param_type);
         }
-        return $result;
+        $result->execute();
+        return $result->fetchAll();
+    }
+
+    public function count(string $query, array $params)
+    {
+        $result = self::$conn->prepare($query);
+        foreach ($params as $key => $value) {
+            if (gettype($value) == 'integer') {
+                $param_type = PDO::PARAM_INT;
+            } elseif (gettype($value) == 'string') {
+                $param_type = PDO::PARAM_STR;
+            } else {
+                throw new ExceptionsHandler('Wrong param type!', 0);
+                die();
+            }
+            $result->bindParam(':' . $key, $params[$key], $param_type);
+        }
+        $result->execute();
+        return $result->fetchAll()[0]['count'];
     }
 
     /* public function insert(string $table_name, array $params)

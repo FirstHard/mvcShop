@@ -10,7 +10,13 @@ class OrderView extends View
     public function render($data): void
     {
         // Get content for page from model
-        extract($data);
+        if (is_array($data)) {
+            extract($data);
+        }
+        if (is_string($data)) {
+            parse_str($data, $queries_data);
+            extract($queries_data);
+        }
         if (isset($pagination)) {
             ob_start();
             echo ($pagination)->get();

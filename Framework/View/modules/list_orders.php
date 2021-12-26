@@ -1,6 +1,6 @@
-        <section id="featuredTabs" class="featuredTabs">
+        <section id="ordersTable" class="ordersTable">
           <div class="container">
-            <h1 class="text-center py-1">Orders list</h1>
+            <h1 class="text-center py-1"><?= $headers['pageTitle']; ?></h1>
             <?php
               if (isset($pagination_block)) {
             ?>
@@ -24,7 +24,7 @@
                 Order
               </div>
               <div class="col-3">
-                Status / Modified at
+                Status / Created at
               </div>
               <div class="col-3">
                 For client
@@ -49,7 +49,7 @@
                 </h6>
               </div>
               <div class="col-3 text-center">
-                <?= $order->status; ?><br><?= $order->modified_at; ?>
+                <?= $order->status; ?><br><?= $order->created_at; ?>
               </div>
               <div class="col-3">
                 <b>Name:</b> <?= $order->client_first_name; ?><br>
