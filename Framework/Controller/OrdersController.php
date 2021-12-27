@@ -12,15 +12,13 @@ class OrdersController extends Controller
 
     public function actionIndex(): void
     {
-        $db = Db::getInstance();
-        $data = (new OrderMapper($db))->getIndexData($this->gets);
+        $data = (new OrderMapper(Db::getInstance()))->getIndexData($this->gets);
         (new OrderView())->render($data);
     }
 
     public function actionSearch()
     {
-        $db = Db::getInstance();
-        $data = (new OrderMapper($db))->getSearchData($this->queries);
+        $data = (new OrderMapper(Db::getInstance()))->getSearchData($this->queries);
         (new OrderView())->render($data);
     }
 }

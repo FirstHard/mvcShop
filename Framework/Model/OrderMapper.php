@@ -49,6 +49,44 @@ class OrderMapper
         return $this->elements;
     }
 
+    public function insert(Order $order): string|false
+    {
+        $params = get_object_vars($order);
+        if (isset($params['id'])) unset($params['id']);
+        $query = 'INSERT INTO `order` (' . implode(", ", array_keys($params)) . ') VALUES (:' . implode(", :", array_keys($params)) . ')';
+        if ($this->db->run($query, $params)) {
+            return $this->db->lastinsertid();
+        }
+        return false;
+    }
+
+    public function update(Order $order): string|false
+    {
+        $params = get_object_vars($order);
+        $query = 'UPDATE `order` SET ';
+        foreach ($params as $key => $value) {
+            if ($key != 'id') $query .= $key . ' = :' . $key . ', ';
+        }
+        $query = rtrim($query, ', ') . ' WHERE id = :id';
+        if ($this->db->run($query, $params)) {
+            return $this->db->lastinsertid();
+        }
+        return false;
+    }
+
+    public function delete(Order $order)
+    {
+        $query = 'DELETE FROM `order` WHERE id = :id OR order_number = :order_number';
+        $params = [
+            'id' => $order->id,
+            'order_number' => $order->order_number
+        ];
+        if ($this->db->run($query, $params)) {
+            return true;
+        }
+        return false;
+    }
+
     public function getCountOrdersByUserId(int $user_id): int
     {
         $query = "SELECT COUNT(*) AS `count` FROM `order` WHERE `user_id` = :user_id";

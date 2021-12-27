@@ -26,7 +26,6 @@ class Db extends PDO
             throw new PDOException($pdo->getMessage(), 0);
             LogsHandler::debug($pdo->getMessage());
         }
-        //return new self();
     }
 
     private function __clone()
@@ -63,7 +62,7 @@ class Db extends PDO
         return $result->fetchAll();
     }
 
-    public function count(string $query, array $params)
+    public function count(string $query, array $params): int
     {
         $result = self::$conn->prepare($query);
         foreach ($params as $key => $value) {
@@ -80,35 +79,6 @@ class Db extends PDO
         $result->execute();
         return $result->fetchAll()[0]['count'];
     }
-
-    /* public function insert(string $table_name, array $params)
-    {
-        $query = '
-            INSERT INTO ' . $table_name . ' (';
-        $keys = array_keys($params);
-        foreach ($keys as $value) {
-            $query .= $value . ', ';
-        }
-        $query = rtrim($query, ', ');
-        $query .= ') VALUES (';
-        foreach ($keys as $value) {
-            $query .= ':' . $value . ', ';
-        }
-        $query = rtrim($query, ', ') . ')';
-        $result = $this->conn->prepare($query);
-        foreach ($params as $key => $value) {
-            if (gettype($value) == 'integer') {
-                $param_type = PDO::PARAM_INT;
-            } elseif (gettype($value) == 'string') {
-                $param_type = PDO::PARAM_STR;
-            } else {
-                throw new ExceptionsHandler('Wrong param type!', 0);
-                die();
-            }
-            $result->bindParam(':' . $key, $params[$key], $param_type);
-        }
-        return $result->execute();
-    } */
 
     public static function getlist(string $list_name): array
     {
