@@ -2,149 +2,261 @@
 
 namespace Framework\Model;
 
-use PDO;
 use App\Model;
-use Framework\Core\Db;
-use Framework\Core\Session;
-use Framework\View\Pagination;
 
 class Order extends Model
 {
-    public $data = [];
-    public $param = false;
-    public $queries = false;
-    public $gets = false;
+    public $id;
+    public $order_number;
+    public $user_id;
+    public $total;
+    public $shipping_method_id;
+    public $payment_method_id;
+    public $status;
+    public $created_at;
+    public $modified_at;
+    public $finished;
+    public $track_number;
+    public $client_first_name;
+    public $client_last_name;
+    public $client_middle_name;
+    public $client_phone_number;
+    public $client_email;
+    public $delivery_postcode;
+    public $delivery_country_id;
+    public $delivery_region_id;
+    public $delivery_city_id;
+    public $delivery_street;
+    public $delivery_house_number;
+    public $delivery_appartment_number;
 
-    public static function getCountOrdersByUserId(int $id): int
+    public function setId($id)
     {
-        $query = "SELECT COUNT(*) AS `count` FROM `order` WHERE `user_id` = :user_id";
-        $result = (Db::run($query, ['user_id' => $id]));
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        $result->execute();
-        $count = $result->fetchAll()[0]['count'];
-        return $count;
+        $this->id = $id;
     }
 
-    public static function getOrdersByUserId(int $user_id, int $limit, int $offset, string $order): array|bool
+    public function getId()
     {
-        if ($order == 'DESC') {
-            $query = "SELECT * FROM `order` WHERE `user_id` = :user_id ORDER BY order_number DESC LIMIT :limit OFFSET :offset";
-        } else {
-            $query = "SELECT * FROM `order` WHERE `user_id` = :user_id ORDER BY order_number ASC LIMIT :limit OFFSET :offset";
-        }
-        $params = [
-            'user_id' => $user_id,
-            'offset' => $offset,
-            'limit' => $limit
-        ];
-        $result = (Db::run($query, $params));
-        $result->setFetchMode(PDO::FETCH_CLASS, 'Framework\Model\Order');
-        $result->execute();
-        return $result->fetchAll();
+        return $this->id;
     }
 
-    public static function getIndexData($queries = [], $gets = []): array
+    public function setUserId($user_id)
     {
-        $data['headers']['pageTitle'] = 'Orders';
-        $data['headers']['siteTitle'] = 'Project MVC The Shop';
-        $user_id = 1; // Getting user ID from Auth...
-        $offset = 0;
-        $page = 1;
-        $search = '';
-        $orders_dates_from = '';
-        if (Session::getSessionValue('show_by')) {
-            $limit = (int) Session::getSessionValue('show_by');
-        } else {
-            $limit = 10;
-        }
-        if (Session::getSessionValue('order_by')) {
-            $order = Session::getSessionValue('order_by');
-        } else {
-            $order = 'ASC';
-        }
-        if (Session::getSessionValue('sort_by')) {
-            $sort_by = Session::getSessionValue('sort_by');
-        } else {
-            $sort_by = 'order_number';
-        }
-        if ($gets) {
-            if (isset($gets['page'])) {
-                $page = $gets['page'];
-                $offset = $limit * ($page - 1);
-            }
-            if (isset($gets['show_by'])) {
-                $limit = (int) $gets['show_by'];
-                Session::setSessionCookie(['show_by' => $limit]);
-            }
-            if (isset($gets['orders_dates_from'])) {
-                $orders_dates_from = str_replace('T', ' ', htmlspecialchars($gets['orders_dates_from']));
-            }
-            if (isset($gets['order_by'])) {
-                $order = $gets['order_by'];
-                Session::setSessionCookie(['order_by' => $order]);
-            }
-            if (isset($gets['sort_by'])) {
-                $sort_by = $gets['sort_by'];
-                Session::setSessionCookie(['order_by' => $order]);
-            }
-        }
-        if ($queries) {
-            if (isset($queries['search'])) {
-                $search = htmlspecialchars($queries['search']);
-            }
-        }
-        $data['sort_by'] = $sort_by;
-        $data['order_by'] = $order;
-        $data['show_by'] = $limit;
-        $data['page'] = $page;
-        if (!empty($search)) {
-            $data['main_content'] = self::getUserOrdersBySearch($user_id, $search, $limit, $offset, $order);
-        } elseif (!empty($orders_dates_from)) {
-            $data['main_content'] = self::getUserOrdersByDate($user_id, $orders_dates_from, $limit, $offset, $order);
-        } else {
-            $data['total'] = self::getCountOrdersByUserId($user_id);
-            $data['main_content'] = self::getOrdersByUserId($user_id, $limit, $offset, $order);
-            $data['pagination'] = new Pagination($data['total'], $page, $limit, 'page');
-        }
-        return $data;
+        $this->user_id = $user_id;
     }
 
-    public static function getUserOrdersBySearch($user_id, $search, $limit, $offset, $order): array|bool
+    public function getUserId()
     {
-        if ($order == 'DESC') {
-            $query = "SELECT * FROM `order` WHERE `user_id` = :user_id AND (order_number = :search OR created_at LIKE :search_date) ORDER BY order_number DESC LIMIT :limit OFFSET :offset";
-        } else {
-            $query = "SELECT * FROM `order` WHERE `user_id` = :user_id AND (order_number = :search OR created_at LIKE :search_date) ORDER BY order_number ASC LIMIT :limit OFFSET :offset";
-        }
-        $params = [
-            'user_id' => $user_id,
-            'search' => $search,
-            'search_date' => '%' . $search . '%',
-            'offset' => $offset,
-            'limit' => $limit
-        ];
-        $result = (Db::run($query, $params));
-        $result->setFetchMode(PDO::FETCH_CLASS, 'Framework\Model\Order');
-        $result->execute();
-        return $result->fetchAll();
+        return $this->user_id;
     }
 
-    public static function getUserOrdersByDate($user_id, $created_at, $limit, $offset, $order): array|bool
+    public function setCreatedAtDateTime($created_at)
     {
-        if ($order == 'DESC') {
-            $query = "SELECT * FROM `order` WHERE `user_id` = :user_id AND created_at LIKE :created_at ORDER BY order_number DESC LIMIT :limit OFFSET :offset";
-        } else {
-            $query = "SELECT * FROM `order` WHERE `user_id` = :user_id AND created_at LIKE :created_at ORDER BY order_number ASC LIMIT :limit OFFSET :offset";
-        }
-        $params = [
-            'user_id' => $user_id,
-            'created_at' => '%' . $created_at . '%',
-            'offset' => $offset,
-            'limit' => $limit
-        ];
-        $result = (Db::run($query, $params));
-        $result->setFetchMode(PDO::FETCH_CLASS, 'Framework\Model\Order');
-        $result->execute();
-        return $result->fetchAll();
+        $this->created_at = $created_at;
+    }
+
+    public function getCreatedAtDateTime()
+    {
+        return $this->created_at;
+    }
+
+    public function setOrderNumber($order_number)
+    {
+        $this->order_number = $order_number;
+    }
+
+    public function getOrderNumber()
+    {
+        return $this->order_number;
+    }
+
+    public function setOrderTotal($total)
+    {
+        $this->total = $total;
+    }
+
+    public function getOrderTotal()
+    {
+        return $this->total;
+    }
+
+    public function setShippingMethodId($shipping_method_id)
+    {
+        $this->shipping_method_id = $shipping_method_id;
+    }
+
+    public function getShippingMethodId()
+    {
+        return $this->shipping_method_id;
+    }
+
+    public function setPaymentMethodId($payment_method_id)
+    {
+        $this->payment_method_id = $payment_method_id;
+    }
+
+    public function getPaymentgMethodId()
+    {
+        return $this->payment_method_id;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setModifiedAtDateTime($modified_at)
+    {
+        $this->modified_at = $modified_at;
+    }
+
+    public function getModifiedAtDateTime()
+    {
+        return $this->modified_at;
+    }
+
+    public function setFinished($finished)
+    {
+        $this->finished = $finished;
+    }
+
+    public function getFinished()
+    {
+        return $this->finished;
+    }
+
+    public function setTrackNumber($track_number)
+    {
+        $this->track_number = $track_number;
+    }
+
+    public function getTrackNumber()
+    {
+        return $this->track_number;
+    }
+
+    public function setClientFirstName($client_first_name)
+    {
+        $this->client_first_name = $client_first_name;
+    }
+
+    public function getClientFirstName()
+    {
+        return $this->client_first_name;
+    }
+
+    public function setClientLastName($client_last_name)
+    {
+        $this->client_last_name = $client_last_name;
+    }
+
+    public function getClientLastName()
+    {
+        return $this->client_larst_name;
+    }
+
+    public function setClientMiddleName($client_middle_name)
+    {
+        $this->client_middle_name = $client_middle_name;
+    }
+
+    public function getClientMiddleName()
+    {
+        return $this->client_middle_name;
+    }
+
+    public function setClientPhoneNumber($client_phone_number)
+    {
+        $this->client_phone_number = $client_phone_number;
+    }
+
+    public function getClientPhoneNumber()
+    {
+        return $this->client_phone_number;
+    }
+
+    public function setClientEmail($client_email)
+    {
+        $this->client_email = $client_email;
+    }
+
+    public function getClientEmail()
+    {
+        return $this->client_email;
+    }
+
+    public function setDeliveryPostcode($delivery_postcode)
+    {
+        $this->delivery_postcode = $delivery_postcode;
+    }
+
+    public function getDeliveryPostcode()
+    {
+        return $this->delivery_postcode;
+    }
+
+    public function setDeliveryCountryId($delivery_country_id)
+    {
+        $this->delivery_country_id = $delivery_country_id;
+    }
+
+    public function getDeliveryCountryId()
+    {
+        return $this->delivery_country_id;
+    }
+
+    public function setDeliveryRegionId($delivery_region_id)
+    {
+        $this->delivery_region_id = $delivery_region_id;
+    }
+
+    public function getDeliveryRegionId()
+    {
+        return $this->delivery_region_id;
+    }
+
+    public function setDeliveryCityId($delivery_city_id)
+    {
+        $this->delivery_city_id = $delivery_city_id;
+    }
+
+    public function getDeliveryCityId()
+    {
+        return $this->delivery_city_id;
+    }
+
+    public function setDeliveryStreet($delivery_street)
+    {
+        $this->delivery_street = $delivery_street;
+    }
+
+    public function getDeliveryStreet()
+    {
+        return $this->delivery_street;
+    }
+
+    public function setDeliveryHouseNumber($delivery_house_number)
+    {
+        $this->delivery_house_number = $delivery_house_number;
+    }
+
+    public function getDeliveryHouseNumber()
+    {
+        return $this->delivery_house_number;
+    }
+
+    public function setDeliveryAppartmentNumber($delivery_appartment_number)
+    {
+        $this->delivery_appartment_number = $delivery_appartment_number;
+    }
+
+    public function getDeliveryAppartmentNumber()
+    {
+        return $this->delivery_appartment_number;
     }
 }

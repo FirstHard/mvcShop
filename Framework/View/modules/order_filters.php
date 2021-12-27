@@ -1,5 +1,5 @@
               <h2 class="py-2">Order filters</h2>
-              <form id="search" action="" method="POST" class="mb-3">
+              <form id="search" action="/orders/search" method="POST" class="mb-3">
                 <label for="order_search">Search order by number or date*</label>
                 <div class="input-group">
                   <input type="text" id="order_search" class="form-control" name="search" placeholder="Search order number" aria-label="Search order number" aria-describedby="button_order_search">
@@ -29,8 +29,8 @@
                   ?>
                 </div>
               </form>
-              <form id="select_order_dates" action="" method="get">
+              <form id="select_order_dates" action="/orders" method="get">
                 <label for="orders_dates_from">Orders from date:</label>
-                <input id="orders_dates_from" class="form-control" type="datetime-local" name="orders_dates_from" value="" step="1" min="" max="">
-                <button href="" type="submit" class="btn btn-success mt-3">Search by date</button>
+                <input id="orders_dates_from" class="form-control" type="datetime-local" name="orders_dates_from" value="<?= date('2018-07-01\T00:00'); ?>" step="1" min="" max="">
+                <button type="submit" class="btn btn-success mt-3">Search by date</button>
               </form>

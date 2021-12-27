@@ -5,27 +5,48 @@ namespace Framework\Core;
 use PDO;
 use PDOException;
 use Framework\Core\ExceptionsHandler;
+use FirstHard\LogsHandler;
 
-class Db
+class Db extends PDO
 {
     private static $conn = null;
 
-    public static function getInstance()
+    private function __construct()
     {
         try {
-            self::$conn = new PDO('mysql:host=localhost;dbname=' . DB_TABLE, DB_USER, DB_PASS);
-            self::$conn->exec("set names utf8");
+            self::$conn = new PDO(
+                'mysql:host=localhost;dbname=' . DB_NAME . ';charset=utf8',
+                DB_USER,
+                DB_PASS,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                ]
+            );
         } catch (PDOException $pdo) {
-            throw new ExceptionsHandler($pdo->getMessage(), 0);
-        } catch (ExceptionsHandler $e) {
-            throw new ExceptionsHandler($e->getMessage(), 0);
+            throw new PDOException($pdo->getMessage(), 0);
+            LogsHandler::debug($pdo->getMessage());
         }
-        return self::$conn;
     }
 
-    public static function run(string $query, array $params)
+    private function __clone()
     {
-        $result = Db::getInstance()->prepare($query);
+    }
+
+    private function __wakeup()
+    {
+    }
+
+    public static function getInstance()
+    {
+        if (self::$conn != null) {
+            return self::$conn;
+        }
+        return new self();
+    }
+
+    public function run(string $query, array $params)
+    {
+        $result = self::$conn->prepare($query);
         foreach ($params as $key => $value) {
             if (gettype($value) == 'integer') {
                 $param_type = PDO::PARAM_INT;
@@ -37,24 +58,13 @@ class Db
             }
             $result->bindParam(':' . $key, $params[$key], $param_type);
         }
-        return $result;
+        $result->execute();
+        return $result->fetchAll();
     }
 
-    public function insert(string $table_name, array $params)
+    public function count(string $query, array $params): int
     {
-        $query = '
-            INSERT INTO ' . $table_name . ' (';
-        $keys = array_keys($params);
-        foreach ($keys as $value) {
-            $query .= $value . ', ';
-        }
-        $query = rtrim($query, ', ');
-        $query .= ') VALUES (';
-        foreach ($keys as $value) {
-            $query .= ':' . $value . ', ';
-        }
-        $query = rtrim($query, ', ') . ')';
-        $result = $this->conn->prepare($query);
+        $result = self::$conn->prepare($query);
         foreach ($params as $key => $value) {
             if (gettype($value) == 'integer') {
                 $param_type = PDO::PARAM_INT;
@@ -66,10 +76,9 @@ class Db
             }
             $result->bindParam(':' . $key, $params[$key], $param_type);
         }
-        return $result->execute();
+        $result->execute();
+        return $result->fetchAll()[0]['count'];
     }
-
-
 
     public static function getlist(string $list_name): array
     {

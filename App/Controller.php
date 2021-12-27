@@ -4,9 +4,9 @@ namespace App;
 
 class Controller
 {
-    public $param = false;
-    public $queries = false;
-    public $gets = false;
+    public $param;
+    public $queries;
+    public $gets;
 
     public function actionIndex(): void
     {
