@@ -13,19 +13,14 @@ class Db extends PDO
 
     private function __construct()
     {
-        try {
-            self::$conn = new PDO(
-                'mysql:host=localhost;dbname=' . DB_NAME . ';charset=utf8',
-                DB_USER,
-                DB_PASS,
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-                ]
-            );
-        } catch (PDOException $pdo) {
-            throw new PDOException($pdo->getMessage(), 0);
-            LogsHandler::debug($pdo->getMessage());
-        }
+        return self::$conn = new PDO(
+            'mysql:host=localhost;dbname=' . DB_NAME . ';charset=utf8',
+            DB_USER,
+            DB_PASS,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]
+        );
     }
 
     private function __clone()
@@ -38,10 +33,10 @@ class Db extends PDO
 
     public static function getInstance()
     {
-        if (self::$conn != null) {
-            return self::$conn;
+        if (self::$conn === null) {
+            return new self();
         }
-        return new self();
+        return self::$conn;
     }
 
     public function run(string $query, array $params)
@@ -79,6 +74,11 @@ class Db extends PDO
         $result->execute();
         return $result->fetchAll()[0]['count'];
     }
+
+    /* public function lastinsertid()
+    {
+        return self::$conn->lastInsertId();
+    } */
 
     public static function getlist(string $list_name): array
     {

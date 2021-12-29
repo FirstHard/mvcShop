@@ -1,6 +1,6 @@
         <section id="ordersTable" class="ordersTable">
           <div class="container">
-            <h1 class="text-center py-1"><?= $headers['pageTitle']; ?></h1>
+            <h1 class="text-center py-1"><?= $headers->title; ?></h1>
             <?php
               if (isset($pagination_block)) {
             ?>

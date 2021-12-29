@@ -13,14 +13,8 @@ class Shop extends Model
     public $queries = false;
     public $gets = false;
 
-    public function __construct()
-    {
-    }
-
     public static function getIndexData($queries = [], $gets = [])
     {
-        $data['headers']['pageTitle'] = 'Shop';
-        $data['headers']['siteTitle'] = 'Project MVC The Shop';
         $list_data = Db::getList('shop_category');
         if ($list_data) {
             foreach ($list_data as $category) {

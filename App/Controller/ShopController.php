@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use Framework\Controller;
 use App\Model\Shop;
 use App\View\ShopView;
 use App\Model\Category;
 use App\View\CategoryView;
+use Framework\Controller;
 
 class ShopController extends Controller
 {
