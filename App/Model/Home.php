@@ -11,8 +11,6 @@ class Home extends Model
 
     public function __construct()
     {
-        $this->data['headers']['pageTitle'] = 'Shop';
-        $this->data['headers']['siteTitle'] = 'Project MVC The Shop';
         $this->data['main_content'] = '';
         $this->data['newArrivalsProducts'] = Product::getProductsByList('new_arrivals_products');
         $this->data['topProducts'] = Product::getProductsByList('top_products');

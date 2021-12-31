@@ -2,13 +2,15 @@
 
 namespace App\View;
 
+use App\Model\Page;
 use Framework\View;
 
 class CategoryView extends View
 {
     public function render($data): void
     {
-        // Get content for page from model
+        $headers = new Page();
+        $headers->setTitle('Category');
         extract($data);
         ob_start();
         include('modules/head.php');

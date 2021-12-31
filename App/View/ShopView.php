@@ -2,14 +2,16 @@
 
 namespace App\View;
 
+use App\Model\Page;
 use Framework\View;
 
 class ShopView extends View
-
 {
+
     public function render($data): void
     {
-        // Get content for page from model
+        $headers = new Page();
+        $headers->setTitle('Shop');
         extract($data);
         ob_start();
         include('modules/head.php');

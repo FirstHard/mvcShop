@@ -1,0 +1,231 @@
+[33mcommit 61b691b3a34b1303a973a4561d51eb9fbf77f5bb[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/datamappers[m[33m)[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Fri Dec 31 10:44:20 2021 +0200
+
+    mend
+
+[33mcommit c72dcc15f542df7e77e2af68456faa7fe59a306d[m[33m ([m[1;31morigin/feature/datamappers[m[33m)[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 29 20:41:56 2021 +0200
+
+    Helper class Page for generating page data of entity collections and headers
+
+[33mcommit 8e3d388fd4517eb306d5361bdc6be13f62702c16[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m
+Merge: fed606f 023999c
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 29 14:42:44 2021 +0200
+
+    Merge branch 'fix/file_structure' into develop
+
+[33mcommit 023999cd045736585b939c6413cdc7809dbc1ce2[m[33m ([m[1;31morigin/fix/file_structure[m[33m, [m[1;32mfix/file_structure[m[33m)[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 29 14:41:52 2021 +0200
+
+    Fixed dir and files structure
+
+[33mcommit fed606fa0b5ac4b673847d0b0e28c69d218bb513[m
+Merge: 76d9f35 5e2e96b
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Mon Dec 27 18:55:13 2021 +0200
+
+    Merge branch 'feature/datamappers' into develop
+
+[33mcommit 5e2e96bf4873d3608ba031c45573ec9699558577[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Mon Dec 27 18:54:34 2021 +0200
+
+    Adding functionality to insert, update and delete orders for the OrderMapper class
+
+[33mcommit 0bad532a9edc29927ac29e0c42b2c4612fb8d21b[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Sun Dec 26 11:58:34 2021 +0200
+
+    Changes in Orders under the DataMapper pattern, accompanying changes in classes: Router, Db
+
+[33mcommit cb2e90fe2003e2c1711fd7e3c367ab179d7fc4db[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Sat Dec 25 19:43:19 2021 +0200
+
+    Implement singleton pattern for DB connection
+
+[33mcommit 76d9f358f1ccd56e69609049724459a40b3b7b53[m
+Merge: 76a79b0 4cc4c2d
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Sat Dec 25 19:28:47 2021 +0200
+
+    Merge branch 'feature/datamappers' into develop
+
+[33mcommit 4cc4c2dba49370fc5f5e7364aa745f8fcb805f1d[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Sat Dec 25 19:28:16 2021 +0200
+
+    Try to fix session ID and zlib.output_compression
+
+[33mcommit 90c4e699c6e5bb4bd353be55c5b09b36eb4c08e8[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 22 19:26:48 2021 +0200
+
+    Preparing to implement the DataMapper pattern: changes in several classes and views.
+
+[33mcommit 76a79b004ea4bdbe79a61f8a29c452d69bd11143[m
+Merge: 6f7e941 54fec4a
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 22 11:58:11 2021 +0200
+
+    Merge branch 'feature/route_redo' into develop
+
+[33mcommit 54fec4aa9527c45d26e35568ffda497280e05dd1[m[33m ([m[1;31morigin/feature/route_redo[m[33m, [m[1;32mfeature/route_redo[m[33m)[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 22 11:57:37 2021 +0200
+
+    Update: clearing unnecessary comments from code, converting to PSR
+
+[33mcommit 6f7e9416dc3d11c6547ea2e1fd78f1dbfa1e7e2c[m
+Merge: cabe4a4 7299c85
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 22 10:51:43 2021 +0200
+
+    Merge branch 'feature/route_redo' into develop
+
+[33mcommit 7299c85bf0809791fe1b7ff086710362fc7f8132[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 22 10:50:51 2021 +0200
+
+    Rebuilt a few classes to work with the new class router
+
+[33mcommit 8080ec400c0440012c3e589a49bb4d125428f57f[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Tue Dec 21 15:59:53 2021 +0200
+
+    Start rebuild Route to Router class
+
+[33mcommit cabe4a4fc5519f685876162919b69feab746338c[m
+Merge: 1eba33e cf67fc8
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Tue Dec 21 11:13:05 2021 +0200
+
+    Merge branch 'feature/list_orders' into develop
+
+[33mcommit cf67fc8e2ffc6d150544df1201afb1258a8693e9[m[33m ([m[1;31morigin/feature/list_orders[m[33m, [m[1;32mfeature/list_orders[m[33m)[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Tue Dec 21 11:12:27 2021 +0200
+
+    Update for orders page: adding search by number and date
+
+[33mcommit 9e37f7b02c3e304995a6eb3467cf2fe500aeaefd[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Mon Dec 20 09:18:50 2021 +0200
+
+    Sort ascending and descending order number
+
+[33mcommit 90be68d1a0bf2d9ffb25248eddc2353c4080e271[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Mon Dec 20 05:28:05 2021 +0200
+
+    Update module Pagination view and class
+
+[33mcommit 6e388e179a6e21c47d0548091507963bf3e230ad[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Mon Dec 20 04:13:01 2021 +0200
+
+    Data placed to orders, products displayed per page, selection of quantity per page
+
+[33mcommit 1eba33e4dbbda6218786acdc4fa96214c7c20b03[m
+Merge: 20631c6 71ecf02
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Fri Dec 17 19:16:07 2021 +0200
+
+    Merge branch 'rebuild/structure' into develop
+
+[33mcommit 71ecf02eb7ab1036e584669f2e020f9e5aa4017e[m[33m ([m[1;31morigin/rebuild/structure[m[33m, [m[1;32mrebuild/structure[m[33m)[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Fri Dec 17 19:15:15 2021 +0200
+
+    End of first stage rebuild project structure
+
+[33mcommit 20631c683d9d2fb75c08ab9bb5b9eb0768aa85fd[m
+Merge: dcb93fe 7defc41
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Fri Dec 17 17:30:57 2021 +0200
+
+    Merge branch 'staging' into develop
+
+[33mcommit 7defc4137495587be149228f1536d549e6885273[m[33m ([m[1;31morigin/staging[m[33m, [m[1;32mstaging[m[33m)[m
+Merge: dbf64ea 925ad7d
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Fri Dec 17 17:28:39 2021 +0200
+
+    Merge branch 'feature/logger-pack' into staging
+
+[33mcommit 925ad7de74db840d7aa0b4a2b984e883ec50c8ab[m[33m ([m[1;31morigin/feature/logger-pack[m[33m, [m[1;32mfeature/logger-pack[m[33m)[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Fri Dec 17 17:27:52 2021 +0200
+
+    Update composer.json, fix category view, exit branch
+
+[33mcommit dbf64ea03f80a3b2bf6128ae6b43ad23b8c7c071[m
+Merge: f4c3b3e f31b0d7
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Fri Dec 17 06:46:23 2021 +0200
+
+    Merge branch 'feature/logger-pack' into staging
+
+[33mcommit f31b0d7a0950400e9418de9d5e74b0d007ff77f0[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Fri Dec 17 06:33:24 2021 +0200
+
+    Prepearing to install LogsHandler Class. Remove monolog/monolog
+
+[33mcommit f4c3b3eea8bc5635c1818ba2e8f7ef58cabe36f1[m
+Merge: b41264d 6c92c13
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Thu Dec 16 13:33:16 2021 +0200
+
+    Merge branch 'feature/categories' into staging
+
+[33mcommit 6c92c131bfd5a7fcff54a1d91bdb0c9ef3ff760a[m[33m ([m[1;31morigin/feature/categories[m[33m, [m[1;32mfeature/categories[m[33m)[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Thu Dec 16 13:32:03 2021 +0200
+
+    Rebuild HTML structure in view/module: list_products.php
+
+[33mcommit b41264de8f5ef5258dcd0da6ca58c1b3275072ad[m
+Merge: 05e8559 ae519e5
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 15 15:05:35 2021 +0200
+
+    Merge branch 'feature/categories' into staging
+
+[33mcommit ae519e5976c29955b8bd12a786cbb9e6ca7c9884[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 15 15:04:47 2021 +0200
+
+    Fix bags
+
+[33mcommit 05e8559e0c3fba1a70fdef2c4bfdd684701ddbf9[m
+Merge: 5acf05c 292c233
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 15 14:06:01 2021 +0200
+
+    Merge branch 'feature/categories' into staging
+
+[33mcommit 292c233bbf5f1a52bcabbc7444c4ee2d1ef4aad8[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Wed Dec 15 14:04:40 2021 +0200
+
+    Adding list products in categories
+
+[33mcommit 5acf05c9b1765361baa76f00280bbc4efd299ea7[m
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Mon Dec 13 13:28:28 2021 +0200
+
+    Removed gitignored files from index
+
+[33mcommit dcb93fe1e7968c7f03fee44f86e5141f4265fac0[m
+Merge: 4a58ef0 53d4652
+Author: Vladimir Buinoff <buinoff@gmail.com>
+Date:   Mon Dec 13 13:11:11 2021 +0200
+
+    Merge branch 'staging' into develop
+
+[33mcommi

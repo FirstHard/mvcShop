@@ -3,13 +3,15 @@
 namespace App\View;
 
 use Framework\View;
+use App\Model\Page;
 
 class OrderView extends View
 
 {
     public function render($data): void
     {
-        // Get content for page from model
+        $headers = new Page();
+        $headers->setTitle('Orders');
         if (is_array($data)) {
             extract($data);
         }

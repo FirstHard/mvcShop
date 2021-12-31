@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use Framework\Controller;
 use App\Model\Home;
 use App\View\HomeView;
+use Framework\Controller;
 
 class SiteController extends Controller
 {

@@ -2,20 +2,14 @@
 
 namespace App\Model;
 
-use App\Core\Db;
 use App\Core\Session;
 use App\Model\Order;
 use App\View\Pagination;
+use Framework\DataMapper;
 
-class OrderMapper
+class OrderMapper extends DataMapper
 {
-    protected $db;
     protected $elements;
-
-    public function __construct(Db $db)
-    {
-        $this->db = $db;
-    }
 
     public function fetchCollection($objects)
     {
@@ -47,44 +41,6 @@ class OrderMapper
             $this->elements[] = $order;
         }
         return $this->elements;
-    }
-
-    public function insert(Order $order): string|false
-    {
-        $params = get_object_vars($order);
-        if (isset($params['id'])) unset($params['id']);
-        $query = 'INSERT INTO `order` (' . implode(", ", array_keys($params)) . ') VALUES (:' . implode(", :", array_keys($params)) . ')';
-        if ($this->db->run($query, $params)) {
-            return $this->db->lastinsertid();
-        }
-        return false;
-    }
-
-    public function update(Order $order): string|false
-    {
-        $params = get_object_vars($order);
-        $query = 'UPDATE `order` SET ';
-        foreach ($params as $key => $value) {
-            if ($key != 'id') $query .= $key . ' = :' . $key . ', ';
-        }
-        $query = rtrim($query, ', ') . ' WHERE id = :id';
-        if ($this->db->run($query, $params)) {
-            return $this->db->lastinsertid();
-        }
-        return false;
-    }
-
-    public function delete(Order $order)
-    {
-        $query = 'DELETE FROM `order` WHERE id = :id OR order_number = :order_number';
-        $params = [
-            'id' => $order->id,
-            'order_number' => $order->order_number
-        ];
-        if ($this->db->run($query, $params)) {
-            return true;
-        }
-        return false;
     }
 
     public function getCountOrdersByUserId(int $user_id): int
@@ -162,8 +118,6 @@ class OrderMapper
         $limit = 10;
         $order = 'ASC';
         $sort_by = 'order_number';
-        $data['headers']['pageTitle'] = 'Search orders';
-        $data['headers']['siteTitle'] = 'Project MVC The Shop';
         $data['total'] = 0;
         $data['sort_by'] = $sort_by;
         $data['order_by'] = $order;
@@ -185,8 +139,6 @@ class OrderMapper
 
     public function getIndexData($gets = []): array
     {
-        $data['headers']['pageTitle'] = 'Orders';
-        $data['headers']['siteTitle'] = 'Project MVC The Shop';
         $data['main_content'] = 'Nothing to show';
         $user_id = 1; // Getting user ID from Auth...
         $offset = 0;
@@ -235,7 +187,6 @@ class OrderMapper
         $data['total'] = $this->getCountOrdersByUserId($user_id);
         if ($orders_dates_from) {
             if ($data['main_content'] = $this->getUserOrdersByDate($user_id, $orders_dates_from, $limit, $offset, $order)) {
-                $data['headers']['pageTitle'] = 'Orders from date';
                 $data['total'] = sizeof($data['main_content']);
             }
         } else {
