@@ -13,7 +13,7 @@ class Db extends PDO
 
     private function __construct()
     {
-        return self::$conn = new PDO(
+        return self::$conn = parent::__construct(
             'mysql:host=localhost;dbname=' . DB_NAME . ';charset=utf8',
             DB_USER,
             DB_PASS,
@@ -31,12 +31,12 @@ class Db extends PDO
     {
     }
 
-    public static function getInstance()
+    public static function getInstance(): Db
     {
-        if (self::$conn === null) {
-            return new self();
+        if (self::$conn !== null) {
+            return self::$conn;
         }
-        return self::$conn;
+        return self::$conn = new self();
     }
 
     public function run(string $query, array $params)

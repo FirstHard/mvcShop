@@ -7,7 +7,7 @@
                 </div>
                 <small>* Date search format: YYYY-MM-DD</small>
               </form>
-              <form id="show_by" action="" method="get">
+              <form id="show_by" action="/orders" method="get">
                 <label for="order_search">Sorting quantity per page and orientation:</label>
                 <div class="input-group mb-3">
                   <select class="form-select" id="order_search" name="show_by" aria-label="Select quantity per page" onchange="this.form.submit()">

@@ -67,9 +67,6 @@ class DataMapper
             $where = rtrim($where, ' AND ');
         }
         $query = 'SELECT ' . $what_str .  ' FROM `' . $table . '`' . $where;
-        /* echo '<pre>';
-        print_r($query);
-        echo '</pre>'; */
         return $this->db->run($query, $params);
     }
 }

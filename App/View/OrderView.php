@@ -19,9 +19,9 @@ class OrderView extends View
             parse_str($data, $queries_data);
             extract($queries_data);
         }
-        if (isset($pagination)) {
+        if (isset($pagination) && is_object($pagination)) {
             ob_start();
-            echo ($pagination)->get();
+            echo $pagination->get();
             $pagination_block = ob_get_contents();
             ob_end_clean();
         }

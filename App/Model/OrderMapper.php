@@ -10,6 +10,18 @@ use Framework\DataMapper;
 class OrderMapper extends DataMapper
 {
     protected $elements;
+    public $main_content = 'Nothing to show';
+    public $orders_dates_from = false;
+    public $user_id = 1; // Getting user ID from Auth...
+    public $offset = 0;
+    public $page = 1;
+    public $limit = 10;
+    public $order = 'ASC';
+    public $sort_by = 'order_number';
+    public $total = 0;
+    public $search = false;
+    public $queries = false;
+    public $pagination = false;
 
     public function fetchCollection($objects)
     {
@@ -79,9 +91,7 @@ class OrderMapper extends DataMapper
             'offset' => $offset,
             'limit' => $limit
         ];
-        if ($orders = $this->db->run($query, $params)) {
-            return $this->fetchCollection($orders);
-        }
+        if ($orders = $this->db->run($query, $params)) return $this->fetchCollection($orders);
         return false;
     }
 
@@ -98,103 +108,79 @@ class OrderMapper extends DataMapper
             'offset' => $offset,
             'limit' => $limit
         ];
-        if ($orders = $this->db->run($query, $params)) {
-            return  $this->fetchCollection($orders);
-        }
+        if ($orders = $this->db->run($query, $params)) return  $this->fetchCollection($orders);
         return false;
     }
 
-    public function getSearchData($queries_data)
+    public function getSearchData($queries_data): array
     {
-        if (is_string($queries_data)) {
-            parse_str($queries_data, $queries);
-        }
-        if (is_array($queries_data)) {
-            $queries = $queries_data;
-        }
-        $user_id = 1; // Getting user ID from Auth...
-        $offset = 0;
-        $page = 1;
-        $limit = 10;
-        $order = 'ASC';
-        $sort_by = 'order_number';
-        $data['total'] = 0;
-        $data['sort_by'] = $sort_by;
-        $data['order_by'] = $order;
-        $data['show_by'] = $limit;
-        $data['main_content'] = 'Nothing to show';
-        if ($queries) {
-            if (isset($queries['search'])) {
-                $search = htmlspecialchars($queries['search']);
-            }
-            if ($data['main_content'] = $this->getUserOrdersBySearch($user_id, $search, $limit, $offset, $order)) {
-                $data['total'] = sizeof($data['main_content']);
-            }
-            if ($data['total'] > $limit) {
-                $data['pagination'] = new Pagination($data['total'], $page, $limit, 'page');
-            }
-        }
+        if (is_string($queries_data)) parse_str($queries_data, $this->queries);
+        if (is_array($queries_data)) $this->queries = $queries_data;
+        if ($this->queries) $this->getQueriesData($this->queries);
+        $data['sort_by'] = $this->sort_by;
+        $data['order_by'] = $this->order;
+        $data['show_by'] = $this->limit;
+        $data['main_content'] = $this->main_content;
+        $data['total'] = $this->total;
+        $data['pagination'] = $this->pagination;
         return $data;
+    }
+
+    public function getQueriesData($queries): void
+    {
+        if (isset($queries['search'])) $this->search = htmlspecialchars($queries['search']);
+        if ($this->main_content = $this->getUserOrdersBySearch($this->user_id, $this->search, $this->limit, $this->offset, $this->order)) {
+            $this->total = sizeof($this->main_content);
+        }
+        if ($this->total > $this->limit) $this->pagination = new Pagination($this->total, $this->page, $this->limit);
+    }
+
+    public function setSessionVars(): void
+    {
+        if (Session::getSessionValue('show_by')) $this->limit = (int) Session::getSessionValue('show_by');
+        if (Session::getSessionValue('order_by')) $this->order = Session::getSessionValue('order_by');
+        if (Session::getSessionValue('sort_by')) $this->sort_by = Session::getSessionValue('sort_by');
+    }
+
+    public function getRequestsData($gets): void
+    {
+        if (isset($gets['page'])) {
+            $this->page = $gets['page'];
+            $this->offset = $this->limit * ($this->page - 1);
+        }
+        if (isset($gets['show_by'])) {
+            $this->limit = (int) $gets['show_by'];
+            Session::setSessionCookie(['show_by' => $this->limit]);
+        }
+        if (isset($gets['orders_dates_from'])) $this->orders_dates_from = str_replace('T00:00', ' ', htmlspecialchars($gets['orders_dates_from']));
+        if (isset($gets['order_by'])) {
+            $this->order = $gets['order_by'];
+            Session::setSessionCookie(['order_by' => $this->order]);
+        }
+        if (isset($gets['sort_by'])) {
+            $this->sort_by = $gets['sort_by'];
+            Session::setSessionCookie(['order_by' => $this->order]);
+        }
     }
 
     public function getIndexData($gets = []): array
     {
-        $data['main_content'] = 'Nothing to show';
-        $user_id = 1; // Getting user ID from Auth...
-        $offset = 0;
-        $page = 1;
-        $orders_dates_from = false;
-        if (Session::getSessionValue('show_by')) {
-            $limit = (int) Session::getSessionValue('show_by');
-        } else {
-            $limit = 10;
-        }
-        if (Session::getSessionValue('order_by')) {
-            $order = Session::getSessionValue('order_by');
-        } else {
-            $order = 'ASC';
-        }
-        if (Session::getSessionValue('sort_by')) {
-            $sort_by = Session::getSessionValue('sort_by');
-        } else {
-            $sort_by = 'order_number';
-        }
-        if ($gets) {
-            if (isset($gets['page'])) {
-                $page = $gets['page'];
-                $offset = $limit * ($page - 1);
-            }
-            if (isset($gets['show_by'])) {
-                $limit = (int) $gets['show_by'];
-                Session::setSessionCookie(['show_by' => $limit]);
-            }
-            if (isset($gets['orders_dates_from'])) {
-                $orders_dates_from = str_replace('T00:00', ' ', htmlspecialchars($gets['orders_dates_from']));
-            }
-            if (isset($gets['order_by'])) {
-                $order = $gets['order_by'];
-                Session::setSessionCookie(['order_by' => $order]);
-            }
-            if (isset($gets['sort_by'])) {
-                $sort_by = $gets['sort_by'];
-                Session::setSessionCookie(['order_by' => $order]);
-            }
-        }
-        $data['sort_by'] = $sort_by;
-        $data['order_by'] = $order;
-        $data['show_by'] = $limit;
-        $data['page'] = $page;
-        $data['total'] = $this->getCountOrdersByUserId($user_id);
-        if ($orders_dates_from) {
-            if ($data['main_content'] = $this->getUserOrdersByDate($user_id, $orders_dates_from, $limit, $offset, $order)) {
+        $this->setSessionVars();
+        if ($gets) $this->getRequestsData($gets);
+        $data['main_content'] = $this->main_content;
+        $data['sort_by'] = $this->sort_by;
+        $data['order_by'] = $this->order;
+        $data['show_by'] = $this->limit;
+        $data['page'] = $this->page;
+        $data['total'] = $this->getCountOrdersByUserId($this->user_id);
+        if ($this->orders_dates_from) {
+            if ($data['main_content'] = $this->getUserOrdersByDate($this->user_id, $this->orders_dates_from, $this->limit, $this->offset, $this->order)) {
                 $data['total'] = sizeof($data['main_content']);
             }
         } else {
-            $data['main_content'] = $this->getOrdersByUserId($user_id, $limit, $offset, $order);
+            $data['main_content'] = $this->getOrdersByUserId($this->user_id, $this->limit, $this->offset, $this->order);
         }
-        if ($data['total'] > $limit) {
-            $data['pagination'] = new Pagination($data['total'], $page, $limit, 'page');
-        }
+        if ($data['total'] > $this->limit) $data['pagination'] = new Pagination($data['total'], $this->page, $this->limit);
         return $data;
     }
 }
