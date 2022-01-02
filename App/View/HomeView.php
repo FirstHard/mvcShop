@@ -62,5 +62,6 @@ class HomeView extends View
         $footer_block = ob_get_contents();
         ob_end_clean();
         include('templates/home.php');
+        flush();
     }
 }

@@ -28,17 +28,8 @@
                     <li>
                       <a class="dropdown-item" href="/shop/category/4">Matrices</a>
                     </li>
-                    <!-- <li>
-                      <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="/shop/">All categories</a>
-                    </li> -->
                   </ul>
                 </li>
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="/shop/product/1">Demo product</a>
-                </li> -->
               </ul>
               <a href="/orders" class="text-light ms-2 px-1" title="My orders">List orders</a>
               <a href="/login" class="text-light ms-2 px-1" title="Login"><i class="bi bi-person-circle" style="font-size: 1.6rem;" role="img"></i></a>
