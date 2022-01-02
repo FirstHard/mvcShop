@@ -8,7 +8,7 @@ class Page extends Model
 {
     public $title = "";
 
-    public function setTitle(string $title)
+    public function setTitle($title)
     {
         $this->title = $title;
     }

@@ -5,3 +5,4 @@
 /vendor/
 /Framework/db_config.php
 composer.lock
+/et*

@@ -10,8 +10,6 @@ class OrderView extends View
 {
     public function render($data): void
     {
-        $headers = new Page();
-        $headers->setTitle('Orders');
         if (is_array($data)) {
             extract($data);
         }
@@ -25,6 +23,8 @@ class OrderView extends View
             $pagination_block = ob_get_contents();
             ob_end_clean();
         }
+        $headers = new Page();
+        $headers->setTitle('Orders');
         ob_start();
         include('modules/head.php');
         $head_block = ob_get_contents();
