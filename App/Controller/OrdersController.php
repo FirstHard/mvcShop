@@ -13,12 +13,33 @@ class OrdersController extends Controller
     public function actionIndex(): void
     {
         $data = (new OrderMapper())->getIndexData($this->gets);
-        (new OrderView())->render($data);
+        (new OrderView())->renderList($data);
     }
 
     public function actionSearch()
     {
         $data = (new OrderMapper())->getSearchData($this->queries);
-        (new OrderView())->render($data);
+        (new OrderView())->renderList($data);
+    }
+
+    public function actionView()
+    {
+        $data = (new OrderMapper())->getOrder($this->param);
+        (new OrderView())->renderOne($data);
+    }
+
+    public function actionEdit()
+    {
+
+    }
+
+    public function actionUpdate()
+    {
+
+    }
+
+    public function actionCreate()
+    {
+
     }
 }

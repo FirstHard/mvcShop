@@ -1,8 +1,7 @@
 /.idea/
 /public/tests/
-/logs/
 /storage/logs/
+/storage/json/
 /vendor/
 /Framework/db_config.php
 composer.lock
-/et*

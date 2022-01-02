@@ -10,9 +10,10 @@ use Framework\DataMapper;
 class OrderMapper extends DataMapper
 {
     protected $elements;
+    protected const TABLE_NAME = 'order';
     public $main_content = 'Nothing to show';
     public $orders_dates_from = false;
-    public $user_id = 1; // Getting user ID from Auth...
+    public $user_id = 1;
     public $offset = 0;
     public $page = 1;
     public $limit = 10;
@@ -55,6 +56,48 @@ class OrderMapper extends DataMapper
         return $this->elements;
     }
 
+    public function getByNumber($table, int $order_number)
+    {
+        $query = 'SELECT * FROM `' . $table . '` WHERE order_number = :order_number';
+        $params = [
+            'order_number' => $order_number
+        ];
+        if ($object = $this->db->run($query, $params)) {
+            return $object;
+        }
+        return false;
+    }
+
+    public function getOrder($order_number)
+    {
+        $object = $this->getByNumber(self::TABLE_NAME, $order_number)[0];
+        $order = new Order();
+        $order->setId($object['id']);
+        $order->setOrderNumber($object['order_number']);
+        $order->setUserId($object['user_id']);
+        $order->setOrderTotal($object['total']);
+        $order->setShippingMethodId($object['shipping_method_id']);
+        $order->setPaymentMethodId($object['payment_method_id']);
+        $order->setStatus($object['status']);
+        $order->setCreatedAtDateTime($object['created_at']);
+        $order->setModifiedAtDateTime($object['modified_at']);
+        $order->setFinished($object['finished']);
+        $order->setTrackNumber($object['track_number']);
+        $order->setClientFirstName($object['client_first_name']);
+        $order->setClientLastName($object['client_last_name']);
+        $order->setClientMiddleName($object['client_middle_name']);
+        $order->setClientPhoneNumber($object['client_phone_number']);
+        $order->setClientEmail($object['client_email']);
+        $order->setDeliveryPostcode($object['delivery_postcode']);
+        $order->setDeliveryCountryId($object['delivery_country_id']);
+        $order->setDeliveryRegionId($object['delivery_region_id']);
+        $order->setDeliveryCityId($object['delivery_city_id']);
+        $order->setDeliveryStreet($object['delivery_street']);
+        $order->setDeliveryHouseNumber($object['delivery_house_number']);
+        $order->setDeliveryAppartmentNumber($object['delivery_appartment_number']);
+        return $order;
+    }
+
     public function getCountOrdersByUserId(int $user_id): int
     {
         $query = "SELECT COUNT(*) AS `count` FROM `order` WHERE `user_id` = :user_id";
@@ -73,8 +116,8 @@ class OrderMapper extends DataMapper
             'offset' => $offset,
             'limit' => $limit
         ];
-        $orders = $this->db->run($query, $params);
-        return $this->fetchCollection($orders);
+        if ($orders = $this->db->run($query, $params)) return $this->fetchCollection($orders);
+        return false;
     }
 
     public function getUserOrdersBySearch($user_id, $search, $limit, $offset, $order): array|bool

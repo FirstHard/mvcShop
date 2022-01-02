@@ -85,6 +85,16 @@
 	font-size: 1.4rem;
 	text-align: center;
 }
+.text-blured {
+	color: hsla(0,0%,0%,0);
+	text-shadow: #000 0 0 10px;
+	transition: text-shadow 2s cubic-bezier(0, 1, 0, 1);
+}
+@-moz-document url-prefix() {
+	.text-blured {
+		text-shadow: #000 0 0 20px;
+	} /* FF fix */
+}
 
 @media screen and (max-width: 992px) {
 	.cart-items {

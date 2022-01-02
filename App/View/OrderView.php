@@ -4,11 +4,12 @@ namespace App\View;
 
 use Framework\View;
 use App\Model\Page;
+use App\Model\Order;
 
 class OrderView extends View
-
 {
-    public function render($data): void
+
+    public function renderList($data): void
     {
         if (is_array($data)) {
             extract($data);
@@ -55,6 +56,35 @@ class OrderView extends View
         $footer_block = ob_get_contents();
         ob_end_clean();
         include('templates/orders.php');
+        flush();
+    }
+
+    public function renderOne($data): void
+    {
+        extract(get_object_vars($data));
+        $headers = new Page();
+        $headers->setTitle('Order: ' . $order_number);
+        ob_start();
+        include('modules/head.php');
+        $head_block = ob_get_contents();
+        ob_end_clean();
+        ob_start();
+        include('modules/nav.php');
+        $nav_module = ob_get_contents();
+        ob_end_clean();
+        ob_start();
+        include('modules/header.php');
+        $header_block = ob_get_contents();
+        ob_end_clean();
+        ob_start();
+        include('modules/order_main.php');
+        $main_block = ob_get_contents();
+        ob_end_clean();
+        ob_start();
+        include('modules/footer.php');
+        $footer_block = ob_get_contents();
+        ob_end_clean();
+        include('templates/order.php');
         flush();
     }
 }

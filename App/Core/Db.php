@@ -23,11 +23,11 @@ class Db extends PDO
         );
     }
 
-    private function __clone()
+    public function __clone()
     {
     }
 
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 
@@ -75,11 +75,6 @@ class Db extends PDO
         return $result->fetchAll()[0]['count'];
     }
 
-    /* public function lastinsertid()
-    {
-        return self::$conn->lastInsertId();
-    } */
-
     public static function getlist(string $list_name): array
     {
         return require(ROOT . '/App/DB_tmp/' . $list_name . '.php');
@@ -88,7 +83,6 @@ class Db extends PDO
     public static function getOne(string $table, int $id): array
     {
         $all_data = require(ROOT . '/App/DB_tmp/' . $table . '.php');
-        // Iteration on leafs
         foreach ($all_data as $i => $subarray) {
             foreach ($subarray as $key => $value) {
                 if ('id' === $key && $id == $value) {

@@ -13,18 +13,17 @@ class DataMapper
         $this->db = Db::getInstance();
     }
 
-    public function insert(DataMapper $object, $table): string|false
+    public function insert(Model $object, $table): string|false
     {
         $params = get_object_vars($object);
-        if (isset($params['id'])) unset($params['id']);
-        $query = 'INSERT INTO `' . $table . '` (' . implode(", ", array_keys($params)) . ') VALUES (:' . implode(", :", array_keys($params)) . ')';
+        $query = 'INSERT INTO `' . $table . '` (' . implode(", ", array_keys($params)) . ') VALUES (:' . implode(", :", array_keys($params)) . ') ON DUPLICATE KEY UPDATE id = :id';
         if ($this->db->run($query, $params)) {
             return $this->db->lastInsertId();
         }
         return false;
     }
 
-    public function update(DataMapper $object, $table): string|false
+    public function update(Model $object, $table): string|false
     {
         $params = get_object_vars($object);
         $query = 'UPDATE `' . $table . '` SET ';
@@ -38,7 +37,7 @@ class DataMapper
         return false;
     }
 
-    public function delete(DataMapper $object, $table)
+    public function delete(Model $object, $table)
     {
         $query = 'DELETE FROM `' . $table . '` WHERE id = :id';
         $params = [
@@ -68,5 +67,17 @@ class DataMapper
         }
         $query = 'SELECT ' . $what_str .  ' FROM `' . $table . '`' . $where;
         return $this->db->run($query, $params);
+    }
+
+    public function getById($table, int $id)
+    {
+        $query = 'SELECT * FROM `' . $table . '` WHERE id = :id';
+        $params = [
+            'id' => $id
+        ];
+        if ($object = $this->db->run($query, $params)) {
+            return $object;
+        }
+        return false;
     }
 }

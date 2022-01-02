@@ -12,7 +12,7 @@ class ShopController extends Controller
 {
     public function actionIndex(): void
     {
-        $data = Shop::getIndexData($this->queries, $this->gets);
+        $data = (new Shop())->getIndexData($this->queries, $this->gets);
         (new ShopView())->render($data);
     }
 

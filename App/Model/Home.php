@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Framework\Model;
 use App\Model\Product;
+use App\Core\Fdb;
 
 class Home extends Model
 {
@@ -12,23 +13,23 @@ class Home extends Model
     public function __construct()
     {
         $this->data['main_content'] = '';
-        $this->data['newArrivalsProducts'] = Product::getProductsByList('new_arrivals_products');
-        $this->data['topProducts'] = Product::getProductsByList('top_products');
-        $this->data['recommendedProducts'] = Product::getProductsByList('recommended_products');
+        $this->data['newArrivalsProducts'] = (new Product())->getProductsByList('new_arrivals_products');
+        $this->data['topProducts'] = (new Product())->getProductsByList('top_products');
+        $this->data['recommendedProducts'] = (new Product())->getProductsByList('recommended_products');
     }
 
     public function newArrivalsProducts()
     {
-        return Product::getProductsByList('new_arrivals_products');
+        return (new Product())->getProductsByList('new_arrivals_products');
     }
 
     public function topProducts()
     {
-        return Product::getProductsByList('top_products');
+        return (new Product())->getProductsByList('top_products');
     }
 
     public function recommendedProducts()
     {
-        return Product::getProductsByList('recommended_products');
+        return (new Product())->getProductsByList('recommended_products');
     }
 }
