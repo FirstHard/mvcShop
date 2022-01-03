@@ -1,61 +1,139 @@
-    function addLog(message) {
-      let results = document.getElementById('results');
-      results.innerHTML += message + '<br>';
-      results.scrollTop = results.scrollHeight;
+let command = null;
+let option = null;
+
+const addLog = (message, level = 'info', sound = false) =>
+{
+  let results = document.getElementById('results');
+  results.innerHTML += '<span class="text-' + level + '">' + message + '</span><br>';
+  results.scrollTop = results.scrollHeight;
+  if (sound) playSound(sound);
+}
+
+const averageValue = (array, key) =>
+{
+  var total = 0;
+  array.forEach((item) => {
+    total += item[key];
+  });
+  return Math.round(total / array.length);
+}
+
+const maxNumber = (array, key) =>
+{
+  var values = [];
+  array.forEach((item) => {
+    values.push(item[key]);
+  });
+  return Math.max.apply(null, values);
+}
+
+const countValues = (array, key, param) =>
+{
+  var total = 0;
+  array.forEach((item) => {
+    if (item[key] === param) total++;
+  });
+  return total;
+}
+
+const getDataByCommand = (command, option) =>
+{
+  if (command == '/show') {
+    addLog('> ' + command + ' ' + option, 'light');
+    if (localStorage.length > 0) {
+      let students = JSON.parse(localStorage.getItem("students"));
+      let param;
+      let key;
+      switch (option) {
+        case '--average-age':
+          param = 'age';
+          addLog('# Average age of students: ' + averageValue(students, param) + ' years');
+          break;
+        case '--max-lang-count':
+          param = 'langCount';
+          addLog('# Maximum number of languages: ' + maxNumber(students, param));
+          break;
+        case '--count-female':
+          key = 'sex';
+          param = 'Female';
+          addLog('# Number of girls among students: ' + countValues(students, key, param));
+          break;
+        case '--count-male':
+          key = 'sex';
+          param = 'Male';
+          addLog('# Number of guys among students: ' + countValues(students, key, param));
+          break;
+        default:
+          break;
+      }
+    } else {
+      addLog('First click the button at the top: Import data to LocalStorage', 'danger', 'error');
     }
+    return false;
+  }
+}
 
-    document.addEventListener("DOMContentLoaded", () => {
-      addLog('<h5 class="text-light">Welcome to my Console!</h5>');
-      addLog('<span class="text-info">The buttons at the top manipulate the contents of LocalStorage: fill it with data from a file or clear it. Try pushing them.</span>');
-      document.querySelectorAll('code').forEach((block) => {
-        block.addEventListener("click", function(item) {
-          let command_text = item.src.innerText.trim();
-          let tmp = document.createElement("textarea");
-          document.querySelector("body").append(tmp);
-          tmp.append(command_text);
-          tmp.select();
-          document.exec("copy");
-          tmp.remove();
-        });
-      });
+const parseCommand = (command_text) => 
+{
+  let command_arr = command_text.split(' ');
+  if (command_arr[0].substr(0, 1) == '/') {
+    command = command_arr[0];
+    if (command_arr[1].substr(0, 2) == '--') {
+      option = command_arr[1];
+      getDataByCommand(command, option);
+    } else {
+      addLog('It`s a command without option! Please input command with option!', 'warning', 'warning');
+    }
+  } else {
+    addLog('It`s a string, continue...', 'success');
+    string = command_text;
+  }
+}
 
-      var console_line = document.getElementById('console_line');
+document.addEventListener("DOMContentLoaded", () =>
+{
+  addLog('Welcome to my Console!', 'light');
+  addLog('The buttons at the top manipulate the contents of LocalStorage: fill it with data from a file or clear it. Try pushing them.');
+  var command_line = document.getElementById('command_line');
+  command_line.addEventListener("submit", function(command) {
+    command.preventDefault();
+    var command_text = document.getElementById('console_line').value;
+    parseCommand(command_text);
+    document.getElementById('console_line').value = "";
+  });
 
-      let startButtons = document.querySelectorAll('.links a.storage');
-      startButtons.forEach((button) => {
-        button.addEventListener("click", function(item) {
-          item.preventDefault();
-          let url = button.getAttribute('href');
-          if (url == '#import_json') {
-            playSound('storage/files/mp3/click.mp3');
-            addLog('<span class="text-success">Start to filling LocalStorage...</span>');
-            var sourseJsonFilePath = 'storage/json/students_data.json';
-            var jsonObj;
-            var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    jsonObj = JSON.parse(this.responseText);
-                    jsonObj.forEach((row, index) => {
-                      localStorage[index] = JSON.stringify(row);
-                      addLog('<span class="text-info">' + JSON.stringify(row) + '</span>');
-                    });
-                    addLog('<span class="text-success">LocalStorage is full!</span>');
-                  }
-                };
-            xmlhttp.open("GET", sourseJsonFilePath, true);
-            xmlhttp.send();
-          }
-          if (url == '#clear_ls') {
-            playSound('storage/files/mp3/error.mp3');
-            localStorage.clear();
-            addLog('<span class="text-danger">LocalStorage cleared!</span>');
-          }
-          return false;
-        });
-      });
+  let startButtons = document.querySelectorAll('.links a.storage');
+  startButtons.forEach((button) => {
+    button.addEventListener("click", function(item) {
+      item.preventDefault();
+      let url = button.getAttribute('href');
+      if (url == '#import_json') {
+        addLog('Start to filling LocalStorage...', 'click');
+        var sourseJsonFilePath = 'storage/json/students_data.json';
+        var jsonObj;
+        var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                jsonObj = JSON.parse(this.responseText);
+                localStorage.setItem("students", JSON.stringify(jsonObj));
+                addLog('LocalStorage is full!', 'success', 'click');
+              }
+            };
+        xmlhttp.open("GET", sourseJsonFilePath, true);
+        xmlhttp.send();
+      }
+      if (url == '#clear_ls') {
+        localStorage.clear();
+        addLog('LocalStorage cleared!', 'danger', 'error');
+      }
+      return false;
     });
+  });
+});
 
-    function playSound(url) {
-      const audio = new Audio(url);
-      audio.play();
-    }
+const playSound = (sound) =>
+{
+  let soundUrl = 'storage/files/mp3/' + sound + '.mp3';
+  const audio = new Audio(soundUrl);
+  audio.play();
+}

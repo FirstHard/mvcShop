@@ -17,8 +17,9 @@
       padding: 0.5em;
       background: #F0F0F0;
     }
-    code:hover {
-      cursor: pointer;
+    input.form-control:focus, .btn:focus {
+      outline: none;
+      box-shadow: none;
     }
   </style>
 </head>
@@ -40,14 +41,17 @@
           </div>
         </div>
         <div id="results" style="color: #fff; border: 1px solid #000; padding: 10px; width: auto; height: 400px; overflow-y: auto; background: #2b2b2b;"></div>
-        <div class="input-group input-group-sm mb-3">
-          <span class="input-group-text rounded-0" id="commang_Line_start">></span>
-          <input id="console_line" type="text" class="form-control bg-dark text-light border-dark rounded-0" placeholder="Type or paste your command line here" autofocus>
-        </div>
+        <form action="" id="command_line">
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text rounded-0" id="commang_Line_start">></span>
+            <input id="console_line" type="text" class="form-control bg-dark text-light border-dark rounded-0" placeholder="Type or copy/paste your command line here" value="" autofocus>
+            <input type="submit" value="Run command" class="btn btn-outline-secondary rounded-0">
+          </div>
+        </form>
         <div class="commands-list mt-3">
           <div class="row mt-3">
             <div class="col-6">
-              <h5>Accepted commands (click to copy):</h5>
+              <h5>Accepted commands:</h5>
             </div>
             <div class="col-6">
               <h5>Description of the commands:</h5>
@@ -79,6 +83,13 @@
             </div>
             <div class="col-6">
               <p class="mb-0">Show count of guys</p>
+            </div>
+            <div class="col-12"><hr class="my-1"></div>
+            <div class="col-6">
+              <code>Any string</code>
+            </div>
+            <div class="col-6">
+              <p class="mb-0">The string contains the name of the country, a member of the EU</p>
             </div>
             <div class="col-12"><hr class="my-1"></div>
           </div>
