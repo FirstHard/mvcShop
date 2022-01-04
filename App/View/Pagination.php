@@ -5,13 +5,13 @@ namespace App\View;
 class Pagination
 {
     private $max = 5;
-    private $index = 'page';
+    private $index;
     public $current_page;
     public $total;
     public $limit;
     public $amount;
 
-    public function __construct($total, $currentPage, $limit, $index)
+    public function __construct($total, $currentPage, $limit, $index = 'page')
     {
         $this->total = $total;
         $this->limit = $limit;

@@ -13,35 +13,30 @@ class Db extends PDO
 
     private function __construct()
     {
-        try {
-            self::$conn = new PDO(
-                'mysql:host=localhost;dbname=' . DB_NAME . ';charset=utf8',
-                DB_USER,
-                DB_PASS,
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-                ]
-            );
-        } catch (PDOException $pdo) {
-            throw new PDOException($pdo->getMessage(), 0);
-            LogsHandler::debug($pdo->getMessage());
-        }
+        return self::$conn = parent::__construct(
+            'mysql:host=localhost;dbname=' . DB_NAME . ';charset=utf8',
+            DB_USER,
+            DB_PASS,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]
+        );
     }
 
-    private function __clone()
+    public function __clone()
     {
     }
 
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 
-    public static function getInstance()
+    public static function getInstance(): Db
     {
-        if (self::$conn != null) {
+        if (self::$conn !== null) {
             return self::$conn;
         }
-        return new self();
+        return self::$conn = new self();
     }
 
     public function run(string $query, array $params)
@@ -88,7 +83,6 @@ class Db extends PDO
     public static function getOne(string $table, int $id): array
     {
         $all_data = require(ROOT . '/App/DB_tmp/' . $table . '.php');
-        // Iteration on leafs
         foreach ($all_data as $i => $subarray) {
             foreach ($subarray as $key => $value) {
                 if ('id' === $key && $id == $value) {

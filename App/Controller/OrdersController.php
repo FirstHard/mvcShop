@@ -2,23 +2,44 @@
 
 namespace App\Controller;
 
-use Framework\Controller;
 use App\Core\Db;
 use App\Model\OrderMapper;
 use App\View\OrderView;
+use Framework\Controller;
 
 class OrdersController extends Controller
 {
 
     public function actionIndex(): void
     {
-        $data = (new OrderMapper(Db::getInstance()))->getIndexData($this->gets);
-        (new OrderView())->render($data);
+        $data = (new OrderMapper())->getIndexData($this->gets);
+        (new OrderView())->renderList($data);
     }
 
     public function actionSearch()
     {
-        $data = (new OrderMapper(Db::getInstance()))->getSearchData($this->queries);
-        (new OrderView())->render($data);
+        $data = (new OrderMapper())->getSearchData($this->queries);
+        (new OrderView())->renderList($data);
+    }
+
+    public function actionView()
+    {
+        $data = (new OrderMapper())->getOrder($this->param);
+        (new OrderView())->renderOne($data);
+    }
+
+    public function actionEdit()
+    {
+
+    }
+
+    public function actionUpdate()
+    {
+
+    }
+
+    public function actionCreate()
+    {
+
     }
 }

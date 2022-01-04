@@ -3,13 +3,15 @@
 namespace App\View;
 
 use Framework\View;
+use App\Model\Page;
 
 class ErrorView extends View
 
 {
     public function render($data): void
     {
-        // Get content for page from model
+        $headers = new Page();
+        $headers->setTitle('Error');
         extract($data);
         ob_start();
         include('modules/head.php');
@@ -32,5 +34,6 @@ class ErrorView extends View
         $footer_block = ob_get_contents();
         ob_end_clean();
         include('templates/errors.php');
+        flush();
     }
 }

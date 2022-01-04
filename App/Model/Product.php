@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Framework\Model;
 use App\Core\Db;
+use App\Core\Fdb;
 
 class Product extends Model
 {
@@ -20,14 +21,16 @@ class Product extends Model
     public $alias;
     public $short_description;
     public $description;
+    protected $fdb;
 
     public function __construct()
     {
+        $this->fdb = Fdb::getInstance('');
     }
 
-    public static function getProductsByList(string $list_name): bool|array
+    public function getProductsByList(string $list_name): bool|array
     {
-        $list_data = Db::getList($list_name);
+        $list_data = $this->fdb->getInstance($list_name)->getList();
         foreach ($list_data as $product_id) {
             $products[] = (new Product)->getProductById($product_id);
         }
@@ -39,7 +42,7 @@ class Product extends Model
 
     public function getProductById(int $id): Product
     {
-        extract(Db::getOne('products', $id));
+        extract($this->fdb->getInstance('products')->getOne($id));
         $this->id = $id;
         $this->articule = $articule;
         $this->product_date_added = $product_date_added;

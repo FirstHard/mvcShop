@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use Framework\Model;
-use App\Core\Db;
+use App\Core\Fdb;
 use App\Model\Product;
 
 class Category extends Model
@@ -11,18 +11,16 @@ class Category extends Model
     public $data = [];
     public $param = false;
     public $query_data = false;
+    protected $fdb;
 
     public function __construct()
     {
-        $this->data['headers']['pageTitle'] = 'Shop';
-        $this->data['headers']['siteTitle'] = 'Project MVC The Shop';
-        $this->data['main_content'] = 'Welcome to our store!';
+        $this->fdb = Fdb::getInstance('');
     }
 
     public function getProductsByCategoryId($id): bool|array
     {
-        $list_data = Db::getList('product_to_category');
-        $this->data['headers']['pageTitle'] = 'Category';
+        $list_data = $this->fdb->getInstance('product_to_category')->getList();
         foreach ($list_data as $list) {
             if ($list['category_id'] == $id) {
                 $products[] = (new Product)->getProductById($list['product_id']);
@@ -37,7 +35,7 @@ class Category extends Model
 
     public function getCategoryById($id): Category
     {
-        extract(Db::getOne('shop_category', $id));
+        extract($this->fdb->getInstance('shop_category')->getOne($id));
         $this->id = $id;
         $this->image_name = $image_name;
         $this->parent_id = $parent_id;

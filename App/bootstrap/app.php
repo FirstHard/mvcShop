@@ -10,7 +10,6 @@ include_once('db_config.php');
 
 (new ExceptionsHandler())->register();
 
-/* $auth = new Auth(); */
 $queries = file_get_contents("php://input");
 $router = Router::start();
 $router::$queries = $queries;

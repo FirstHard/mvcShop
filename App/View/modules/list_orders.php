@@ -1,6 +1,6 @@
         <section id="ordersTable" class="ordersTable">
           <div class="container">
-            <h1 class="text-center py-1"><?= $headers['pageTitle']; ?></h1>
+            <h1 class="text-center py-1"><?= $headers->title; ?></h1>
             <?php
               if (isset($pagination_block)) {
             ?>
@@ -45,15 +45,15 @@
               </div>
               <div class="col-2">
                 <h6 class="order-number">
-                  Order number: <a href="orders/<?= $order->id; ?>"><?= $order->order_number; ?></a>
+                  Order number: <a href="/orders/view/<?= $order->order_number; ?>"><?= $order->order_number; ?></a>
                 </h6>
               </div>
               <div class="col-3 text-center">
                 <?= $order->status; ?><br><?= $order->created_at; ?>
               </div>
               <div class="col-3">
-                <b>Name:</b> <?= $order->client_first_name; ?><br>
-                <b>Last name:</b> <?= $order->client_last_name; ?><br>
+                <b>Name:</b> <span class="text-blured"><?= $order->client_first_name; ?></span><br>
+                <b>Last name:</b> <span class="text-blured"><?= $order->client_last_name; ?></span><br>
               </div>
               <div class="col-2">
                 <div class="order-total text-center">

@@ -3,4 +3,8 @@
     <link href="/src/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="/src/assets/bootstrap-icons.css" rel="stylesheet">
     <link href="/src/assets/css/main.css" rel="stylesheet">
-    <title><?= $headers['pageTitle']; ?> - <?= $headers['siteTitle']; ?></title>
+    <link rel="shortcut icon" href="/src/images/favicon.ico" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/src/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico">
+    <link rel="icon" href="/src/images/favicon.ico" /> 
+    <title><?= $headers->title; ?> - <?= $headers::SITE_TITLE; ?></title>

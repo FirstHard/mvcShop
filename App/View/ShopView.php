@@ -2,14 +2,16 @@
 
 namespace App\View;
 
+use App\Model\Page;
 use Framework\View;
 
 class ShopView extends View
-
 {
+
     public function render($data): void
     {
-        // Get content for page from model
+        $headers = new Page();
+        $headers->setTitle('Shop');
         extract($data);
         ob_start();
         include('modules/head.php');
@@ -50,5 +52,6 @@ class ShopView extends View
         $footer_block = ob_get_contents();
         ob_end_clean();
         include('templates/shop.php');
+        flush();
     }
 }

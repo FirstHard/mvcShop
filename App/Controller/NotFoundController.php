@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use Framework\Controller;
 use App\Model\Error;
 use App\View\ErrorView;
+use Framework\Controller;
 
 class NotFoundController extends Controller
 {

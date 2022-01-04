@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Framework\Model;
 use App\Core\Db;
+use App\Core\Fdb;
 use App\Model\Product;
 
 class Shop extends Model
@@ -12,16 +13,16 @@ class Shop extends Model
     public $param = false;
     public $queries = false;
     public $gets = false;
+    protected $fdb;
 
     public function __construct()
     {
+        $this->fdb = Fdb::getInstance('');
     }
 
-    public static function getIndexData($queries = [], $gets = [])
+    public function getIndexData()
     {
-        $data['headers']['pageTitle'] = 'Shop';
-        $data['headers']['siteTitle'] = 'Project MVC The Shop';
-        $list_data = Db::getList('shop_category');
+        $list_data = $this->fdb->getInstance('shop_category')->getList();
         if ($list_data) {
             foreach ($list_data as $category) {
                 $id = $category['id'];
@@ -35,7 +36,7 @@ class Shop extends Model
 
     public function getProductsByCategoryId($id): bool|array
     {
-        $list_data = Db::getList('product_to_category');
+        $list_data = $this->fdb->getInstance('product_to_category')->getList();
         foreach ($list_data as $list) {
             if ($list['category_id'] === $id) {
                 $products_list[] = $list['product_id'];

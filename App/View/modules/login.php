@@ -1,4 +1,3 @@
-        <!-- Login form template -->
         <div class="col-12 col-lg-4 offset-lg-4 my-5">
           <h1 class="text-center">Please log in! *</h1>
           <?= $errors; ?>
@@ -20,4 +19,3 @@
           </div>
           <h5>* All fields are required. Only latin characters.</h5>
         </div>
-        <!-- End of Login form template -->
