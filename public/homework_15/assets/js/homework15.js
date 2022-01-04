@@ -73,20 +73,57 @@ const getDataByCommand = (command, option) =>
   }
 }
 
+const countryValidate = (country) => {
+  if (country) {
+    if (country[0] == country[0].toUpperCase()) {
+      if (country.length >= 4) {
+        return true;
+      } else {
+        addLog('Country name must be 4 or more characters!', 'warning', 'error');
+      }
+    } else {
+      addLog('Country name must start with a capital letter!', 'warning', 'error');
+    }
+  } else {
+    addLog('Country name is EMPTY, NULL or UNDEFINED!', 'warning', 'error');
+  }
+  return false;
+}
+
 const parseCommand = (command_text) => 
 {
   let command_arr = command_text.split(' ');
+  let command;
+  let option;
   if (command_arr[0].substr(0, 1) == '/') {
     command = command_arr[0];
     if (command_arr[1].substr(0, 2) == '--') {
       option = command_arr[1];
       getDataByCommand(command, option);
     } else {
-      addLog('It`s a command without option! Please input command with option!', 'warning', 'warning');
+      addLog('It`s a command without option! Please input command with option!', 'warning', 'error');
     }
   } else {
-    addLog('It`s a string, continue...', 'success');
-    string = command_text;
+    let countriesJsonFilePath = 'storage/json/es_countries.json';
+    var jsonCountriesObj;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      jsonCountriesObj = JSON.parse(this.responseText);
+        //let countries = localStorage.getItem("es_countries", JSON.stringify(jsonCountriesObj));
+        let countries = JSON.stringify(jsonCountriesObj.es_countries);
+        if (countryValidate(command_text)) {
+          console.log('true');
+          if (result = countries.includes(command_text)) {
+            addLog('Correct, the country you entered is a member of the EU!', 'success', 'success');
+          } else {
+            addLog('Incorrect, the country you entered is not a member of the EU! Please try again.', 'warning', 'error');
+          }
+        }
+      }
+    };
+    xmlhttp.open("GET", countriesJsonFilePath, true);
+    xmlhttp.send();
   }
 }
 
@@ -109,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () =>
       let url = button.getAttribute('href');
       if (url == '#import_json') {
         addLog('Start to filling LocalStorage...', 'click');
-        var sourseJsonFilePath = 'storage/json/students_data.json';
+        var studentsJsonFilePath = 'storage/json/students_data.json';
         var jsonObj;
         var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
@@ -119,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () =>
                 addLog('LocalStorage is full!', 'success', 'click');
               }
             };
-        xmlhttp.open("GET", sourseJsonFilePath, true);
+        xmlhttp.open("GET", studentsJsonFilePath, true);
         xmlhttp.send();
       }
       if (url == '#clear_ls') {
