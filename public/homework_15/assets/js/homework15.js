@@ -64,6 +64,7 @@ const getDataByCommand = (command, option) =>
           addLog('# Number of guys among students: ' + countValues(students, key, param));
           break;
         default:
+          addLog('Wrong command!', 'danger', 'error');
           break;
       }
     } else {
