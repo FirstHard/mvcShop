@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Core\Db;
 use App\Model\OrderMapper;
 use App\View\OrderView;
 use Framework\Controller;

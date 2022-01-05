@@ -5,7 +5,7 @@ namespace App\View;
 use App\Model\Page;
 use Framework\View;
 
-class CategoryView extends View
+class ProductView extends View
 {
     public function render($data): void
     {
@@ -24,7 +24,6 @@ class CategoryView extends View
         include('modules/header.php');
         $header_block = ob_get_contents();
         ob_end_clean();
-        // Check for error notifications
         ob_start();
         include('modules/why_us.php');
         $why_us_module = ob_get_contents();
@@ -38,10 +37,14 @@ class CategoryView extends View
         $subscribe_module = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/list_products.php');
-        $main_block = ob_get_contents();
+        if (is_array($main_content)) {
+            include('modules/list_products.php');
+            $main_block = ob_get_contents();
+        } else {
+            include('modules/main.php');
+            $main_block = ob_get_contents();
+        }
         ob_end_clean();
-        ob_start();
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();

@@ -44,7 +44,7 @@ class Shop extends Model
         }
         if (isset($products_list)) {
             foreach ($products_list as $product_id) {
-                $products[] = (new Product())->getProductById($product_id);
+                $products[] = (new ProductMapper())->getById('product', $product_id);
             }
             return $products;
         }

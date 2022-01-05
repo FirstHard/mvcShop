@@ -23,12 +23,11 @@ class Category extends Model
         $list_data = $this->fdb->getInstance('product_to_category')->getList();
         foreach ($list_data as $list) {
             if ($list['category_id'] == $id) {
-                $products[] = (new Product)->getProductById($list['product_id']);
+                $products[] = (new ProductMapper())->getById('product', $list['product_id']);
             }
         }
         if (isset($products)) {
-            $this->data['main_content'] = $products;
-            return $this->data;
+            return (new ProductMapper())->fetchCollection($products);
         }
         return false;
     }

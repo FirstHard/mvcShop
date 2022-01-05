@@ -205,7 +205,7 @@ class OrderMapper extends DataMapper
             Session::setSessionCookie(['order_by' => $this->order]);
         }
     }
-
+    
     public function getIndexData($gets = []): array
     {
         $this->setSessionVars();

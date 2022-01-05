@@ -13,23 +13,23 @@ class Home extends Model
     public function __construct()
     {
         $this->data['main_content'] = '';
-        $this->data['newArrivalsProducts'] = (new Product())->getProductsByList('new_arrivals_products');
-        $this->data['topProducts'] = (new Product())->getProductsByList('top_products');
-        $this->data['recommendedProducts'] = (new Product())->getProductsByList('recommended_products');
+        $this->data['newArrivalsProducts'] = (new ProductMapper())->getByList('new_arrivals_products');
+        $this->data['topProducts'] = (new ProductMapper())->getByList('top_products');
+        $this->data['recommendedProducts'] = (new ProductMapper())->getByList('recommended_products');
     }
 
     public function newArrivalsProducts()
     {
-        return (new Product())->getProductsByList('new_arrivals_products');
+        return (new ProductMapper())->getByList('new_arrivals_products');
     }
 
     public function topProducts()
     {
-        return (new Product())->getProductsByList('top_products');
+        return (new ProductMapper())->getByList('top_products');
     }
 
     public function recommendedProducts()
     {
-        return (new Product())->getProductsByList('recommended_products');
+        return (new ProductMapper())->getByList('recommended_products');
     }
 }
