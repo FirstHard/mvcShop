@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const url = button.getAttribute('href');
 
       if (url === '#import_json') {
-
         addLog('Start to filling LocalStorage...', 'click');
         fetch('storage/json/students_data.json')
         .then((response) => 
@@ -32,8 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((json) => {
           localStorage.setItem("students", JSON.stringify(json));
           addLog('LocalStorage is full!', 'success', 'click');
-        });
-
+        });      
       }
 
       if (url === '#clear_ls') {
@@ -57,39 +55,29 @@ const addLog = (message, level = 'info', sound = false) => {
 }
 
 const averageValue = (array, key) => {
-
   let total = array.reduce((sum, item) => {
-
     return sum + item[key];
-
   }, 0);
 
   return Math.round(total / array.length);
 }
 
 const maxNumber = (array, key) => {
-
   let total = array.reduce((values, item) => {
-
     values.push(item[key]);
-
     return values;
-
   }, []);
 
   return Math.max.apply(null, total);;
 }
 
 const countValues = (array, key, param) => {
-
   let total = array.reduce((sum, item) => {
-
     if (item[key] === param) {
       sum++;
     }
 
     return sum;
-
   }, 0);
 
   return total;
@@ -98,12 +86,10 @@ const countValues = (array, key, param) => {
 const getDataByCommand = (command, option) => {
   if (command === '/show') {
     addLog(`> ${command} ${option}`, 'light');
-
     if (localStorage.length > 0) {
       const students = JSON.parse(localStorage.getItem("students"));
       let param;
       let key;
-
       switch (option) {
 
         case '--average-age':
@@ -132,7 +118,6 @@ const getDataByCommand = (command, option) => {
           addLog('Wrong command!', 'danger', 'error');
           break;
       }
-
     } else {
       addLog('First click the button at the top: Import data to LocalStorage', 'danger', 'error');
     }
@@ -143,19 +128,15 @@ const getDataByCommand = (command, option) => {
 
 const countryValidate = (country) => {
   if (country) {
-
     if (country[0] == country[0].toUpperCase()) {
-
       if (country.length >= 4) {
         return true;
       } else {
         addLog('Country name must be 4 or more characters!', 'warning', 'error');
       }
-
     } else {
       addLog('Country name must start with a capital letter!', 'warning', 'error');
     }
-
   } else {
     addLog('Country name is EMPTY, NULL or UNDEFINED!', 'warning', 'error');
   }
@@ -170,7 +151,6 @@ const parseCommand = (command_text) => {
 
   if (command_arr[0].substr(0, 1) == '/') {
     command = command_arr[0];
-
     if (command_arr[1].substr(0, 2) == '--') {
       option = command_arr[1];
       getDataByCommand(command, option);
@@ -187,13 +167,11 @@ const parseCommand = (command_text) => {
       let countries = JSON.stringify(json);
 
       if (countryValidate(command_text)) {
-
         if (result = countries.includes(command_text)) {
           addLog('Correct, the country you entered is a member of the EU!', 'success', 'success');
         } else {
           addLog('Incorrect, the country you entered is not a member of the EU! Please try again.', 'warning', 'error');
         }
-
       }
     });
   }
