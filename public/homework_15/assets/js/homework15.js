@@ -1,6 +1,3 @@
-let command = null;
-let option = null;
-
 document.addEventListener("DOMContentLoaded", () => {
   addLog('Welcome to my Console!', 'light');
   addLog('The buttons at the top manipulate the contents of LocalStorage: fill it with data from a file or clear it. Try pushing them.');
@@ -52,7 +49,7 @@ const addLog = (message, level = 'info', sound = false) => {
   if (sound) {
     playSound(sound);
   }
-}
+};
 
 const averageValue = (array, key) => {
   let total = array.reduce((sum, item) => {
@@ -60,7 +57,7 @@ const averageValue = (array, key) => {
   }, 0);
 
   return Math.round(total / array.length);
-}
+};
 
 const maxNumber = (array, key) => {
   let total = array.reduce((values, item) => {
@@ -68,8 +65,8 @@ const maxNumber = (array, key) => {
     return values;
   }, []);
 
-  return Math.max.apply(null, total);;
-}
+  return Math.max.apply(null, total);
+};
 
 const countValues = (array, key, param) => {
   let total = array.reduce((sum, item) => {
@@ -81,7 +78,7 @@ const countValues = (array, key, param) => {
   }, 0);
 
   return total;
-}
+};
 
 const getDataByCommand = (command, option) => {
   if (command === '/show') {
@@ -124,7 +121,7 @@ const getDataByCommand = (command, option) => {
 
     return false;
   }
-}
+};
 
 const countryValidate = (country) => {
   if (country) {
@@ -142,7 +139,7 @@ const countryValidate = (country) => {
   }
 
   return false;
-}
+};
 
 const parseCommand = (command_text) => {
   let command_arr = command_text.split(' ');
@@ -167,7 +164,7 @@ const parseCommand = (command_text) => {
       let countries = JSON.stringify(json);
 
       if (countryValidate(command_text)) {
-        if (result = countries.includes(command_text)) {
+        if (countries.includes(command_text)) {
           addLog('Correct, the country you entered is a member of the EU!', 'success', 'success');
         } else {
           addLog('Incorrect, the country you entered is not a member of the EU! Please try again.', 'warning', 'error');
@@ -175,10 +172,10 @@ const parseCommand = (command_text) => {
       }
     });
   }
-}
+};
 
 const playSound = (sound) => {
   let soundUrl = `storage/files/mp3/${sound}.mp3`;
   const audio = new Audio(soundUrl);
   audio.play();
-}
+};
