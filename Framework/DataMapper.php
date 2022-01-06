@@ -83,7 +83,7 @@ class DataMapper
         return false;
     }
 
-    public function getAll(string $table, $order_by = 'id', $sort_by = 'ASC', $offset = 0, $limit = 10)
+    public function getAll(string $table, $order_by = 'id', $sort_by = 'ASC', $offset = 0, $limit = 12)
     {
         $query = 'SELECT * FROM `' . $table . '`';
         $params = [];

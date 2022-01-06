@@ -12,7 +12,7 @@
                 <div class="input-group mb-3">
                   <select class="form-select" id="order_search" name="show_by" aria-label="Select quantity per page" onchange="this.form.submit()">
                     <option value="" selected disabled>Show by:</option>
-                    <option value="10">10</option>
+                    <option value="12">12</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                   </select>

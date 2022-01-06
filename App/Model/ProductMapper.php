@@ -15,7 +15,7 @@ class ProductMapper extends DataMapper
     public $main_content = 'Nothing to show';
     public $offset = 0;
     public $page = 1;
-    public $limit = 10;
+    public $limit = 12;
     public $order_by = 'ASC';
     public $sort_by = 'name';
     public $total = 0;
@@ -47,6 +47,15 @@ class ProductMapper extends DataMapper
             $this->elements[] = $product;
         }
         return $this->elements;
+    }
+
+    public function getCountProducts(): int
+    {
+        $query = "SELECT COUNT(*) AS `count` FROM `product`";
+        if ($count = $this->db->count($query, [])) {
+            return $count;
+        }
+        return false;
     }
 
     public function getByList(string $list_name): bool|array

@@ -1,19 +1,22 @@
 <?php
 
 namespace App\Core;
+
+use App\Core\Db;
 use Exception;
 use RuntimeException;
 
 abstract class Api
 {
     public $apiName = '';
+    public $param;
 
     protected $method = ''; // GET|POST|PUT|DELETE
 
     public $requestUri = [];
     public $requestParams = [];
 
-    protected $action = ''; // The name of the method to be executed
+    public $action = ''; // The name of the method to be executed
 
     protected $db = '';
 
@@ -24,10 +27,7 @@ abstract class Api
         header("Access-Control-Allow-Orgin: *");
         header("Access-Control-Allow-Methods: *");
         header("Content-Type: application/json");
-
-        $this->requestUri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
         $this->requestParams = $_REQUEST;
-
         $this->method = $_SERVER['REQUEST_METHOD'];
         if ($this->method == 'POST' && array_key_exists('HTTP_X_HTTP_METHOD', $_SERVER)) {
             if ($_SERVER['HTTP_X_HTTP_METHOD'] == 'DELETE') {
@@ -42,11 +42,6 @@ abstract class Api
 
     public function run()
     {
-        // The first 2 elements of the URI array must be: "api", and the table name
-        if (array_shift($this->requestUri) !== 'api' || array_shift($this->requestUri) !== $this->apiName) {
-            throw new RuntimeException('API Not Found', 404);
-        }
-        // Defining an action to be processed
         $this->action = $this->getAction();
 
         // If method (action) is defined in child API class
@@ -79,29 +74,29 @@ abstract class Api
         $method = $this->method;
         switch ($method) {
             case 'GET':
-                if ($this->requestUri) {
-                    return 'viewAction';
+                if ($this->param) {
+                    return 'actionView';
                 } else {
-                    return 'indexAction';
+                    return 'actionIndex';
                 }
                 break;
             case 'POST':
-                return 'createAction';
+                return 'actionCreate';
                 break;
             case 'PUT':
-                return 'updateAction';
+                return 'actionUpdate';
                 break;
             case 'DELETE':
-                return 'deleteAction';
+                return 'actionDelete';
                 break;
             default:
                 return null;
         }
     }
 
-    abstract protected function indexAction();
-    abstract protected function viewAction();
-    abstract protected function createAction();
-    abstract protected function updateAction();
-    abstract protected function deleteAction();
+    abstract protected function actionIndex();
+    abstract protected function actionView();
+    abstract protected function actionCreate();
+    abstract protected function actionUpdate();
+    abstract protected function actionDelete();
 }
