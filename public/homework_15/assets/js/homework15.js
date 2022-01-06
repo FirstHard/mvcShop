@@ -163,7 +163,7 @@ const parseCommand = (command_text) => {
     .then((json) => {
 
       if (countryValidate(command_text)) {
-        if (findAnyMatch(json.es_countries, command_text)) {
+        if (json.es_countries.includes(command_text)) {
           addLog('Correct, the country you entered is a member of the EU!', 'success', 'success');
         } else {
           addLog('Incorrect, the country you entered is not a member of the EU! Please try again.', 'warning', 'error');
@@ -172,18 +172,6 @@ const parseCommand = (command_text) => {
 
     });
   }
-};
-
-const findAnyMatch = (array, string) => {
-  let result = array.reduce((match, item) => {
-    if (string === item) {
-      match = true;
-    }
-
-    return match;
-  }, false);
-
-  return result;
 };
 
 const playSound = (sound) => {
