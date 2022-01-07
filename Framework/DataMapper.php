@@ -88,15 +88,9 @@ class DataMapper
         $query = 'SELECT * FROM `' . $table . '`';
         $params = [];
         $query .= ' ORDER BY ' . $order_by;
-        //$params = array_merge($params, ['order_by' => $order_by]);
         $query .= ' ' . $sort_by;
-        //$params = array_merge($params, ['sort_by' => $sort_by]);
         $query .= ' LIMIT :limit OFFSET :offset';
         $params = array_merge($params, ['limit' => $limit, 'offset' => $offset]);
-        /* echo $query;
-        echo '<pre>';
-        print_r($params);
-        echo '</pre>'; */
         if ($objects = $this->db->run($query, $params)) {
             return $objects;
         }

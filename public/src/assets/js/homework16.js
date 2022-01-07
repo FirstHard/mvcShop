@@ -8,12 +8,12 @@ const renderProduct = (Item) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.getElementById("products_collection");
-  fetch('http://staging.buinoff.tk:8080/api/product')
+  fetch('http://staging.buinoff.tk:8080/api/product?page=1')
   .then((response) => 
     response.json()
   )
   .then((json) => {
-    json.products.forEach(product => {
+    json.forEach(product => {
       const item = renderProduct(product);
       const item_wrapper = document.createElement('div');
       item_wrapper.className = 'col-12 col-md-6 col-lg-3';

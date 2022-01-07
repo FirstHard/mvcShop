@@ -57,11 +57,13 @@
         </div>
       </nav>
     </header>
-    <div class="container">
+    <main>
+    <div class="container my-5">
       <div id="products_collection" class="row">
-      
+
       </div>
     </div>
+    </main>
     <footer class="bg-dark py-5 mt-5">
       <div class="container">
         <div class="row">
