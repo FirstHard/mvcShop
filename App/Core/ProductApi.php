@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Model\ProductMapper;
+use App\View\Pagination;
 
 class ProductApi extends Api
 {
@@ -22,7 +23,11 @@ class ProductApi extends Api
         };
         $products = (new ProductMapper())->getAll('product', 'date_added', 'ASC', $this->offset, $this->limit);
         if ($products) {
-            $data = $products;
+            $data['products'] = $products;
+            $total = (new ProductMapper())->getCountProducts();
+            if ($this->total < $total) {
+                $data['pagination'] = (new Pagination($total, $this->page, $this->limit))->get();
+            }
             return $this->response($data, 200);
         }
         return $this->response('Data not found', 404);

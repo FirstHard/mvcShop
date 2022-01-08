@@ -60,7 +60,7 @@
     <main>
     <div class="container my-5">
       <div id="products_collection" class="row">
-
+      
       </div>
     </div>
     </main>
