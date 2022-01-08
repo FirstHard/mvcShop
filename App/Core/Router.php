@@ -18,6 +18,10 @@ class Router
         $parsed_url = parse_url(htmlspecialchars(self::$uri));
         $routes = explode('/', $parsed_url['path']);
         if (!empty($routes[1])) {
+            if ($routes[1] === 'api') {
+                include ROOT . 'public/api.php';
+                die;
+            }
             self::$controller = ucfirst(htmlspecialchars($routes[1]));
         }
         if (!empty($routes[2])) {

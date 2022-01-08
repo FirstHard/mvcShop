@@ -6,6 +6,14 @@ The demo version of this homework is located at: http://learning.buinoff.tk:8080
 There is no demo version of homework. Homework is done in the code, in homework_09 branch.
 # Homework (15) on the topic "Introduction to JavaScript. LocalStorage, EU countries"
 The demo version of this homework is __temporarly__ located at: http://staging.buinoff.tk:8080/homework_15/
+# Homework (16) on the topic "Introduction to JavaScript. API for products page (request get)"
+The demo version of this homework is __temporarly__ located at: http://staging.buinoff.tk:8080/homework_16/  
+API endpoint implemented as: http://staging.buinoff.tk:8080/api/  
+Accepted API templates of paths at the moment:  
+- http://staging.buinoff.tk:8080/api/
+- http://staging.buinoff.tk:8080/api/products/
+- http://staging.buinoff.tk:8080/api/products/?page=[page_number]
+- http://staging.buinoff.tk:8080/api/products/[product_id]
 # Project development stage
 Project development branch, created for the purpose of debugging the code before merging with the develop branch.
 Result of the current stage of development in real time (active development), located at: http://staging.buinoff.tk:8080.

@@ -23,14 +23,14 @@
                       <div class="col-12 col-md-6 col-lg-3">
                         <div class="card mb-3">
                           <a href="product/<?= $product->alias ?>">
-                            <img src="/src/images/products/<?= $product->image ?>" class="card-img-top" alt="<?= $product->name ?>">
+                            <img src="/src/images/products/<?= $product->image_name ?>" class="card-img-top" alt="<?= $product->name ?>">
                           </a>
                           <div class="card-body">
                             <h5 class="card-title"><a href="product/<?= $product->alias ?>"><?= $product->name ?></a></h5>
-                            <p>Articule: <?= $product->articule ?></p>
+                            <p>Articule: <?= $product->shop_articule ?></p>
                             <div class="card-price">
                               <span>
-                                $&nbsp;<?= $product->product_price ?>
+                                $&nbsp;<?= $product->price ?>
                               </span>
                             </div>
                             <div class="card-text"><?= $product->short_description ?></div>
@@ -58,14 +58,14 @@
                       <div class="col-12 col-md-6 col-lg-3">
                         <div class="card mb-3">
                           <a href="product/<?= $product->alias ?>">
-                            <img src="/src/images/products/<?= $product->image ?>" class="card-img-top" alt="<?= $product->name ?>">
+                            <img src="/src/images/products/<?= $product->image_name ?>" class="card-img-top" alt="<?= $product->name ?>">
                           </a>
                           <div class="card-body">
                             <h5 class="card-title"><a href="product/<?= $product->alias ?>"><?= $product->name ?></a></h5>
-                            <p>Articule: <?= $product->articule ?></p>
+                            <p>Articule: <?= $product->shop_articule ?></p>
                             <div class="card-price">
                               <span>
-                                $&nbsp;<?= $product->product_price ?>
+                                $&nbsp;<?= $product->price ?>
                               </span>
                             </div>
                             <div class="card-text"><?= $product->short_description ?></div>
@@ -93,14 +93,14 @@
                       <div class="col-12 col-md-6 col-lg-3">
                         <div class="card mb-3">
                           <a href="product/<?= $product->alias ?>">
-                            <img src="/src/images/products/<?= $product->image ?>" class="card-img-top" alt="<?= $product->name ?>">
+                            <img src="/src/images/products/<?= $product->image_name ?>" class="card-img-top" alt="<?= $product->name ?>">
                           </a>
                           <div class="card-body">
                             <h5 class="card-title"><a href="product/<?= $product->alias ?>"><?= $product->name ?></a></h5>
-                            <p>Articule: <?= $product->articule ?></p>
+                            <p>Articule: <?= $product->shop_articule ?></p>
                             <div class="card-price">
                               <span>
-                                $&nbsp;<?= $product->product_price ?>
+                                $&nbsp;<?= $product->price ?>
                               </span>
                             </div>
                             <div class="card-text"><?= $product->short_description ?></div>

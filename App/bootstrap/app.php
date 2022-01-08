@@ -1,7 +1,5 @@
 <?php
 
-use App\Core\Db;
-use App\Core\Auth;
 use App\Core\Router;
 use App\Core\ExceptionsHandler;
 use App\Controller\NotFoundController;

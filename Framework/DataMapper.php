@@ -3,6 +3,7 @@
 namespace Framework;
 
 use App\Core\Db;
+use App\Core\Fdb;
 
 class DataMapper
 {
@@ -11,6 +12,7 @@ class DataMapper
     public function __construct()
     {
         $this->db = Db::getInstance();
+        $this->fdb = Fdb::getInstance('');
     }
 
     public function insert(Model $object, $table): string|false
@@ -76,7 +78,21 @@ class DataMapper
             'id' => $id
         ];
         if ($object = $this->db->run($query, $params)) {
-            return $object;
+            return $object[0];
+        }
+        return false;
+    }
+
+    public function getAll(string $table, $order_by = 'id', $sort_by = 'ASC', $offset = 0, $limit = 12)
+    {
+        $query = 'SELECT * FROM `' . $table . '`';
+        $params = [];
+        $query .= ' ORDER BY ' . $order_by;
+        $query .= ' ' . $sort_by;
+        $query .= ' LIMIT :limit OFFSET :offset';
+        $params = array_merge($params, ['limit' => $limit, 'offset' => $offset]);
+        if ($objects = $this->db->run($query, $params)) {
+            return $objects;
         }
         return false;
     }

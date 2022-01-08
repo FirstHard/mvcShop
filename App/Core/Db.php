@@ -3,9 +3,7 @@
 namespace App\Core;
 
 use PDO;
-use PDOException;
 use App\Core\ExceptionsHandler;
-use FirstHard\LogsHandler;
 
 class Db extends PDO
 {
@@ -54,7 +52,7 @@ class Db extends PDO
             $result->bindParam(':' . $key, $params[$key], $param_type);
         }
         $result->execute();
-        return $result->fetchAll();
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function count(string $query, array $params): int
@@ -72,7 +70,7 @@ class Db extends PDO
             $result->bindParam(':' . $key, $params[$key], $param_type);
         }
         $result->execute();
-        return $result->fetchAll()[0]['count'];
+        return $result->fetchAll(PDO::FETCH_ASSOC)[0]['count'];
     }
 
     public static function getlist(string $list_name): array

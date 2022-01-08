@@ -43,13 +43,8 @@ class OrderView extends View
         $asaid_modules = ob_get_contents();
         ob_end_clean();
         ob_start();
-        if (is_array($main_content)) {
-            include('modules/list_orders.php');
-            $main_block = ob_get_contents();
-        } else {
-            include('modules/main.php');
-            $main_block = ob_get_contents();
-        }
+        include('modules/list_orders.php');
+        $main_block = ob_get_contents();
         ob_end_clean();
         ob_start();
         include('modules/footer.php');
