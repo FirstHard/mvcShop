@@ -135,9 +135,9 @@ class Auth
                     </body>
                 </html>';
                 $headers = "Content-type: text/html; charset=utf-8 \r\n" .
-                'Reply-To: root@staging.buinoff.tk' . "\r\n" .
-                'X-Mailer: PHP/' . phpversion() . "\r\n" .
-                'MIME-Version: 1.0' . "\r\n";
+                    'Reply-To: root@staging.buinoff.tk' . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                    'MIME-Version: 1.0' . "\r\n";
                 $headers .= "From: Admin <root@staging.buinoff.tk>\r\n";
                 if (mail($to, $subject, $message, $headers)) {
                     header('Location: /user/reset?action=complete');
@@ -179,9 +179,9 @@ class Auth
                 </body>
             </html>';
             $headers = "Content-type: text/html; charset=utf-8 \r\n" .
-            'Reply-To: root@staging.buinoff.tk' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion() . "\r\n" .
-            'MIME-Version: 1.0' . "\r\n";
+                'Reply-To: root@staging.buinoff.tk' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion() . "\r\n" .
+                'MIME-Version: 1.0' . "\r\n";
             $headers .= "From: Admin <root@staging.buinoff.tk>\r\n";
             if (mail($to, $subject, $message, $headers)) {
                 header('Location: /user/registration?action=complete');

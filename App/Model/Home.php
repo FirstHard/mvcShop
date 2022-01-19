@@ -26,19 +26,4 @@ class Home extends Model
         $this->recommendedProducts = $this->productMapper->getByList('recommended_products');
         $this->page->getMainContent('home');
     }
-
-    /* public function newArrivalsProducts()
-    {
-        return $this->productMapper->getByList('new_arrivals_products');
-    }
-
-    public function topProducts()
-    {
-        return $this->productMapper->getByList('top_products');
-    }
-
-    public function recommendedProducts()
-    {
-        return $this->productMapper->getByList('recommended_products');
-    } */
 }

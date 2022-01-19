@@ -16,7 +16,7 @@ class DataMapper
         $this->page = new Page();
     }
 
-    public function insert(Array $params, $table): string|false
+    public function insert(array $params, $table): string|false
     {
         $query = 'INSERT INTO `' . $table . '` (' . implode(", ", array_keys($params)) . ') VALUES (:' . implode(", :", array_keys($params)) . ') ON DUPLICATE KEY UPDATE id = :id';
         if ($this->db->run($query, $params)) {
@@ -25,7 +25,7 @@ class DataMapper
         return false;
     }
 
-    public function update(Array $params, $table): bool
+    public function update(array $params, $table): bool
     {
         $query = 'UPDATE `' . $table . '` SET ';
         foreach ($params as $key => $value) {
@@ -38,7 +38,7 @@ class DataMapper
         return false;
     }
 
-    public function delete(Array $params, $table)
+    public function delete(array $params, $table)
     {
         $query = 'DELETE FROM `' . $table . '` WHERE id = :id';
         $params = [

@@ -173,7 +173,7 @@ class Page extends Model
 
     public function renderHtmlUI()
     {
-      return '
+        return '
         <ul class="nav nav-pills my-5">
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/user">Profile home</a>

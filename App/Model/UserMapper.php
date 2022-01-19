@@ -168,11 +168,11 @@ class UserMapper extends DataMapper
         $this->orders_total = $orderMapper->getCountOrdersByUserId($logged_user_id);
         if ($this->orders = $orderMapper->getOrdersByUserId($logged_user_id, $this->orders_limit, $this->orders_offset, $this->order_by)) {
             $this->page->getMainContent('orders_history');
-            if ($this->orders_total > $this->orders_limit){
+            if ($this->orders_total > $this->orders_limit) {
                 $this->pagination = new Pagination($this->orders_total, $this->pages, $this->orders_limit);
             }
         } else {
-           $this->page->getMainContent('no_orders');
+            $this->page->getMainContent('no_orders');
         }
     }
 

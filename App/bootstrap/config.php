@@ -15,6 +15,4 @@ ini_set('display_errors', SHOW_ERRORS);
 date_default_timezone_set("Europe/Kiev");
 ini_set('session.cookie_domain', '.staging.buinoff.tk');
 session_set_cookie_params(1440, "/", ".staging.buinoff.tk", false, false);
-//session_set_cookie_params(1440, '/', '', true, true);
 session_start();
-//setcookie(session_name(), session_id(), 1440, $_SERVER['HTTP_HOST'], '', false, false);
