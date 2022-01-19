@@ -23,7 +23,7 @@ class OrdersController extends Controller
 
     public function actionView()
     {
-        $data = (new OrderMapper())->getOrder($this->param);
+        $data = (new OrderMapper())->getByNumber('order', $this->param, 0);
         (new OrderView())->renderOne($data);
     }
 

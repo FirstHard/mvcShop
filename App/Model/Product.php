@@ -3,36 +3,26 @@
 namespace App\Model;
 
 use Framework\Model;
-use App\Core\Db;
-use App\Core\Fdb;
 
 class Product extends Model
 {
-    public $id;
-    public $name;
-    public $alias;
-    public $short_description;
-    public $full_description;
-    public $price;
-    public $new_price;
-    public $brand_id;
-    public $manufacturer_ean;
-    public $shop_articule;
-    public $availability = 1;
-    public $image_name;
-    public $date_added;
-    public $date_modify;
-    public $published = 1;
-    public $average_rating = 0;
-    public $label_id = 0;
-    protected $fdb;
-    protected $db;
-
-    public function __construct()
-    {
-        $this->fdb = Fdb::getInstance('');
-        $this->db = Db::getInstance();
-    }
+    protected $id;
+    protected $name;
+    protected $alias;
+    protected $short_description;
+    protected $full_description;
+    protected $price;
+    protected $new_price;
+    protected $brand_id;
+    protected $manufacturer_ean;
+    protected $shop_articule;
+    protected $availability = 1;
+    protected $image_name;
+    protected $date_added;
+    protected $date_modify;
+    protected $published = 1;
+    protected $average_rating = 0;
+    protected $label_id = 0;
 
     public function getId()
     {
@@ -198,7 +188,7 @@ class Product extends Model
     {
         return $this->label_id;
     }
-    
+
     public function setLabelId($label_id)
     {
         $this->label_id = $label_id;

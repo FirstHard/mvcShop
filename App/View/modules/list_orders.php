@@ -1,29 +1,30 @@
         <section id="ordersTable" class="ordersTable">
           <div class="container">
-            <h1 class="text-center py-1"><?= $headers->title; ?></h1>
+            <h1 class="text-center py-1"><?= $data->page->title; ?></h1>
             <?php
               if (isset($pagination_block)) {
             ?>
             <div class="row mt-3">
               <div class="col-12">
                 <nav aria-label="Page navigation">
-                  <h5 class="text-center">Page <?= $pagination->current_page; ?> from <?= $pagination->amount; ?></h5>
+                  <h5 class="text-center">Page <?= $data->pagination->current_page; ?> from <?= $data->pagination->amount; ?></h5>
                   <?= $pagination_block; ?>
                 </nav>
               </div>
             </div>
             <?php
               }
-              if ($main_content) {
+              if (!$data->orders) {
+            ?>
+            <h4 class="text-center my-5">No orders find</h4>
+            <?php
+              } else {
             ?>
             <div class="row bg-dark text-light text-center py-2 mt-1">
-              <div class="col-1">
-                #ID
-              </div>
-              <div class="col-2">
+              <div class="col-3">
                 Order
               </div>
-              <div class="col-3">
+              <div class="col-4">
                 Status / Created at
               </div>
               <div class="col-3">
@@ -32,55 +33,42 @@
               <div class="col-2">
                 Total
               </div>
-              <div class="col-1">
-                Actions
-              </div>
             </div>
             <?php
-                foreach ($main_content as $key => $order) {
+                foreach ($data->orders as $key => $order) {
             ?>
             <div class="row border py-1">
-              <div class="col-1 text-center">
-                <?= $order->id; ?>
-              </div>
-              <div class="col-2">
+              <div class="col-3">
                 <h6 class="order-number">
-                  Order number: <a href="/orders/view/<?= $order->order_number; ?>"><?= $order->order_number; ?></a>
+                  Order number: <a href="/user/orders/<?= $order->getOrderNumber(); ?>"><?= $order->getOrderNumber(); ?></a>
                 </h6>
               </div>
-              <div class="col-3 text-center">
-                <?= $order->status; ?><br><?= $order->created_at; ?>
+              <div class="col-4 text-center">
+                <?= $order->getStatus(); ?><br><?= $order->getCreatedAt(); ?>
               </div>
               <div class="col-3">
-                <b>Name:</b> <span class="text-blured"><?= $order->client_first_name; ?></span><br>
-                <b>Last name:</b> <span class="text-blured"><?= $order->client_last_name; ?></span><br>
+                <b>Name:</b> <span class="fst-italic"><?= $order->getClientFirstName(); ?></span><br>
+                <b>Last name:</b> <span class="fst-italic"><?= $order->getClientLastName(); ?></span><br>
               </div>
               <div class="col-2">
                 <div class="order-total text-center">
                   <h6>Order total:</h6>
                   <span>
-                    $&nbsp;<?= (int) $order->total; ?>
+                    $&nbsp;<?= (int) $order->getTotal(); ?>
                   </span>
                 </div>
-              </div>
-              <div class="col-1 fs-4 text-center d-flex align-items-center">
-                <a href="#" class="btn btn-outline-primary disabled mx-auto"><i class="bi bi-archive"></i></a>
               </div>
             </div>
             <?php
                 }
-              } else {
-            ?>
-            <h4 class="text-center my-5">No orders find</h4>
-            <?php
               }
               if (isset($pagination_block)) {
             ?>
             <div class="row mt-3">
               <div class="col-12">
                 <nav aria-label="Page navigation">
-                  <h5 class="text-center">Page <?= $pagination->current_page; ?> from <?= $pagination->amount; ?></h5>
                   <?= $pagination_block; ?>
+                  <h5 class="text-center">Page <?= $data->pagination->current_page; ?> from <?= $data->pagination->amount; ?></h5>
                 </nav>
               </div>
             </div>

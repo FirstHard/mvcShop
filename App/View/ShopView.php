@@ -10,9 +10,6 @@ class ShopView extends View
 
     public function render($data): void
     {
-        $headers = new Page();
-        $headers->setTitle('Shop');
-        extract($data);
         ob_start();
         include('modules/head.php');
         $head_block = ob_get_contents();
@@ -31,15 +28,7 @@ class ShopView extends View
         $why_us_module = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/about_us.php');
-        $about_us_module = ob_get_contents();
-        ob_end_clean();
-        ob_start();
-        include('modules/subscribe.php');
-        $subscribe_module = ob_get_contents();
-        ob_end_clean();
-        ob_start();
-        if (is_array($main_content)) {
+        if ($data->main_data) {
             include('modules/list_categories.php');
             $main_block = ob_get_contents();
         } else {

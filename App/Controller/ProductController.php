@@ -8,9 +8,21 @@ use Framework\Controller;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->mapper = new ProductMapper();
+    }
+
     public function actionIndex(): void
     {
-        $data = (new ProductMapper())->getIndexData($this->gets);
-        (new ProductView())->render($data);
+        $this->mapper->getIndexData($this->gets);
+        (new ProductView())->render($this->mapper);
+    }
+
+    public function actionView(): void
+    {
+        $this->mapper->getProductById($this->param);
+        (new ProductView())->renderOne($this->mapper);
     }
 }

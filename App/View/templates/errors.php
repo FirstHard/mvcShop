@@ -8,13 +8,15 @@
     <header>
       <?= $header_block; ?>
     </header>
-    <div class="container my-5">
-      <div class="row">
-        <div class="col-12">
-          <?= $main_block; ?>
+    <main>
+      <div class="container my-5">
+        <div class="row">
+          <div class="col-12">
+            <?= $main_block; ?>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
     <footer class="bg-dark py-5 mt-5">
       <?= $footer_block; ?>
     </footer>

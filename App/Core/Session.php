@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Model\User;
+
 class Session {
 
     public static function delete(): void
@@ -13,7 +15,6 @@ class Session {
         unset($_SESSION);
         session_unset();
         session_destroy();
-        header('Location: ' . HOME);
     }
 
     public static function emergencyDelete(): void
@@ -23,22 +24,22 @@ class Session {
         unlink(session_save_path() . '/sess_' . $compromised_cookies);
     }
 
-    public static function writeUserSession($login): void
+    public static function writeUserSession(User $logged_user): void
     {
         // Writing data to the session and cookie
-        $_SESSION['logged_user'] = $login;
+        $_SESSION['logged_user'] = serialize($logged_user);
         $_SESSION[session_name()] = session_id();
         $_SESSION['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
         $_SESSION['USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
-        setcookie(session_name(), session_id(), 1440, '/', HOME, false, true);
-        header('Location: ' . HOME);
+        setcookie(session_name(), session_id(), 1440, $_SERVER['HTTP_HOST'], '', false, false);
+        setcookie('logged_user', $logged_user->getLogin(), 1440, $_SERVER['HTTP_HOST'], '', false, true);
     }
 
     public static function checkUserSession()
     {
         // Simple XSS attack check, prohibiting the same session from different user agent and from different IP
         if (($_SERVER['REMOTE_ADDR'] === $_SESSION['REMOTE_ADDR']) && ($_SERVER['HTTP_USER_AGENT'] === $_SESSION['USER_AGENT']) && ($_SESSION[session_name()] === $_COOKIE[session_name()])) {
-            return $_SESSION["logged_user"];
+            return unserialize($_SESSION["logged_user"]);
         }
         self::delete();
         self::emergencyDelete();

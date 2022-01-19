@@ -1,8 +1,7 @@
 /.idea/
-/public/classwork_16/
+/public/classwork*/
 /public/tests/
-/storage/logs/
-/storage/json/
+/storage/*/
 /vendor/
 /Framework/db_config.php
 composer.lock

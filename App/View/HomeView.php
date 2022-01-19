@@ -11,9 +11,6 @@ class HomeView extends View
 
     public function render($data): void
     {
-        $headers = new Page();
-        $headers->setTitle('Home');
-        extract($data);
         ob_start();
         include('modules/head.php');
         $head_block = ob_get_contents();
@@ -27,18 +24,6 @@ class HomeView extends View
         $header_block = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/home_carousel.php');
-        $home_carousel_module = ob_get_contents();
-        ob_end_clean();
-        $error = false;
-        $errors = (new ExceptionsHandler())->getMessage();
-        if ($errors) {
-            ob_start();
-            include('modules/error.php');
-            $error = ob_get_contents();
-            ob_end_clean();
-        }
-        ob_start();
         include('modules/why_us.php');
         $why_us_module = ob_get_contents();
         ob_end_clean();
@@ -47,17 +32,6 @@ class HomeView extends View
         $featured_tabs_module = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/about_us.php');
-        $about_us_module = ob_get_contents();
-        ob_end_clean();
-        ob_start();
-        include('modules/subscribe.php');
-        $subscribe_module = ob_get_contents();
-        ob_end_clean();
-        ob_start();
-        include('modules/main.php');
-        $main_block = ob_get_contents();
-        ob_end_clean();
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();

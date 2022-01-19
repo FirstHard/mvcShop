@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use Framework\Api;
+
 class IndexApi extends Api
 {
     public function actionIndex()

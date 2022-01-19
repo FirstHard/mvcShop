@@ -2,23 +2,31 @@
 
 namespace App\Controller;
 
-use App\Model\Shop;
 use App\View\ShopView;
-use App\Model\Category;
-use App\View\CategoryView;
+use App\Model\ShopCategoryMapper;
+use App\View\ShopCategoryView;
 use Framework\Controller;
 
 class ShopController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->mapper = new ShopCategoryMapper();
+    }
+
     public function actionIndex(): void
     {
-        $data = (new Shop())->getIndexData($this->queries, $this->gets);
-        (new ShopView())->render($data);
+        $this->mapper->getIndexData();
+        (new ShopView())->render($this->mapper);
     }
 
     public function actionCategory(): void
     {
-        $data = (new Category())->getProductsByCategoryId($this->param);
-        (new CategoryView())->render($data);
+        if (!isset($this->param)) {
+            header('Location: /shop');
+        }
+        $this->mapper->getProductsByCategoryId($this->param);
+        (new ShopCategoryView())->render($this->mapper);
     }
 }

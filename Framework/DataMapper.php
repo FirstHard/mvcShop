@@ -3,47 +3,46 @@
 namespace Framework;
 
 use App\Core\Db;
-use App\Core\Fdb;
+use App\Model\Page;
 
 class DataMapper
 {
     protected Db $db;
+    public $page;
 
     public function __construct()
     {
         $this->db = Db::getInstance();
-        $this->fdb = Fdb::getInstance('');
+        $this->page = new Page();
     }
 
-    public function insert(Model $object, $table): string|false
+    public function insert(Array $params, $table): string|false
     {
-        $params = get_object_vars($object);
         $query = 'INSERT INTO `' . $table . '` (' . implode(", ", array_keys($params)) . ') VALUES (:' . implode(", :", array_keys($params)) . ') ON DUPLICATE KEY UPDATE id = :id';
         if ($this->db->run($query, $params)) {
-            return $this->db->lastInsertId();
+            return true;
         }
         return false;
     }
 
-    public function update(Model $object, $table): string|false
+    public function update(Array $params, $table): bool
     {
-        $params = get_object_vars($object);
         $query = 'UPDATE `' . $table . '` SET ';
         foreach ($params as $key => $value) {
             if ($key != 'id') $query .= $key . ' = :' . $key . ', ';
         }
         $query = rtrim($query, ', ') . ' WHERE id = :id';
-        if ($this->db->run($query, $params)) {
-            return $this->db->lastInsertId();
+        if ($result = $this->db->run($query, $params)) {
+            return $result;
         }
         return false;
     }
 
-    public function delete(Model $object, $table)
+    public function delete(Array $params, $table)
     {
         $query = 'DELETE FROM `' . $table . '` WHERE id = :id';
         $params = [
-            'id' => $object->id
+            'id' => $params['id']
         ];
         if ($this->db->run($query, $params)) {
             return true;
@@ -51,7 +50,25 @@ class DataMapper
         return false;
     }
 
-    public function selectWhereAnd($table, array|false $what = false, array $params = [])
+    public function getCountAll($table): int
+    {
+        $query = "SELECT COUNT(*) AS `count` FROM `" . $table . "`";
+        if ($count = $this->db->run($query, [])[0]['count']) {
+            return $count;
+        }
+        return false;
+    }
+
+    public function getlist(string $list_name): array
+    {
+        $query = "SELECT * FROM `" . $list_name . "`";
+        if ($list = $this->db->run($query, [])) {
+            return $list;
+        }
+        return false;
+    }
+
+    public function selectWhereAnd($table, array|false $what = false, array $params = []): array|false
     {
         $where = '';
         $what_str = $what;
@@ -67,18 +84,21 @@ class DataMapper
             }
             $where = rtrim($where, ' AND ');
         }
-        $query = 'SELECT ' . $what_str .  ' FROM `' . $table . '`' . $where;
-        return $this->db->run($query, $params);
+        $query = 'SELECT ' . $what_str . ' FROM `' . $table . '`' . $where;
+        if ($data = $this->db->run($query, $params)) {
+            return $data[0];
+        }
+        return false;
     }
 
-    public function getById($table, int $id)
+    public function getById($table, int $id): array|false
     {
         $query = 'SELECT * FROM `' . $table . '` WHERE id = :id';
         $params = [
             'id' => $id
         ];
-        if ($object = $this->db->run($query, $params)) {
-            return $object[0];
+        if ($result = $this->db->run($query, $params)) {
+            return $result[0];
         }
         return false;
     }
@@ -89,10 +109,12 @@ class DataMapper
         $params = [];
         $query .= ' ORDER BY ' . $order_by;
         $query .= ' ' . $sort_by;
-        $query .= ' LIMIT :limit OFFSET :offset';
-        $params = array_merge($params, ['limit' => $limit, 'offset' => $offset]);
-        if ($objects = $this->db->run($query, $params)) {
-            return $objects;
+        if ($limit) {
+            $query .= ' LIMIT :limit OFFSET :offset';
+            $params = array_merge($params, ['limit' => $limit, 'offset' => $offset]);
+        }
+        if ($result = $this->db->run($query, $params)) {
+            return $result;
         }
         return false;
     }

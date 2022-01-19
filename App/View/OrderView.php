@@ -5,18 +5,28 @@ namespace App\View;
 use Framework\View;
 use App\Model\Page;
 use App\Model\Order;
+use App\Model\OrderMapper;
 
 class OrderView extends View
 {
 
     public function renderList($data): void
     {
-        if (is_array($data)) {
-            extract($data);
-        }
-        if (is_string($data)) {
-            parse_str($data, $queries_data);
-            extract($queries_data);
+        extract($data);
+        if (is_array($main_content)) {
+            ob_start();
+            include('modules/order_filters.php');
+            $asaid_modules = ob_get_contents();
+            ob_end_clean();
+            ob_start();
+            include('modules/list_orders.php');
+            $main_block = ob_get_contents();
+            ob_end_clean();
+        } else {
+            ob_start();
+            include('modules/main.php');
+            $main_block = ob_get_contents();
+            ob_end_clean();
         }
         if (isset($pagination) && is_object($pagination)) {
             ob_start();
@@ -24,8 +34,6 @@ class OrderView extends View
             $pagination_block = ob_get_contents();
             ob_end_clean();
         }
-        $headers = new Page();
-        $headers->setTitle('Orders');
         ob_start();
         include('modules/head.php');
         $head_block = ob_get_contents();
@@ -39,14 +47,6 @@ class OrderView extends View
         $header_block = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/order_filters.php');
-        $asaid_modules = ob_get_contents();
-        ob_end_clean();
-        ob_start();
-        include('modules/list_orders.php');
-        $main_block = ob_get_contents();
-        ob_end_clean();
-        ob_start();
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();
@@ -56,9 +56,6 @@ class OrderView extends View
 
     public function renderOne($data): void
     {
-        extract(get_object_vars($data));
-        $headers = new Page();
-        $headers->setTitle('Order: ' . $order_number);
         ob_start();
         include('modules/head.php');
         $head_block = ob_get_contents();
