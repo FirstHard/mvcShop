@@ -2,9 +2,6 @@
 
 namespace App\Model;
 
-/* use App\Core\Session;
-use App\Model\Order;
-use App\View\Pagination; */
 use Framework\DataMapper;
 
 class OrderStatusMapper extends DataMapper

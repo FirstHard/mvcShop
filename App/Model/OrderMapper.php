@@ -187,7 +187,7 @@ class OrderMapper extends DataMapper
         $data['pagination'] = $this->pagination;
         return $data;
     }
-    
+
     public function getQueriesData($queries): void
     {
         if (isset($queries['search'])) $this->search = htmlspecialchars($queries['search']);

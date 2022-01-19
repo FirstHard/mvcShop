@@ -4,12 +4,13 @@ namespace App\Core;
 
 use App\Model\User;
 
-class Session {
+class Session
+{
 
     public static function delete(): void
     {
         session_regenerate_id();
-        setcookie(session_name(), session_id(), time()-3600);
+        setcookie(session_name(), session_id(), time() - 3600);
         unlink(session_save_path() . '/sess_' . $_SESSION[session_name()]);
         unset($_COOKIE);
         unset($_SESSION);

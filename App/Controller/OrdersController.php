@@ -29,16 +29,13 @@ class OrdersController extends Controller
 
     public function actionEdit()
     {
-
     }
 
     public function actionUpdate()
     {
-
     }
 
     public function actionCreate()
     {
-
     }
 }

@@ -125,7 +125,7 @@ class Order extends Model
     {
         $this->finished = $finished;
     }
-    
+
     public function getFinished()
     {
         return $this->finished;

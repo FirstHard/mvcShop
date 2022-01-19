@@ -95,7 +95,7 @@ class ProductMapper extends DataMapper
     {
         $this->fetchCollection($this->getAll(self::TABLE_NAME));
         $this->products_total = sizeof($this->products);
-        if ($this->products_total > $this->products_limit){
+        if ($this->products_total > $this->products_limit) {
             $this->pagination = new Pagination($this->products_total, $this->products_page, $this->products_limit);
         }
         $this->page->getMainContent('list_products');

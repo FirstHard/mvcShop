@@ -49,11 +49,6 @@ class UserController extends Controller
             } else {
                 $this->mapper->reset('reset_false');
             }
-            /* echo '<pre>';
-            print_r($user);
-            echo '</pre>';
-            if ($new_token = $this->auth->resetToken($this->gets['token'])) {
-            } */
         } elseif (isset($this->gets['action']) && $this->gets['action'] == 'complete') {
             $this->mapper->reset('reset_complete');
         } else {
