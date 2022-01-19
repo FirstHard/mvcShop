@@ -4,8 +4,11 @@ namespace Framework;
 
 class Model
 {
-    public const SITE_TITLE = 'Project MVC The Shop';
-    
+
+    public function __construct()
+    {
+    }
+
     public function actionIndex(): void
     {
     }

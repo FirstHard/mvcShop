@@ -7,4 +7,4 @@
     <link rel="icon" type="image/vnd.microsoft.icon" href="/src/images/favicon.ico">
     <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico">
     <link rel="icon" href="/src/images/favicon.ico" /> 
-    <title><?= $headers->title; ?> - <?= $headers::SITE_TITLE; ?></title>
+    <title><?= $data->page->title; ?> - <?= $data->page->site_title; ?></title>

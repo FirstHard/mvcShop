@@ -8,28 +8,37 @@ use App\Core\Fdb;
 
 class Home extends Model
 {
-    public $data = [];
+    protected $productMapper;
+    public $newArrivalsProducts;
+    public $topProducts;
+    public $recommendedProducts;
 
     public function __construct()
     {
-        $this->data['main_content'] = '';
-        $this->data['newArrivalsProducts'] = (new Product())->getProductsByList('new_arrivals_products');
-        $this->data['topProducts'] = (new Product())->getProductsByList('top_products');
-        $this->data['recommendedProducts'] = (new Product())->getProductsByList('recommended_products');
+        $this->productMapper = new ProductMapper();
+        $this->page = new Page();
     }
 
-    public function newArrivalsProducts()
+    public function getData()
     {
-        return (new Product())->getProductsByList('new_arrivals_products');
+        $this->newArrivalsProducts = $this->productMapper->getByList('new_arrivals_products');
+        $this->topProducts = $this->productMapper->getByList('top_products');
+        $this->recommendedProducts = $this->productMapper->getByList('recommended_products');
+        $this->page->getMainContent('home');
+    }
+
+    /* public function newArrivalsProducts()
+    {
+        return $this->productMapper->getByList('new_arrivals_products');
     }
 
     public function topProducts()
     {
-        return (new Product())->getProductsByList('top_products');
+        return $this->productMapper->getByList('top_products');
     }
 
     public function recommendedProducts()
     {
-        return (new Product())->getProductsByList('recommended_products');
-    }
+        return $this->productMapper->getByList('recommended_products');
+    } */
 }

@@ -7,33 +7,17 @@
   <div class="body-wrapper">
     <header>
       <?= $header_block; ?>
-      <?= $home_carousel_module; ?>
-      <?= $error; ?>
     </header>
-    <div class="container my-5">
-      <div class="row">
-        <?php
-          $main_class = 'col-12';
-          if (isset($asaid_modules)) {
-            $main_class = 'col-12 col-lg-9';
-        ?>
-        <div class="col-12 col-lg-3">
-          <aside>
-            <?= $asaid_modules; ?>
-          </aside>
-        </div>
-        <?php
-          }
-        ?>
-        <div class="<?= $main_class ?>">
-          <?= $main_block; ?>
-          <?= $why_us_module; ?>
-          <?= $featured_tabs_module; ?>
-          <?= $about_us_module; ?>
-          <?= $subscribe_module; ?>
+    <main>
+      <div class="container my-5">
+        <div class="row">
+          <div class="col-12">
+            <?= $why_us_module; ?>
+            <?= $featured_tabs_module; ?>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
     <footer class="bg-dark py-5 mt-5">
       <?= $footer_block; ?>
     </footer>

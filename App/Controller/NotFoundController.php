@@ -12,7 +12,8 @@ class NotFoundController extends Controller
     {
         header("Status: " . $code . "Not Found");
         header("HTTP/1.1 " . $code . "Not Found");
-        $data = (new Error())->getErrorInfo($code);
-        (new ErrorView())->render($data);
+        $error = new Error();
+        $error->getErrorInfo($code);
+        (new ErrorView())->render($error);
     }
 }

@@ -6,29 +6,30 @@ use Framework\Model;
 
 class Order extends Model
 {
-    public $id;
-    public $order_number;
-    public $user_id;
-    public $total;
-    public $shipping_method_id;
-    public $payment_method_id;
-    public $status;
-    public $created_at;
-    public $modified_at;
-    public $finished;
-    public $track_number;
-    public $client_first_name;
-    public $client_last_name;
-    public $client_middle_name;
-    public $client_phone_number;
-    public $client_email;
-    public $delivery_postcode;
-    public $delivery_country_id;
-    public $delivery_region_id;
-    public $delivery_city_id;
-    public $delivery_street;
-    public $delivery_house_number;
-    public $delivery_appartment_number;
+    protected $id;
+    protected $order_number;
+    protected $user_id;
+    protected $total;
+    protected $shipping_method_id;
+    protected $payment_method_id;
+    protected $status;
+    protected $created_at;
+    protected $modified_at;
+    protected $finished;
+    protected $track_number;
+    protected $client_first_name;
+    protected $client_last_name;
+    protected $client_middle_name;
+    protected $client_phone_number;
+    protected $client_email;
+    protected $delivery_postcode;
+    protected $delivery_country;
+    protected $delivery_state;
+    protected $delivery_city;
+    protected $delivery_street;
+    protected $delivery_house_number;
+    protected $delivery_apartment_number;
+    protected $products;
 
     public function setId($id)
     {
@@ -50,12 +51,12 @@ class Order extends Model
         return $this->user_id;
     }
 
-    public function setCreatedAtDateTime($created_at)
+    public function setCreatedAt($created_at)
     {
         $this->created_at = $created_at;
     }
 
-    public function getCreatedAtDateTime()
+    public function getCreatedAt()
     {
         return $this->created_at;
     }
@@ -70,12 +71,12 @@ class Order extends Model
         return $this->order_number;
     }
 
-    public function setOrderTotal($total)
+    public function setTotal($total)
     {
         $this->total = $total;
     }
 
-    public function getOrderTotal()
+    public function getTotal()
     {
         return $this->total;
     }
@@ -110,12 +111,12 @@ class Order extends Model
         return $this->status;
     }
 
-    public function setModifiedAtDateTime($modified_at)
+    public function setModifiedAt($modified_at)
     {
         $this->modified_at = $modified_at;
     }
 
-    public function getModifiedAtDateTime()
+    public function getModifiedAt()
     {
         return $this->modified_at;
     }
@@ -124,7 +125,7 @@ class Order extends Model
     {
         $this->finished = $finished;
     }
-
+    
     public function getFinished()
     {
         return $this->finished;
@@ -157,7 +158,7 @@ class Order extends Model
 
     public function getClientLastName()
     {
-        return $this->client_larst_name;
+        return $this->client_last_name;
     }
 
     public function setClientMiddleName($client_middle_name)
@@ -200,34 +201,34 @@ class Order extends Model
         return $this->delivery_postcode;
     }
 
-    public function setDeliveryCountryId($delivery_country_id)
+    public function setDeliveryCountry($delivery_country)
     {
-        $this->delivery_country_id = $delivery_country_id;
+        $this->delivery_country = $delivery_country;
     }
 
-    public function getDeliveryCountryId()
+    public function getDeliveryCountry()
     {
-        return $this->delivery_country_id;
+        return $this->delivery_country;
     }
 
-    public function setDeliveryRegionId($delivery_region_id)
+    public function setDeliveryState($delivery_state)
     {
-        $this->delivery_region_id = $delivery_region_id;
+        $this->delivery_state = $delivery_state;
     }
 
-    public function getDeliveryRegionId()
+    public function getDeliveryState()
     {
-        return $this->delivery_region_id;
+        return $this->delivery_state;
     }
 
-    public function setDeliveryCityId($delivery_city_id)
+    public function setDeliveryCity($delivery_city)
     {
-        $this->delivery_city_id = $delivery_city_id;
+        $this->delivery_city = $delivery_city;
     }
 
-    public function getDeliveryCityId()
+    public function getDeliveryCity()
     {
-        return $this->delivery_city_id;
+        return $this->delivery_city;
     }
 
     public function setDeliveryStreet($delivery_street)
@@ -250,13 +251,23 @@ class Order extends Model
         return $this->delivery_house_number;
     }
 
-    public function setDeliveryAppartmentNumber($delivery_appartment_number)
+    public function setDeliveryApartmentNumber($delivery_apartment_number)
     {
-        $this->delivery_appartment_number = $delivery_appartment_number;
+        $this->delivery_apartment_number = $delivery_apartment_number;
     }
 
-    public function getDeliveryAppartmentNumber()
+    public function getDeliveryApartmentNumber()
     {
-        return $this->delivery_appartment_number;
+        return $this->delivery_apartment_number;
+    }
+
+    public function setProducts($products)
+    {
+        $this->products = $products;
+    }
+
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

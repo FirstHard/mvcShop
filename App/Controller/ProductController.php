@@ -2,12 +2,27 @@
 
 namespace App\Controller;
 
+use App\Model\ProductMapper;
+use App\View\ProductView;
 use Framework\Controller;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->mapper = new ProductMapper();
+    }
+
     public function actionIndex(): void
     {
-        echo 'Product Page';
+        $this->mapper->getIndexData($this->gets);
+        (new ProductView())->render($this->mapper);
+    }
+
+    public function actionView(): void
+    {
+        $this->mapper->getProductById($this->param);
+        (new ProductView())->renderOne($this->mapper);
     }
 }

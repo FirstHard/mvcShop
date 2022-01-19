@@ -25,8 +25,6 @@
         ?>
         <div class="<?= $main_class ?>">
           <?= $main_block; ?>
-          <?= $about_us_module; ?>
-          <?= $subscribe_module; ?>
         </div>
       </div>
     </div>

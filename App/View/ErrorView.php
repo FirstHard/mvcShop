@@ -10,9 +10,6 @@ class ErrorView extends View
 {
     public function render($data): void
     {
-        $headers = new Page();
-        $headers->setTitle('Error');
-        extract($data);
         ob_start();
         include('modules/head.php');
         $head_block = ob_get_contents();
