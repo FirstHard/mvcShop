@@ -46,6 +46,8 @@ class Db extends PDO
                 $param_type = PDO::PARAM_INT;
             } elseif (gettype($value) == 'string') {
                 $param_type = PDO::PARAM_STR;
+            } elseif (gettype($value) == 'NULL') {
+                $param_type = PDO::PARAM_NULL;
             } else {
                 throw new ExceptionsHandler('Wrong param type of: ' . $key . '!', 0);
                 die();

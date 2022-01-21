@@ -4,23 +4,39 @@ namespace App\Core;
 
 use App\Core\Session;
 use App\Model\UserMapper;
-use App\Core\ExceptionsHandler;
+use App\Model\CartMapper;
 use FirstHard\LogsHandler;
 
 class Auth
 {
 
-    public $logged_user = '';
+    public $logged_user;
     public $errors = [];
 
     public function __construct()
     {
         $this->isAuth();
-        if (isset($_GET['do']) && $_GET['do'] == 'login') $this->doLogin();
-        if (isset($_GET['do']) && $_GET['do'] == 'registration') $this->doRegistration();
-        if (isset($_GET['do']) && $_GET['do'] == 'reset') $this->doReset();
-        if (isset($_GET['do']) && $_GET['do'] == 'set_password') $this->doSetPassword();
-        if (isset($_GET['do']) && $_GET['do'] == 'logout') $this->doLogout();
+        if (isset($_GET['do'])) {
+            switch ($_GET['do']) {
+                case 'login':
+                    $this->doLogin();
+                    break;
+                case 'logout':
+                    $this->doLogout();
+                    break;
+                case 'registration':
+                    $this->doRegistration();
+                    break;
+                case 'reset':
+                    $this->doReset();
+                    break;
+                case 'set_password':
+                    $this->doSetPassword();
+                    break;
+                default:
+                    break;
+            } 
+        }
     }
 
     private function doLogin()

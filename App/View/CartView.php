@@ -4,7 +4,7 @@ namespace App\View;
 
 use Framework\View;
 
-class ErrorView extends View
+class CartView extends View
 
 {
     public function render($data): void
@@ -22,14 +22,23 @@ class ErrorView extends View
         $header_block = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/main.php');
+        if ($data->user) {
+            include('modules/order_form.php');
+            $order_form = ob_get_contents();
+        } else {
+            include('modules/guest_order_form.php');
+            $order_form = ob_get_contents();
+        }
+        ob_end_clean();
+        ob_start();
+        include('modules/cart_main.php');
         $main_block = ob_get_contents();
         ob_end_clean();
         ob_start();
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();
-        include('templates/errors.php');
+        include('templates/cart.php');
         flush();
     }
 }

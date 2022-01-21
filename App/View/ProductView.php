@@ -2,7 +2,6 @@
 
 namespace App\View;
 
-use App\Model\Page;
 use Framework\View;
 
 class ProductView extends View

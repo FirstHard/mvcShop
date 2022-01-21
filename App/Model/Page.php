@@ -2,13 +2,11 @@
 
 namespace App\Model;
 
-use App\Core\ExceptionsHandler;
 use Framework\Model;
 
 class Page extends Model
 {
     public $title;
-    public $type;
     public $message;
     public $site_title = 'Project MVC The Shop';
     public $level;
@@ -116,6 +114,18 @@ class Page extends Model
                 $this->footer = 'Choose something from our <a href="/shop">Products</a> range.';
                 break;
 
+            case 'cart_empty':
+                $this->title = 'Cart';
+                $this->level = 'info';
+                $this->header = 'Your shopping cart is empty.';
+                $this->body = 'Please add to cart products.';
+                $this->footer = 'Choose something fine from our <a href="/shop">Products</a> range.';
+                break;
+
+            case 'cart':
+                $this->title = 'Cart';
+                break;
+
             case 'single_order':
                 $this->title = 'Order';
                 break;
@@ -156,7 +166,9 @@ class Page extends Model
                 $this->footer = 'Let the site administrator know about it: <a href="#">.';
                 break;
         }
-        $this->message = $this->renderHtmlMessage($this->level, $this->header, $this->body, $this->footer);
+        if ($this->level) {
+            $this->message = $this->renderHtmlMessage($this->level, $this->header, $this->body, $this->footer);
+        }
     }
 
     public function renderHtmlMessage($level, $header, $body, $footer)

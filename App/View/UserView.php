@@ -3,7 +3,6 @@
 namespace App\View;
 
 use Framework\View;
-use App\Model\Page;
 
 class UserView extends View
 

@@ -3,9 +3,6 @@
 namespace App\View;
 
 use Framework\View;
-use App\Model\Page;
-use App\Model\Order;
-use App\Model\OrderMapper;
 
 class OrderView extends View
 {
