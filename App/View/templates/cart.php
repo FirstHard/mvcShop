@@ -9,7 +9,11 @@
       <?= $header_block; ?>
     </header>
     <main>
-      <?= $main_block; ?>
+      <div class="container mt-5">
+        <div class="row">
+          <?= $main_block; ?>
+        </div>
+      </div>
     </main>
     <footer class="bg-dark py-5 mt-5">
       <?= $footer_block; ?>

@@ -1,15 +1,20 @@
+      <div class="container">
         <div class="row">
           <div class="col-12 my-5">
             <h3 class="text-center">Please check your details!</h3>
             <div class="card">
               <div class="card-body">
-                <form action="?do=checkout" id="checkout" method="POST" autocomplete="off">
+                <form action="/cart/checkout?cart_token=<?= $data->cart_token; ?>" id="checkout" method="POST" autocomplete="off">
                   <div class="row g-3">
-                    <div class="col-md-6">
-                      <label for="inputEmail" class="form-label">Email*</label>
+                    <div class="col-md-4">
+                      <label for="inputLogin" class="form-label">Login</label>
+                      <input type="text" name="login" value="<?= $data->user->getLogin(); ?>" id="inputLogin" class="form-control" placeholder="Input your login" aria-label="Login" required>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="inputEmail" class="form-label">Email</label>
                       <input type="email" name="email" value="<?= $data->user->getEmail(); ?>" id="inputEmail" class="form-control" placeholder="Input your Email" aria-label="Email" required>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <label for="inputPhone" class="form-label">Phone</label>
                       <input type="phone" name="phone_number" value="<?= $data->user->getPhoneNumber(); ?>" id="inputPhone" class="form-control" placeholder="Input your Phone number" aria-label="Phone">
                     </div>
@@ -74,3 +79,4 @@
           </div>
           <button type="submit" form="checkout" class="btn btn-primary btn-lg mx-auto">Checkout</button>
         </div>
+      </div>

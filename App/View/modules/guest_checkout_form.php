@@ -1,9 +1,10 @@
+      <div class="container">
         <div class="row">
           <div class="col-12 col-lg-6 my-5">
             <h3 class="text-center">Please sign up!</h3>
             <div class="card">
               <div class="card-body">
-                <form action="?do=checkout" id="checkout" method="POST" autocomplete="off">
+                <form action="/cart/checkout?cart_token=<?= $data->cart_token; ?>" id="checkout" method="POST" autocomplete="off">
                   <div class="row g-3">
                     <div class="col-md-6">
                       <label for="inputLogin" class="form-label">Login*</label>
@@ -84,3 +85,4 @@
           </div>
           <button type="submit" form="checkout" class="btn btn-primary btn-lg mx-auto">Checkout</button>
         </div>
+      </div>

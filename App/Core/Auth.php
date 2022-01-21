@@ -4,7 +4,6 @@ namespace App\Core;
 
 use App\Core\Session;
 use App\Model\UserMapper;
-use App\Model\CartMapper;
 use FirstHard\LogsHandler;
 
 class Auth
@@ -102,12 +101,13 @@ class Auth
                 $message['error']['message_description'] = 'Please register another Login and/or Email!';
                 $this->errors = $message;
             } else {
-                return $this->registration($data);
+                $location = 'Location: /user/registration?action=complete';
+                return $this->registration($data, $location);
             }
         }
         return false;
     }
-
+    
     public function resetToken($token)
     {
         $userMapper = new UserMapper();
@@ -164,8 +164,8 @@ class Auth
         }
         return false;
     }
-
-    private function registration($data)
+    
+    public function registration($data, $location = false)
     {
         $userMapper = new UserMapper();
         $data['id'] = 0;
@@ -199,7 +199,9 @@ class Auth
                 'MIME-Version: 1.0' . "\r\n";
             $headers .= "From: Admin <root@staging.buinoff.tk>\r\n";
             if (mail($to, $subject, $message, $headers)) {
-                header('Location: /user/registration?action=complete');
+                if ($location) {
+                    header($location);
+                }
             } else {
                 LogsHandler::debug(0, ['Message' => 'Can`t sent email to user from registration page!', 'email' => $data['email']]);
             }

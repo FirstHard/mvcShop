@@ -1,11 +1,11 @@
-<h1 class="text-center py-1 mt-5"><?= $data->page->title; ?></h1>
 <div class="container">
+  <h1 class="text-center py-1 mt-5"><?= $data->page->title; ?></h1>
   <?php
   if (!empty($data->page->message)) {
   ?>
   <div class="row">
     <div class="col-12">
-    <?= $data->page->message; ?>
+      <?= $data->page->message; ?>
     </div>
   </div>
   <?php
@@ -18,7 +18,7 @@
     <div class="border col-2 p-2 text-center">
       Image:
     </div>
-    <div class="border col-4 col-lg-7 p-2 text-center">
+    <div class="border col-2 col-lg-6 p-2 text-center">
       Product:
     </div>
     <div class="border col-2 col-lg-1 p-2 d-flex justify-content-center align-items-center text-center">
@@ -30,10 +30,12 @@
     <div class="border col-2 col-lg-1 p-2 d-flex justify-content-center align-items-center text-center">
       Summ:
     </div>
+    <div class="border col-2 col-lg-1 p-2 d-flex justify-content-center align-items-center text-center">
+      Action:
+    </div>
   </div>
   <?php
     foreach ($data->cart_products as $row) {
-        $data->total += $row['product_summ'];
   ?>
   <form action="" id="<?= $row['product']->getId(); ?>" method="post">
     <input type="hidden" name="id" value="<?= $row['product']->getId(); ?>">
@@ -44,7 +46,7 @@
           <img src="/src/images/products/<?= $row['product']->getImageName(); ?>" alt="<?= $row['product']->getName(); ?>" class="img-fluid">
         </a>
       </div>
-      <div class="border col-3 col-lg-6 cart-product-info">
+      <div class="border col-2 col-lg-6 cart-product-info">
         <input type="hidden" name="product_id" value="<?= $row['product']->getId(); ?>">
         <a href="/product/view/<?= $row['product']->getId(); ?>">
           <?= $row['product']->getName(); ?>
@@ -72,10 +74,10 @@
       }
   ?>
   <div class="row border bg-dark text-light text-end p-2">
-    <div class="col-2 col-md-1 ms-auto">
+    <div class="col-3 col-md-1 ms-auto">
       Total:
     </div>
-    <div class="col-2 col-md-1">
+    <div class="col-3 col-md-1">
       $ <?= $data->total; ?>
     </div>
   </div>

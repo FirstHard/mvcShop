@@ -126,6 +126,26 @@ class Page extends Model
                 $this->title = 'Cart';
                 break;
 
+            case 'checkout':
+                $this->title = 'Checkout';
+                break;
+
+            case 'checkout_success':
+                $this->title = 'Checkout';
+                $this->level = 'success';
+                $this->header = 'Checkout success!';
+                $this->body = 'Thank you for your order! Our managers will contact you shortly to clarify the method of delivery and payment for the goods according to your order. Your order information has been sent to You by email.';
+                $this->footer = 'Log in to your <a href="/user/login">Profile</a> and check status of your Orders in History.';
+                break;
+
+            case 'checkout_failed':
+                $this->title = 'Checkout';
+                $this->level = 'danger';
+                $this->header = 'Checkout failed!';
+                $this->body = 'Something went wrong...';
+                $this->footer = 'Please try again later.';
+                break;
+
             case 'single_order':
                 $this->title = 'Order';
                 break;
