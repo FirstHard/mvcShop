@@ -41,7 +41,6 @@ class CartMapper extends DataMapper
 
     public function getIndexData()
     {
-        //unset($_SESSION['cart_token']);
         $this->page->getMainContent('cart');
         if ($data = filter_input_array(INPUT_POST)) {
             if (isset($data['cart_token'])) {

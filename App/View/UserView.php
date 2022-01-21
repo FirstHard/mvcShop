@@ -135,8 +135,8 @@ class UserView extends View
             ob_end_clean();
         } else {
             ob_start();
-            echo $data->page->message;
             include('modules/main.php');
+            echo $data->page->message;
             $main_block = ob_get_contents();
             ob_end_clean();
         }

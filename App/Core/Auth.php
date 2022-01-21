@@ -172,7 +172,6 @@ class Auth
         $data['password'] = password_hash($data['password'], PASSWORD_ARGON2I);
         $data['auth_token'] = trim(file_get_contents('/proc/sys/kernel/random/uuid'));
         $data['registered_at'] = date("Y-m-d H:i:s");
-        unset($data['last_login']);
         $data['blocked'] = 1;
         $data['country'] = 'USA';
         if ($userMapper->insert($data, 'user')) {
