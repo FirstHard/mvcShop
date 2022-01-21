@@ -25,7 +25,6 @@ class CartMapper extends DataMapper
             $cart->setId($object['id']);
             $cart->setCartToken($object['cart_token']);
             $cart->setUserId($object['user_id']);
-            $cart->cart_products = $this->getCartProducts($object['cart_token']);
             $this->elements[] = $cart;
         }
         return $this->elements;
@@ -166,6 +165,9 @@ class CartMapper extends DataMapper
                     $params = ['id' => $item['id']];
                     $this->delete($params, 'cart_product_items');
                 }
+                header('Location: /cart/success/');
+            } else {
+                header('Location: /cart/failed/');
             }
         } else {
             header('Location: /cart');
@@ -210,16 +212,17 @@ class CartMapper extends DataMapper
                             <th>Sum:</th>
                         </tr>
                     </thead>
-                    <tbody>';
+                    <tbody>
+        ';
         foreach ($items_to_email as $item) {
-            $message .= '
+        $message .= '
                         <tr>
                             <td>' . (new ProductMapper())->getProduct($item["product_id"])->getName() . '</td>
                             <td>' . $item["amount"] . ' pcs.</td>
                             <td>$ ' . $item["product_price"] . '</td>
-                            <td>$ ' . $item["product_id"] * $item["product_price"] . '</td>
+                            <td>$ ' . $item["amount"] * $item["product_price"] . '</td>
                         </tr>
-            ';
+        ';
         }
         $message .= '
                     </tbody>
@@ -296,7 +299,6 @@ class CartMapper extends DataMapper
 
     public function addToCart($posted_cart)
     {
-        //unset($_SESSION['cart_token']);
         $user_id = null;
         if ($posted_cart) {
             if ($this->user = (new Auth())->isAuth()) {
@@ -314,9 +316,6 @@ class CartMapper extends DataMapper
             if (!isset($posted_cart['cart_token'])) {
                 $posted_cart['cart_token'] = uniqid('', true);
             }
-            /* echo '<pre>';
-            print_r($posted_cart);
-            echo '</pre>'; */
             if ($cart = $this->getCartByToken($posted_cart['cart_token'])) {
                 $this->cart_token = $cart['cart_token'];
                 if ($cart_product_items = $this->getCartProductsItems($this->cart_token)) {
