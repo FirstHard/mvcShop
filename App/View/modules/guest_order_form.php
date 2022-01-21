@@ -66,9 +66,6 @@
                       <label for="inputZip" class="form-label">Zip</label>
                       <input type="text" name="postcode" class="form-control" id="inputZip">
                     </div>
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Sign up</button>
-                    </div>
                   </div>
                 </form>
               </div>
@@ -85,4 +82,5 @@
               <li class="list-group-item">We will save for you a list of the products you viewed during your last visit to our site.</li>
             </ul>
           </div>
+          <button type="submit" form="checkout" class="btn btn-primary btn-lg mx-auto">Checkout</button>
         </div>

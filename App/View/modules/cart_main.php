@@ -32,11 +32,8 @@
     </div>
   </div>
   <?php
-    /* echo '<pre>';
-    print_r($data);
-    echo '</pre>'; */
     foreach ($data->cart_products as $row) {
-      $data->total += $row['product_summ'];
+        $data->total += $row['product_summ'];
   ?>
   <form action="" id="<?= $row['product']->getId(); ?>" method="post">
     <input type="hidden" name="id" value="<?= $row['product']->getId(); ?>">
@@ -72,7 +69,7 @@
     </div>
   </form>
   <?php
-    }
+      }
   ?>
   <div class="row border bg-dark text-light text-end p-2">
     <div class="col-2 col-md-1 ms-auto">
