@@ -4,13 +4,11 @@ namespace App\View;
 
 use Framework\View;
 
-class ProductView extends View
+class CartView extends View
+
 {
     public function render($data): void
     {
-        if ($data->pagination) {
-            $pagination_block = $data->pagination->get();
-        }
         ob_start();
         include('modules/head.php');
         $head_block = ob_get_contents();
@@ -24,20 +22,28 @@ class ProductView extends View
         $header_block = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/list_products.php');
+        if ($data->user) {
+            include('modules/checkout_form.php');
+            $order_form = ob_get_contents();
+        } else {
+            include('modules/guest_checkout_form.php');
+            $order_form = ob_get_contents();
+        }
+        ob_end_clean();
+        ob_start();
+        include('modules/cart_main.php');
         $main_block = ob_get_contents();
         ob_end_clean();
         ob_start();
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();
-        include('templates/shop.php');
+        include('templates/cart.php');
         flush();
     }
 
-    public function renderOne($data): void
+    public function renderCheckout($data): void
     {
-        $product = $data->main_data;
         ob_start();
         include('modules/head.php');
         $head_block = ob_get_contents();
@@ -51,14 +57,40 @@ class ProductView extends View
         $header_block = ob_get_contents();
         ob_end_clean();
         ob_start();
-        include('modules/product_main.php');
+        include('modules/checkout.php');
         $main_block = ob_get_contents();
         ob_end_clean();
         ob_start();
         include('modules/footer.php');
         $footer_block = ob_get_contents();
         ob_end_clean();
-        include('templates/product.php');
+        include('templates/cart.php');
+        flush();
+    }
+
+    public function renderResult($data): void
+    {
+        ob_start();
+        include('modules/head.php');
+        $head_block = ob_get_contents();
+        ob_end_clean();
+        ob_start();
+        include('modules/nav.php');
+        $nav_module = ob_get_contents();
+        ob_end_clean();
+        ob_start();
+        include('modules/header.php');
+        $header_block = ob_get_contents();
+        ob_end_clean();
+        ob_start();
+        include('modules/main.php');
+        $main_block = ob_get_contents();
+        ob_end_clean();
+        ob_start();
+        include('modules/footer.php');
+        $footer_block = ob_get_contents();
+        ob_end_clean();
+        include('templates/cart.php');
         flush();
     }
 }

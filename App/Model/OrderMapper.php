@@ -117,6 +117,15 @@ class OrderMapper extends DataMapper
         return $order;
     }
 
+    public function getNextOrderNumber()
+    {
+        $query = 'SELECT MAX(`order_number`) as `order_number` FROM `' . self::TABLE_NAME . '`';
+        if ($result = $this->db->run($query, [])) {
+            return str_pad($result[0]['order_number'] + 1, 8, '0', STR_PAD_LEFT);
+        }
+        return false;
+    }
+
     public function getCountOrdersByUserId(int $user_id): int
     {
         $query = "SELECT COUNT(*) AS `count` FROM `order` WHERE `user_id` = :user_id";

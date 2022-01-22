@@ -2,7 +2,6 @@
 
 namespace App\Model;
 
-use App\Core\Session;
 use App\Model\ShopCategory;
 use App\View\Pagination;
 use Framework\DataMapper;

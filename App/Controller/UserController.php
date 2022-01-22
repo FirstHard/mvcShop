@@ -51,6 +51,7 @@ class UserController extends Controller
             }
         } elseif (isset($this->gets['action']) && $this->gets['action'] == 'complete') {
             $this->mapper->reset('reset_complete');
+            $addmodule = '';
         } else {
             $this->mapper->reset();
         }
@@ -72,7 +73,10 @@ class UserController extends Controller
     {
         if (isset($this->gets['token'])) {
             if ($this->auth->checkToken($this->gets['token'])) {
+                $this->auth->resetToken($this->gets['token']);
                 $this->mapper->registrationSuccess();
+            } else {
+                $this->mapper->registrationFailed();
             }
         } else {
             $this->mapper->registrationFailed();

@@ -71,12 +71,14 @@ class ProductMapper extends DataMapper
         return $product;
     }
 
-    public function getProductById($id)
+    public function getProductById($id, $gets = [])
     {
         if ($this->main_data = $this->getProduct($id)) {
-            return $this->main_data;
+            $this->page->title = $this->main_data->getName();
         }
-        return false;
+        if (isset($gets['do']) && $gets['do'] == 'add_to_cart') {
+            (new CartMapper())->addToCart(filter_input_array(INPUT_POST));
+        }
     }
 
     public function getByList(string $list_name)

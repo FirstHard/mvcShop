@@ -23,7 +23,7 @@
                             </div>
                             <div class="card-text short-description"><?= $product->getShortDescription() ?></div>
                             <div class="card-button">
-                              <a href="#" class="btn btn-default text-uppercase"><i class="bi bi-bag-plus"></i> Buy</a>
+                              <a href="/product/view/<?= $product->getId() ?>" class="btn btn-default text-uppercase"><i class="bi bi-bag-plus"></i> Buy</a>
                             </div>
                           </div>
                         </div>

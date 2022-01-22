@@ -3,8 +3,6 @@
 namespace App\View;
 
 use Framework\View;
-use App\Model\Page;
-use App\Core\ExceptionsHandler;
 
 class HomeView extends View
 {

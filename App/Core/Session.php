@@ -32,8 +32,8 @@ class Session
         $_SESSION[session_name()] = session_id();
         $_SESSION['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
         $_SESSION['USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
-        setcookie(session_name(), session_id(), 1440, $_SERVER['HTTP_HOST'], '', false, false);
-        setcookie('logged_user', $logged_user->getLogin(), 1440, $_SERVER['HTTP_HOST'], '', false, true);
+        setcookie(session_name(), session_id(), 3600, $_SERVER['HTTP_HOST'], '', false, true);
+        setcookie('logged_user', $logged_user->getLogin(), 3600, $_SERVER['HTTP_HOST'], '', false, true);
     }
 
     public static function checkUserSession()
@@ -51,7 +51,7 @@ class Session
     {
         foreach ($data as $key => $value) {
             $_SESSION[$key] = $value;
-            setcookie($key, $value, 1440, '/', HOME, false, true);
+            setcookie($key, $value, 3600, '/', HOME, false, true);
         }
     }
 

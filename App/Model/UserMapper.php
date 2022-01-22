@@ -126,6 +126,15 @@ class UserMapper extends DataMapper
         }
     }
 
+    public function getNextUserId()
+    {
+        $query = 'SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_NAME = "' . self::TABLE_NAME . '" AND TABLE_SCHEMA = "' . DB_NAME . '"';
+        if ($result = $this->db->run($query, [])) {
+            return $result[0]['AUTO_INCREMENT'];
+        }
+        return false;
+    }
+
     public function registration()
     {
         $this->page->getMainContent('registration');

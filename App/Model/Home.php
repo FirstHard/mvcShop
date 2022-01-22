@@ -3,8 +3,6 @@
 namespace App\Model;
 
 use Framework\Model;
-use App\Model\Product;
-use App\Core\Fdb;
 
 class Home extends Model
 {

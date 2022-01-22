@@ -2,8 +2,6 @@
 
 namespace Framework;
 
-use App\Model\Page;
-
 class Controller
 {
     public $param;

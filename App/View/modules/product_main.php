@@ -2,7 +2,7 @@
         <div class="row">
           <div class="col-12 col-lg-6 p-4">
             <div class="prod-thumb">
-              <a type="button"  data-bs-toggle="modal" data-bs-target="#productModal">
+              <a type="button" data-bs-toggle="modal" data-bs-target="#productModal">
                 <img src="/src/images/products/<?= $product->getImageName(); ?>" alt="<?= $product->getName(); ?>" class="product-img">
               </a>
               <div class="modal fade" id="productModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
@@ -22,35 +22,41 @@
           </div>
           <div class="col-12 col-lg-6 p-4">
             <div class="product-info">
-              <h1 class="title"><?= $product->getName(); ?></h1>
-              <div class="prices">
-                <h4>Price:</h4>
-                <?php
-                if ($product->getNewPrice() > 0) {
-                ?>
-                <span class="product-old-price">$&nbsp;<?= (int) $product->getPrice() ?></span>
-                <span class="product-new-price">$&nbsp;<?= (int) $product->getNewPrice() ?></span>
-                <?php
-                } else {
-                ?>
-                <span class="product-new-price">$&nbsp;<?= (int) $product->getPrice() ?></span>
-                <?php
-                }
-                ?>
-              </div>
-              <div class="product-short-description">
-                <?= $product->getShortDescription(); ?>
-              </div>
-              <div class="d-flex">
-                <div class="product-quantity">
-                  <div class="input-group quantity-goods">
-                    <input type="button" value="-" id="button_minus" title="Reduce the quantity">
-                    <input type="text" id="num_count" name="quantity" value="1" title="Input quantity">
-                    <input type="button" value="+" id="button_plus" title="Increase the quantity">
-                  </div>
+              <form action="?do=add_to_cart" method="post">
+                <input type="hidden" name="product_id" value="<?= $product->getId(); ?>">
+                <h1 class="title"><?= $product->getName(); ?></h1>
+                <div class="prices">
+                  <h4>Price:</h4>
+                  <?php
+                  if ($product->getNewPrice() > 0) {
+                    $product_price = $product->getNewPrice();
+                  ?>
+                  <span class="product-old-price">$&nbsp;<?= (int) $product->getPrice(); ?></span>
+                  <span class="product-new-price">$&nbsp;<?= (int) $product->getNewPrice(); ?></span>
+                  <?php
+                  } else {
+                    $product_price = $product->getPrice();
+                  ?>
+                  <span class="product-new-price">$&nbsp;<?= (int) $product->getPrice(); ?></span>
+                  <?php
+                  }
+                  ?>
+                  <input type="hidden" name="product_price" value="<?= $product_price ?>">
                 </div>
-                <a href="#" class="btn btn-default text-uppercase"><i class="bi bi-bag-plus"></i> Add to cart</a>
-              </div>
+                <div class="product-short-description">
+                  <?= $product->getShortDescription(); ?>
+                </div>
+                <div class="d-flex">
+                  <div class="product-quantity">
+                    <div class="input-group quantity-goods">
+                      <input type="button" value="-" id="button_minus" title="Reduce the quantity">
+                      <input type="text" id="num_count" name="amount" min="1" value="1" title="Input quantity">
+                      <input type="button" value="+" id="button_plus" title="Increase the quantity">
+                    </div>
+                  </div>
+                  <button type="submit" href="#" class="btn btn-default text-uppercase"><i class="bi bi-bag-plus"></i> Add to cart</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

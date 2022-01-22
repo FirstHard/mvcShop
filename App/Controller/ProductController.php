@@ -22,7 +22,7 @@ class ProductController extends Controller
 
     public function actionView(): void
     {
-        $this->mapper->getProductById($this->param);
+        $this->mapper->getProductById($this->param, $this->gets, $this->queries);
         (new ProductView())->renderOne($this->mapper);
     }
 }

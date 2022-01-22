@@ -3,9 +3,6 @@
 namespace App\Model;
 
 use Framework\Model;
-use App\Core\Fdb;
-use App\Model\Product;
-use Framework\DataMapper;
 
 class ShopCategory extends Model
 {

@@ -45,7 +45,28 @@
               ?>
               </span>
               <a href="/user" class="text-light ms-2 px-1" title="My Profile"><i class="bi bi-person-circle" style="font-size: 1.6rem;" role="img"></i></a>
-              <div class="cart-icon-wrapper"><a href="#" class="text-light ms-2 px-1 cart-icon" title="Your shopping cart: 2 items worth $&nbsp;200"><i class="bi bi-bag" style="font-size: 1.6rem;" role="img"></i><span class="cart-items">2</span></a></div>
+              <?php
+              if ($cart = $this->cart) {
+                $count_items = 0;
+                $count_icon = '';
+                $mini_cart_title = 'Your shopping cart is empty';
+                if ($cart_products = $cart->cart_products) {
+                  $count_items = count($cart_products);
+                  $mini_cart_title = 'Your shopping cart: ' . $count_items . ' items worth $&nbsp;' . $cart->total;
+                  $count_icon = '
+                  <span class="cart-items">' . $count_items . '</span>
+                  ';
+                }
+              ?>
+              <div class="cart-icon-wrapper">
+                <a href="/cart" class="text-light ms-2 px-1 cart-icon" title="<?= $mini_cart_title; ?>">
+                  <i class="bi bi-bag" style="font-size: 1.6rem;" role="img"></i>
+                  <?= $count_icon; ?>
+                </a>
+              </div>
+              <?php
+              }
+              ?>
             </div>
           </div>
         </nav>

@@ -4,23 +4,38 @@ namespace App\Core;
 
 use App\Core\Session;
 use App\Model\UserMapper;
-use App\Core\ExceptionsHandler;
 use FirstHard\LogsHandler;
 
 class Auth
 {
 
-    public $logged_user = '';
+    public $logged_user;
     public $errors = [];
 
     public function __construct()
     {
         $this->isAuth();
-        if (isset($_GET['do']) && $_GET['do'] == 'login') $this->doLogin();
-        if (isset($_GET['do']) && $_GET['do'] == 'registration') $this->doRegistration();
-        if (isset($_GET['do']) && $_GET['do'] == 'reset') $this->doReset();
-        if (isset($_GET['do']) && $_GET['do'] == 'set_password') $this->doSetPassword();
-        if (isset($_GET['do']) && $_GET['do'] == 'logout') $this->doLogout();
+        if (isset($_GET['do'])) {
+            switch ($_GET['do']) {
+                case 'login':
+                    $this->doLogin();
+                    break;
+                case 'logout':
+                    $this->doLogout();
+                    break;
+                case 'registration':
+                    $this->doRegistration();
+                    break;
+                case 'reset':
+                    $this->doReset();
+                    break;
+                case 'set_password':
+                    $this->doSetPassword();
+                    break;
+                default:
+                    break;
+            } 
+        }
     }
 
     private function doLogin()
@@ -86,12 +101,13 @@ class Auth
                 $message['error']['message_description'] = 'Please register another Login and/or Email!';
                 $this->errors = $message;
             } else {
-                return $this->registration($data);
+                $location = 'Location: /user/registration?action=complete';
+                return $this->registration($data, $location);
             }
         }
         return false;
     }
-
+    
     public function resetToken($token)
     {
         $userMapper = new UserMapper();
@@ -148,15 +164,14 @@ class Auth
         }
         return false;
     }
-
-    private function registration($data)
+    
+    public function registration($data, $location = false)
     {
         $userMapper = new UserMapper();
         $data['id'] = 0;
         $data['password'] = password_hash($data['password'], PASSWORD_ARGON2I);
         $data['auth_token'] = trim(file_get_contents('/proc/sys/kernel/random/uuid'));
         $data['registered_at'] = date("Y-m-d H:i:s");
-        unset($data['last_login']);
         $data['blocked'] = 1;
         $data['country'] = 'USA';
         if ($userMapper->insert($data, 'user')) {
@@ -184,7 +199,9 @@ class Auth
                 'MIME-Version: 1.0' . "\r\n";
             $headers .= "From: Admin <root@staging.buinoff.tk>\r\n";
             if (mail($to, $subject, $message, $headers)) {
-                header('Location: /user/registration?action=complete');
+                if ($location) {
+                    header($location);
+                }
             } else {
                 LogsHandler::debug(0, ['Message' => 'Can`t sent email to user from registration page!', 'email' => $data['email']]);
             }

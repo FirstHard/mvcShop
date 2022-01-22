@@ -50,7 +50,13 @@
 	font-size: 12px;
 	position: relative;
 }
-.card-text.short-description::before {
+.cart-product-info {
+	max-height: 221px;
+	overflow: hidden;
+	font-size: 12px;
+	position: relative;
+}
+.card-text.short-description::before, .cart-product-info::before {
     display: table;
     content: " ";
 	position: absolute;
@@ -141,7 +147,7 @@ img.product-img {
 .quantity-goods {
 	margin-right: 15px;
 }
-.quantity-goods input {
+.quantity-goods input, .quantity-goods button {
 	border: 1px solid #ededed;
     height: 42px;
     width: 50px;
@@ -149,6 +155,9 @@ img.product-img {
     font-size: 14px;
     font-weight: 400;
 
+}
+.quantity-goods button:hover {
+	color: #b80999;
 }
 
 @media screen and (max-width: 992px) {

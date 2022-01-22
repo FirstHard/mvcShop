@@ -18,7 +18,7 @@ class DataMapper
 
     public function insert(array $params, $table): string|false
     {
-        $query = 'INSERT INTO `' . $table . '` (' . implode(", ", array_keys($params)) . ') VALUES (:' . implode(", :", array_keys($params)) . ') ON DUPLICATE KEY UPDATE id = :id';
+        $query = 'INSERT INTO `' . $table . '` (' . implode(", ", array_keys($params)) . ') VALUES (:' . implode(", :", array_keys($params)) . ')';
         if ($this->db->run($query, $params)) {
             return true;
         }
