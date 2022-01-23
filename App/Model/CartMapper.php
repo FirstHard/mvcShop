@@ -96,6 +96,7 @@ class CartMapper extends DataMapper
         if (!$this->cart_products) {
             $this->page->getMainContent('cart_empty');
         }
+        return $this;
     }
 
     public function checkoutSuccess()

@@ -1,6 +1,6 @@
         <section id="Products" class="Products">
+          <h2 class="text-center"><?= $data->page->title; ?></h2>
           <div class="container py-5">
-            <h2 class="text-center"><?= $data->page->title; ?></h2>
             <?php
               if (isset($pagination_block)) {
             ?>

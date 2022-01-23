@@ -67,6 +67,7 @@
               <?php
               }
               ?>
+              <cart-button></cart-button>
             </div>
           </div>
         </nav>

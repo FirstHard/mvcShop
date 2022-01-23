@@ -1,0 +1,34 @@
+{
+  "name": "mvcshop",
+  "version": "1.0.0",
+  "description": "MVCShop trainee project",
+  "author": "Vladimir Buinoff <buinoff@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "build": "webpack --progress",
+    "dev": "webpack --watch"
+  },
+  "dependencies": {
+    "bootstrap": "^5.0.2",
+    "vue": "^3.1.2",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@vue/compiler-sfc": "^3.1.2",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.6",
+    "vue-loader": "^16.2.0",
+    "vue-style-loader": "^4.1.3",
+    "webpack-cli": "^4.7.2"
+  },
+  "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FirstHard/mvcShop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FirstHard/mvcShop/issues"
+  },
+  "homepage": "https://github.com/FirstHard/mvcShop#readme"
+}

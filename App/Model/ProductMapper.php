@@ -12,7 +12,7 @@ class ProductMapper extends DataMapper
     public $products;
     public $products_offset = 0;
     public $products_page = 1;
-    public $products_limit = 10;
+    public $products_limit = 12;
     public $order_by;
     public $sort_by = 'name';
     public $products_total = 0;
@@ -93,11 +93,15 @@ class ProductMapper extends DataMapper
         return false;
     }
 
-    public function getIndexData()
+    public function getIndexData($gets = [])
     {
-        $this->fetchCollection($this->getAll(self::TABLE_NAME));
-        $this->products_total = sizeof($this->products);
-        if ($this->products_total > $this->products_limit) {
+        if (isset($gets['page'])) {
+            $this->products_page = $gets['page'];
+            $this->products_offset = $this->products_limit * ($this->products_page - 1);
+        }
+        $this->fetchCollection($this->getAll(self::TABLE_NAME, 'id', 'ASC', $this->products_offset, $this->products_limit));
+        $this->products_total = $this->getCountAll('product');
+        if ($this->products_total >= $this->products_limit) {
             $this->pagination = new Pagination($this->products_total, $this->products_page, $this->products_limit);
         }
         $this->page->getMainContent('list_products');
