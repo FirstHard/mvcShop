@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (urlPage && typeof(urlPage) != 'indefined' && urlPage !== null) {
     currentUrl = `?page=${urlPage}`;
   }
-
+  
   fetch(`http://staging.buinoff.tk:8080/api/product${currentUrl}`)
   .then((response) => 
     response.json()

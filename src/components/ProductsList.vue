@@ -1,4 +1,5 @@
 <template>
+  <div v-html="pagination"></div>
   <div class="container mb-5">
     <div class="row">
       <product
@@ -16,6 +17,7 @@
       />
     </div>
   </div>
+  <div v-html="pagination"></div>
 </template>
 
 <script>
@@ -27,15 +29,29 @@ export default {
   },
   data: () => ({
     products: [],
+    pagination: ''
   }),
   mounted() {
     this.fetchProducts();
   },
   methods: {
     async fetchProducts() {
+      const getPageParamFromUrl = () => {
+        return new URL(window.location).searchParams.get('page');
+      }
+
+      let currentUrl = '';
+      let urlPage = getPageParamFromUrl();
+
+      if (urlPage && typeof(urlPage) != 'indefined' && urlPage !== null) {
+        currentUrl = `?page=${urlPage}`;
+      }
+
       try {
-        const response = await fetch("http://staging.buinoff.tk:8080/api/product");
-        this.products = await response.json();
+        const response = await fetch(`http://staging.buinoff.tk:8080/api/product${currentUrl}`);
+        const result = await response.json();
+        this.products = result.products;
+        this.pagination = result.pagination;
       } catch (e) {
         console.error("Fetching error");
       }

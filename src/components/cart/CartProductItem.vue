@@ -1,11 +1,15 @@
 <template>
-  <div class="col-12 col-md-6 col-lg-3">
+  <div class="col-2">
     <div class="card mb-3">
       <img class="img-fluid rounded-1" :src="image_name" width="70" :alt="name">
-      <p class="mx-2 mb-0">
-        {{ name }}
-      </p>
     </div>
+  </div>
+  <div class="col-4">
+    <p class="mb-0">
+      {{ name }}
+    </p>
+  </div>
+  <div class="col-3">
     <div class="text-center">
       <div class="btn-group d-flex align-items-center" role="group">
         <button @click="$emit('decrement-amount')" :disabled="amount === 1" type="button" class="btn shadow-none">-</button>
@@ -13,7 +17,11 @@
         <button @click="$emit('increment-amount')" type="button" class="btn shadow-none">+</button>
       </div>
     </div>
-    <div class="text-center py-3">{{ `$${price}` }}</div>
+  </div>
+  <div class="col-2">
+    <div class="text-center py-3">{{ `$${parseInt(price)}` }}</div>
+  </div>
+  <div class="col-1">
     <div>
       <button @click="$emit('remove')" class="btn shadow-none">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">

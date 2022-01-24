@@ -24,12 +24,12 @@ class ProductApi extends Api
         };
         $products = (new ProductMapper())->getAll('product', 'date_added', 'ASC', $this->offset, $this->limit);
         if ($products) {
-            //$data['products'] = $products;
-            /* $total = (new ProductMapper())->getCountAll('product');
+            $data['products'] = $products;
+            $total = (new ProductMapper())->getCountAll('product');
             if ($this->total < $total) { // Only for demo!
                 $data['pagination'] = (new Pagination($total, $this->page, $this->limit))->get();
-            } */
-            return $this->response($products, 200);
+            }
+            return $this->response($data, 200);
         }
         return $this->response('Data not found', 404);
     }
